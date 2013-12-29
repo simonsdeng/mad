@@ -76,6 +76,7 @@ a {
 
 .list li > a {
 	position: relative;
+	display: block;
 	padding: inherit;
 	margin: -20px -10px;
 }
