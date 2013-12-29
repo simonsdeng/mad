@@ -19,16 +19,16 @@ var homePage =
 	'</div>';
 
 var detailsPage =
-	'<div>' +
-		'<div class="header"><a href="#" class="btn">Back</a><h1>Robot</h1></div>' +
-		'<div class="scroller">' +
-			'<div class="robot">' +
-				'<img src="img/{{img}}"/>' +
-				'<h2>{{name}}</h2>' +
-				'<p>{{description}}</p>' +
-			'</div>' +
-		'</div>' +
-	'</div>';
+    '<div>' +
+        '<div class="header"><a href="javascript:history.back()" class="btn">Back</a><h1>Robot</h1></div>' +
+        '<div class="scroller">' +
+            '<div class="robot">' +
+                '<img src="img/{{img}}"/>' +
+                '<h2>{{name}}</h2>' +
+                '<p>{{description}}</p>' +
+            '</div>' +
+        '</div>' +
+    '</div>';
 
 /*
 // load content through AJAX
