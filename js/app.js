@@ -19,6 +19,7 @@ function show(content) {
 
 // init on phonegap ready
 function init() {
+	FastClick.attach(document.body);
 	container = document.getElementById("container");
 	
 	load("main.html", show);
