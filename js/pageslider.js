@@ -13,7 +13,7 @@ function PageSlider(container) {
     this.slidePage = function(page) {
 
         var l = stateHistory.length,
-            state = window.location.hash;
+            state = history.state;
 
         if (l === 0) {
             stateHistory.push(state);

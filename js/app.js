@@ -5,79 +5,19 @@ window.addEventListener('load', function () {
 var container,
 	slider;
 
-// The dynamically built HTML pages. In a real-life app, use Handlerbar.js, Mustache.js or another template engine
-var homePage =
-	'<div>' +
-		'<div class="header"><h1>Page Slider</h1></div>' +
-		'<div class="scroller">' +
-			'<ul class="list">' +
-				'<li><a href="#page1"><strong>Build Bot</strong></a></li>' +
-				'<li><a href="#page2"><strong>Medi Bot</strong></a></li>' +
-				'<li><a href="#page3"><strong>Ripple Bot</strong></a></li>' +
-			'</ul>' +
-		'</div>' +
-	'</div>';
+// navigates to page
+function go(url, data) {
+	history.pushState({url: url, data: data});
+	route();
+}
 
-var detailsPage =
-    '<div>' +
-        '<div class="header"><a href="javascript:history.back()" class="btn">Back</a><h1>Robot</h1></div>' +
-        '<div class="scroller">' +
-            '<div class="robot">' +
-                '<img src="img/{{img}}"/>' +
-                '<h2>{{name}}</h2>' +
-                '<p>{{description}}</p>' +
-            '</div>' +
-        '</div>' +
-    '</div>';
-
-/*
-// load content through AJAX
-function load(url, callback) {
-	var xhr = new XMLHttpRequest();
+// handles history state changes through AJAX
+function route() {
+	var url = (history.state) ? history.state.url : "main.html";
 	
-	xhr.onreadystatechange = function () {
-		callback(this.responseText);
-	}
-	
-	xhr.open("get", url, true);
-	xhr.send();
-}
-
-// update page content
-function show(content) {
-	container.innerHTML = content;
-}
-*/
-
-// Basic page routing
-function route(event) {
-	var page,
-		hash = window.location.hash;
-
-	if (hash === "#page1") {
-		page = merge(detailsPage, {img: "buildbot.jpg", name: "Build Bot", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."});
-//		slider.slide($(page), "right");
-	} else if (hash === "#page2") {
-		page = merge(detailsPage, {img: "medibot.jpg", name: "Medi Bot", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."});
-//		slider.slide($(page), "right");
-	} else if (hash === "#page3") {
-		page = merge(detailsPage, {img: "ripplebot.jpg", name: "Ripple Bot", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."});
-//		slider.slide($(page), "right");
-	}
-	else {
-		page = homePage;
-//		slider.slide($(homePage), "left");
-	}
-
-	slider.slidePage($(page));
-
-}
-
-// Primitive template processing. In a real-life app, use Handlerbar.js, Mustache.js or another template engine
-function merge(tpl, data) {
-	return tpl.replace("{{img}}", data.img)
-			  .replace("{{name}}", data.name)
-			  .replace("{{description}}", data.description);
+	$.get(url, function (data) {
+		slider.slidePage($(data));
+	});
 }
 
 // init on phonegap ready
@@ -86,10 +26,8 @@ function init() {
 	container = document.getElementById("container");
 	
 	slider = new PageSlider($(container));
-	$(window).on('hashchange', route);
-	
-//	load("main.html", show);
+	$(window).on("popstate", route);
 	route();
 }
 
-document.addEventListener("deviceready", init, false);
+$(document).on("deviceready", init);
