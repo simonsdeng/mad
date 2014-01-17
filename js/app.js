@@ -1,5 +1,7 @@
 var container,
 	slider;
+	
+var menuOpen = 0;
 
 // navigates to page
 function go(url, data) {
@@ -9,7 +11,7 @@ function go(url, data) {
 
 // handles history state changes through AJAX
 function route() {
-	var url = (history.state) ? history.state.url : "main.html";
+	var url = (history.state) ? history.state.url : "discussion.html";
 	
 	$.get(url, function (data) {
 		slider.slidePage($(data));
@@ -24,6 +26,18 @@ function init() {
 	slider = new PageSlider(container);
 	$(window).on("popstate", route);
 	route();
+}
+
+function toggleMenu() {
+
+	if(menuOpen==0) {
+		document.getElementById("drawer-menu").className = "menu-visible";
+		menuOpen = 1;
+	}
+	else {
+		document.getElementById("drawer-menu").className = "menu-hidden";
+		menuOpen = 0;
+	}
 }
 
 $(document).on("deviceready", init);
