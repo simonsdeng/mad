@@ -16,14 +16,34 @@ function route() {
 	});
 }
 
+// check for saved credentials
+function isLoggedIn() {
+	return false;
+}
+
+// log in user and start main app
+function login() {
+	if (isLoggedIn()) {
+		main();
+	} else {
+		container.load("login.html");
+	}
+}
+
+// start main app interface
+function main() {
+	container.empty();
+	slider = new PageSlider(container);
+	$(window).on("popstate", route);
+	route();
+}
+
 // init on phonegap ready
 function init() {
 	FastClick.attach(document.body);
 	container = $("#container");
 	
-	slider = new PageSlider(container);
-	$(window).on("popstate", route);
-	route();
+	login();
 }
 
 $(document).on("deviceready", init);
