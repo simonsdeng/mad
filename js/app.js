@@ -23,9 +23,9 @@ function route() {
 // init on phonegap ready
 function init() {
 	FastClick.attach(document.body);
-	container = document.getElementById("container");
+	container = $("#container");
 	
-	slider = new PageSlider($(container));
+	slider = new PageSlider(container);
 	$(window).on("popstate", route);
 	route();
 }
