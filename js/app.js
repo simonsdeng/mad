@@ -12,7 +12,7 @@ function route() {
 	var url = (history.state) ? history.state.url : "main.html";
 	
 	$.get(url, function (data) {
-		slider.slidePage($(data));
+		slider.slidePage($("<div>").html(data));
 	});
 }
 
