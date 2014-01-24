@@ -2,17 +2,28 @@ var container,
 	slider;
 
 // navigates to page
-function go(url, data) {
-	history.pushState({url: url, data: data});
+function go(url, data, replace) {
+	var state = {url: url, data: data};
+	
+	if (replace) {
+		history.replaceState(state);
+	} else {
+		history.pushState(state);
+	}
+	
 	route();
 }
 
 // handles history state changes through AJAX
-function route() {
+function route(back) {
 	var url = (history.state) ? history.state.url : "main.html";
 	
 	$.get(url, function (data) {
-		slider.slidePage($("<div>").html(data));
+		if (back) {
+			slider.slidePageFrom($("<div>").html(data), "left");
+		} else {
+			slider.slidePageFrom($("<div>").html(data), "right");
+		}
 	});
 }
 
