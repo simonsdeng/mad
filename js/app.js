@@ -14,6 +14,23 @@ function go(url, data, replace) {
 	route();
 }
 
+// requests data through AJAX or falls back to cache
+function get(url, data, success, failure) {
+	if (navigator.connection.type !== Connection.NONE) {
+		$.get(url, data, function (d) {
+			localStorage[url + "?" + data] = d;
+			success(d);
+		});
+	} else {
+		var d = localStorage[url + "?" + data];
+		if (d === undefined) {
+			success(d);
+		} else if (failure) {
+			failure();
+		}
+	}
+}
+
 // handles history state changes through AJAX
 function route(back) {
 	var url = (history.state) ? history.state.url : "main.html";
