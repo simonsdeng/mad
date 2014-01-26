@@ -9,6 +9,9 @@
 		Homestead FBLA Mobile Application Development 2013-14
 	</description>
 	
+	<gap:platform name="ios" />
+	<gap:platform name="android" />
+	
 	<access origin="http://hhsfbla.com" subdomains="true" />
 	
 </widget>
