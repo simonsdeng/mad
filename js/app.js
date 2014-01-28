@@ -18,7 +18,7 @@ function go(url, data, replace) {
 // requests data through AJAX or falls back to cache
 function get(url, data, success, failure) {
 	if (navigator.connection.type !== Connection.NONE) {
-		$.get(url, data, function (d) {
+		$.get("http://hhsfbla.com/mad2013/" + url, data, function (d) {
 			localStorage[url + "?" + data] = d;
 			success(d);
 		});
@@ -36,7 +36,7 @@ function get(url, data, success, failure) {
 function post(url, data, success, failure) {
 	if (navigator.connection.type !== Connection.NONE) {
 		data.auth = auth;
-		$.post(url, data, function (d) {
+		$.post("http://hhsfbla.com/mad2013/" + url, data, function (d) {
 			if (success) {
 				success(d);
 			}
