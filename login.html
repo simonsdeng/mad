@@ -101,7 +101,7 @@ $("#register-form").submit(function (e) {
 });
 $("#login-form").submit(function (e) {
 	e.preventDefault();
-	var auth = {};
+	auth = {};
 	$.each($(this).serializeArray(), function () {
 		auth[this.name] = this.value;
 	});

@@ -1,5 +1,6 @@
 var container,
-	slider;
+	slider,
+	auth;
 
 // navigates to page
 function go(url, data, replace) {
@@ -52,6 +53,7 @@ function isLoggedIn() {
 // log in user and start main app
 function login() {
 	if (isLoggedIn()) {
+		auth = JSON.parse(localStoarge.auth);
 		main();
 	} else {
 		container.load("login.html");
