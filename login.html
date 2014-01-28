@@ -81,8 +81,8 @@ li:active {
 			<h4>Log in to your account</h4>
 		</div>
 		<form id="login-form">
-			<input type="text" placeholder="Email" /><br />
-			<input type="email" placeholder="Password" /><br />
+			<input type="email" name="user" placeholder="Email" /><br />
+			<input type="password" name="pass" placeholder="Password" /><br />
 			<input type="submit" class="btn" value="Log in" />
 		</form>
 	</div>
@@ -101,6 +101,11 @@ $("#register-form").submit(function (e) {
 });
 $("#login-form").submit(function (e) {
 	e.preventDefault();
+	var auth = {};
+	$.each($(this).serializeArray(), function () {
+		auth[this.name] = this.value;
+	});
+	localStorage.auth = JSON.stringify(auth);
 	main();
 });
 </script>

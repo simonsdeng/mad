@@ -4,7 +4,7 @@ var page2 = {img: "medibot.jpg", name: "Medi Bot", description: "Lorem ipsum dol
 var page3 = {img: "buildbot.jpg", name: "Build Bot", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."};
 </script>
 <div>
-	<div class="header"><h1>Page Slider</h1></div>
+	<div class="header"><h1>Welcome <span id="user"></span></h1></div>
 	<div class="scroller">
 		<ul class="list">
 			<li><a onclick="go('details.html', page1)"><strong>Build Bot</strong></a></li>
@@ -13,3 +13,7 @@ var page3 = {img: "buildbot.jpg", name: "Build Bot", description: "Lorem ipsum d
 		</ul>
 	</div>
 </div>
+
+<script>
+$("#user").text(JSON.parse(localStorage.auth).user);
+</script>

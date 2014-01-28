@@ -46,7 +46,7 @@ function route(back) {
 
 // check for saved credentials
 function isLoggedIn() {
-	return false;
+	return !!localStorage.auth;
 }
 
 // log in user and start main app
