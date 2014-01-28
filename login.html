@@ -101,11 +101,22 @@ $("#register-form").submit(function (e) {
 });
 $("#login-form").submit(function (e) {
 	e.preventDefault();
+	$(this, "input[type=submit]").prop("disabled", true);
+	
 	auth = {};
 	$.each($(this).serializeArray(), function () {
 		auth[this.name] = this.value;
 	});
-	localStorage.auth = JSON.stringify(auth);
-	main();
+	
+	post("login.php", {}, function (d) {
+		if (d.status === "success") {
+			localStorage.auth = JSON.stringify(auth);
+			main();
+		} else {
+			alert("Your username and password combination was incorrect.");
+		}
+	}, function () {
+		alert("You need to be connected to the internet to log in.");
+	});
 });
 </script>
