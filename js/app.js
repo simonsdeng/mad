@@ -32,6 +32,20 @@ function get(url, data, success, failure) {
 	}
 }
 
+// posts data through AJAX with authentication
+function post(url, data, success, failure) {
+	if (navigator.connection.type !== Connection.NONE) {
+		data.auth = auth;
+		$.post(url, data, function (d) {
+			if (success) {
+				success(d);
+			}
+		});
+	} else if (failure) {
+		failure();
+	}
+}
+
 // handles history state changes through AJAX
 function route(back) {
 	var url = (history.state) ? history.state.url : "main.html";
