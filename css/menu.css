@@ -43,12 +43,13 @@
 }
 
 .menu-icon {
-	width: 25%;
+	width: 45px;
 	//margin-right: 20px;
 //	margin-left: 5px;
 	position: absolute;
 	//margin-left: 0;
 	vertical-align: middle;
+	margin-bottom: 25px;
 }
 
 .menu-text {
