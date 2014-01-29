@@ -1,5 +1,6 @@
 var container,
-	slider;
+	slider,
+	auth;
 
 // navigates to page
 function go(url, data, replace) {
@@ -14,13 +15,13 @@ function go(url, data, replace) {
 	route();
 }
 
-// requests data through AJAX or falls back to cache
+// requests JSON data through AJAX or falls back to cache
 function get(url, data, success, failure) {
 	if (navigator.connection.type !== Connection.NONE) {
-		$.get(url, data, function (d) {
+		$.get("http://hhsfbla.com/mad2013/" + url, data, function (d) {
 			localStorage[url + "?" + data] = d;
 			success(d);
-		});
+		}, "json");
 	} else {
 		var d = localStorage[url + "?" + data];
 		if (d === undefined) {
@@ -28,6 +29,20 @@ function get(url, data, success, failure) {
 		} else if (failure) {
 			failure();
 		}
+	}
+}
+
+// posts data through AJAX with authentication
+function post(url, data, success, failure) {
+	if (navigator.connection.type !== Connection.NONE) {
+		data.auth = auth;
+		$.post("http://hhsfbla.com/mad2013/" + url, data, function (d) {
+			if (success) {
+				success(d);
+			}
+		}, "json");
+	} else if (failure) {
+		failure();
 	}
 }
 
@@ -44,14 +59,35 @@ function route(back) {
 	});
 }
 
+// check for saved credentials
+function isLoggedIn() {
+	return !!localStorage.auth;
+}
+
+// log in user and start main app
+function login() {
+	if (isLoggedIn()) {
+		auth = JSON.parse(localStorage.auth);
+		main();
+	} else {
+		container.load("login.html");
+	}
+}
+
+// start main app interface
+function main() {
+	container.empty();
+	slider = new PageSlider(container);
+	$(window).on("popstate", route);
+	route();
+}
+
 // init on phonegap ready
 function init() {
 	FastClick.attach(document.body);
 	container = $("#container");
 	
-	slider = new PageSlider(container);
-	$(window).on("popstate", route);
-	route();
+	login();
 }
 
 $(document).on("deviceready", init);
