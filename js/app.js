@@ -67,7 +67,7 @@ function isLoggedIn() {
 // log in user and start main app
 function login() {
 	if (isLoggedIn()) {
-		auth = JSON.parse(localStoarge.auth);
+		auth = JSON.parse(localStorage.auth);
 		main();
 	} else {
 		container.load("login.html");
