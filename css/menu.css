@@ -7,6 +7,7 @@
 	margin-top: 44px;
 	position: absolute;
 	z-index: 999;
+	-webkit-overflow-scrolling: touch;
 }
 
 .menu-hidden {

@@ -18,7 +18,7 @@ function go(url, data, replace) {
 
 // handles history state changes through AJAX
 function route(back) {
-	var url = (history.state) ? history.state.url : "discussion.html";
+	var url = (history.state) ? history.state.url : "main.html";
 	
 	$.get(url, function (data) {
 		if (back) {
