@@ -1,4 +1,4 @@
-<div>
+<div id="container">
 	<div id="header" class="header"><a onclick="toggleMenu()" class="btn">Menu</a><h1>Discussion</h1></div>
 	<div id="drawer-menu" class="menu-hidden">
 		<ul class="list">
@@ -11,38 +11,35 @@
 	
 	
 	<div class="scroller">
-	
-		<div id="table-container">
-			<table id="content-table">
-	
-				<tr><td><img width="30px" src="https://cdn1.iconfinder.com/data/icons/super-mono-basic/blue/question_basic_blue.png"/></td><td>How does blah work?</td><td>12-12-13</td></tr>
-				<tr><td><img width="30px" src="https://cdn1.iconfinder.com/data/icons/super-mono-basic/blue/button-check_basic_blue.png"/></td><td>How does blah work?</td><td>12-12-13</td></tr>
-				<tr><td><img width="30px" src="https://cdn1.iconfinder.com/data/icons/super-mono-basic/blue/exclamation-circle_basic_blue.png"/></td><td>How does blah work?</td><td>12-12-13</td></tr>
-				<tr><td><img width="30px" src="https://cdn1.iconfinder.com/data/icons/super-mono-basic/blue/question_basic_blue.png"/></td><td>How does blah work?</td><td>12-12-13</td></tr>
-				<tr><td><img width="30px" src="https://cdn1.iconfinder.com/data/icons/super-mono-basic/blue/question_basic_blue.png"/></td><td>How does blah work?</td><td>12-12-13</td></tr>
-				<tr><td><img width="30px" src="https://cdn1.iconfinder.com/data/icons/super-mono-basic/blue/button-check_basic_blue.png"/></td><td>How does blah work?</td><td>12-12-13</td></tr>
-				<tr><td><img width="30px" src="https://cdn1.iconfinder.com/data/icons/super-mono-basic/blue/exclamation-circle_basic_blue.png"/></td><td>How does blah work?</td><td>12-12-13</td></tr>
-				<tr><td><img width="30px" src="https://cdn1.iconfinder.com/data/icons/super-mono-basic/blue/question_basic_blue.png"/></td><td>How does blah work?</td><td>12-12-13</td></tr>
-				<tr><td><img width="30px" src="https://cdn1.iconfinder.com/data/icons/super-mono-basic/blue/question_basic_blue.png"/></td><td>How does blah work?</td><td>12-12-13</td></tr>
-				<tr><td><img width="30px" src="https://cdn1.iconfinder.com/data/icons/super-mono-basic/blue/button-check_basic_blue.png"/></td><td>How does blah work?</td><td>12-12-13</td></tr>
-				<tr><td><img width="30px" src="https://cdn1.iconfinder.com/data/icons/super-mono-basic/blue/exclamation-circle_basic_blue.png"/></td><td>How does blah work?</td><td>12-12-13</td></tr>
-				<tr><td><img width="30px" src="https://cdn1.iconfinder.com/data/icons/super-mono-basic/blue/question_basic_blue.png"/></td><td>How does blah work?</td><td>12-12-13</td></tr>
-				<tr><td><img width="30px" src="https://cdn1.iconfinder.com/data/icons/super-mono-basic/blue/question_basic_blue.png"/></td><td>How does blah work?</td><td>12-12-13</td></tr>
-				<tr><td><img width="30px" src="https://cdn1.iconfinder.com/data/icons/super-mono-basic/blue/button-check_basic_blue.png"/></td><td>How does blah work?</td><td>12-12-13</td></tr>
-				<tr><td><img width="30px" src="https://cdn1.iconfinder.com/data/icons/super-mono-basic/blue/exclamation-circle_basic_blue.png"/></td><td>How does blah work?</td><td>12-12-13</td></tr>
-				<tr><td><img width="30px" src="https://cdn1.iconfinder.com/data/icons/super-mono-basic/blue/question_basic_blue.png"/></td><td>How does blah work?</td><td>12-12-13</td></tr>
-				<tr><td><img width="30px" src="https://cdn1.iconfinder.com/data/icons/super-mono-basic/blue/question_basic_blue.png"/></td><td>How does blah work?</td><td>12-12-13</td></tr>
-				<tr><td><img width="30px" src="https://cdn1.iconfinder.com/data/icons/super-mono-basic/blue/button-check_basic_blue.png"/></td><td>How does blah work?</td><td>12-12-13</td></tr>
-				<tr><td><img width="30px" src="https://cdn1.iconfinder.com/data/icons/super-mono-basic/blue/exclamation-circle_basic_blue.png"/></td><td>How does blah work?</td><td>12-12-13</td></tr>
-				<tr><td><img width="30px" src="https://cdn1.iconfinder.com/data/icons/super-mono-basic/blue/question_basic_blue.png"/></td><td>How does blah work?</td><td>12-12-13</td></tr>
-				<tr><td><img width="30px" src="https://cdn1.iconfinder.com/data/icons/super-mono-basic/blue/question_basic_blue.png"/></td><td>How does blah work?</td><td>12-12-13</td></tr>
-				<tr><td><img width="30px" src="https://cdn1.iconfinder.com/data/icons/super-mono-basic/blue/button-check_basic_blue.png"/></td><td>How does blah work?</td><td>12-12-13</td></tr>
-				<tr><td><img width="30px" src="https://cdn1.iconfinder.com/data/icons/super-mono-basic/blue/exclamation-circle_basic_blue.png"/></td><td>How does blah work?</td><td>12-12-13</td></tr>
-				<tr><td><img width="30px" src="https://cdn1.iconfinder.com/data/icons/super-mono-basic/blue/question_basic_blue.png"/></td><td>How does blah work?</td><td>12-12-13</td></tr>
-	
-			</table>
-		</div>
-	
-	
+	<button class="ask-question">Ask a question</button>
+		<ul id="dicussion-list" class="list">
+			<li><a onclick="go('details.html', page1)"><img class="discussion-icon answer"/><strong>Build Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
+			<li><a onclick="go('details.html', page2)"><img class="discussion-icon question"/><strong>Medi Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
+			<li><a onclick="go('details.html', page3)"><img class="discussion-icon tip"/><strong>Ripple Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
+			<li><a onclick="go('details.html', page1)"><img class="discussion-icon answer"/><strong>Build Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
+			<li><a onclick="go('details.html', page2)"><img class="discussion-icon question"/><strong>Medi Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
+			<li><a onclick="go('details.html', page3)"><img class="discussion-icon tip"/><strong>Ripple Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
+			<li><a onclick="go('details.html', page1)"><img class="discussion-icon answer"/><strong>Build Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
+			<li><a onclick="go('details.html', page2)"><img class="discussion-icon question"/><strong>Medi Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
+			<li><a onclick="go('details.html', page3)"><img class="discussion-icon tip"/><strong>Ripple Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
+			<li><a onclick="go('details.html', page1)"><img class="discussion-icon answer"/><strong>Build Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
+			<li><a onclick="go('details.html', page2)"><img class="discussion-icon question"/><strong>Medi Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
+			<li><a onclick="go('details.html', page3)"><img class="discussion-icon tip"/><strong>Ripple Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
+			<li><a onclick="go('details.html', page1)"><img class="discussion-icon answer"/><strong>Build Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
+			<li><a onclick="go('details.html', page2)"><img class="discussion-icon question"/><strong>Medi Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
+			<li><a onclick="go('details.html', page3)"><img class="discussion-icon tip"/><strong>Ripple Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
+			<li><a onclick="go('details.html', page1)"><img class="discussion-icon answer"/><strong>Build Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
+			<li><a onclick="go('details.html', page2)"><img class="discussion-icon question"/><strong>Medi Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
+			<li><a onclick="go('details.html', page3)"><img class="discussion-icon tip"/><strong>Ripple Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
+			<li><a onclick="go('details.html', page1)"><img class="discussion-icon answer"/><strong>Build Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
+			<li><a onclick="go('details.html', page2)"><img class="discussion-icon question"/><strong>Medi Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
+			<li><a onclick="go('details.html', page3)"><img class="discussion-icon tip"/><strong>Ripple Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
+		</ul>
 	</div>
 </div>
+
+<script>
+var page1 = {img: "buildbot.jpg", name: "Build Bot", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."};
+var page2 = {img: "medibot.jpg", name: "Medi Bot", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."};
+var page3 = {img: "buildbot.jpg", name: "Build Bot", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."};
+</script>

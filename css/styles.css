@@ -16,7 +16,7 @@ a {
 	width: 100%;
 	height: 100%;
 	position: absolute;
-	overflow: auto;
+	overflow: hidden;
 }
 
 .header {
@@ -27,7 +27,8 @@ a {
 	height: 44px;
 	background: #109adc;
 	color: #FFFFFF;
-	border-bottom: 1px solid #0E5895;;
+	border-bottom: 1px solid #0E5895;
+	z-index: 999;
 }
 
 .header h1 {
@@ -120,4 +121,15 @@ a {
 
 #content-table td{
 	padding: 10px 10px 10px 10px;
+}
+
+#ask-question {
+	width: 100%;
+	height: 30px;
+	position: fixed;
+	z-index: 999;
+	background: #0F517D;
+	color: #fff;
+	border: none;
+	
 }
