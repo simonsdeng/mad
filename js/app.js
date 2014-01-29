@@ -2,6 +2,8 @@ var container,
 	slider,
 	auth;
 
+var menuOpen = 0;
+
 // navigates to page
 function go(url, data, replace) {
 	var state = {url: url, data: data};
@@ -88,6 +90,18 @@ function init() {
 	container = $("#container");
 	
 	login();
+}
+
+function toggleMenu() {
+
+	if(menuOpen==0) {
+		document.getElementById("drawer-menu").className = "menu-visible";
+		menuOpen = 1;
+	}
+	else {
+		document.getElementById("drawer-menu").className = "menu-hidden";
+		menuOpen = 0;
+	}
 }
 
 $(document).on("deviceready", init);

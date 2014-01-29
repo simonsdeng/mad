@@ -1,0 +1,58 @@
+#drawer-menu {
+	width: 60%;
+	background: #353A3B;
+	height: 100%;
+	//padding-top: 5%;
+	-webkit-transition: all ease .5s;
+	margin-top: 44px;
+	position: absolute;
+	z-index: 999;
+	-webkit-overflow-scrolling: touch;
+}
+
+.menu-hidden {
+	margin-left: -60%;
+}
+
+.menu-visible {
+	margin-left: 0;
+}
+
+#drawer-menu .list {
+	margin: 0;
+	//padding: 0;
+	list-style: none;
+}
+
+#drawer-menu .list li {
+	position: relative;
+	padding: 20px 10px;
+	border-bottom: 1px solid #BCBCBC;
+	font-size: 20px;
+	color: #fff;
+}
+
+#drawer-menu .list li > a {
+	position: relative;
+	display: block;
+	//margin-left: 30%;
+	//margin: -20px -10px;
+}
+
+#drawer-menu .list li > a:active {
+	background-color: #D7D7D7;
+}
+
+.menu-icon {
+	width: 45px;
+	//margin-right: 20px;
+//	margin-left: 5px;
+	position: absolute;
+	//margin-left: 0;
+	vertical-align: middle;
+	margin-bottom: 25px;
+}
+
+.menu-text {
+	padding-left: 30%;
+}
