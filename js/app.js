@@ -15,13 +15,13 @@ function go(url, data, replace) {
 	route();
 }
 
-// requests data through AJAX or falls back to cache
+// requests JSON data through AJAX or falls back to cache
 function get(url, data, success, failure) {
 	if (navigator.connection.type !== Connection.NONE) {
 		$.get("http://hhsfbla.com/mad2013/" + url, data, function (d) {
 			localStorage[url + "?" + data] = d;
 			success(d);
-		});
+		}, "json");
 	} else {
 		var d = localStorage[url + "?" + data];
 		if (d === undefined) {
@@ -40,7 +40,7 @@ function post(url, data, success, failure) {
 			if (success) {
 				success(d);
 			}
-		});
+		}, "json");
 	} else if (failure) {
 		failure();
 	}
