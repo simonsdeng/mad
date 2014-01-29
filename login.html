@@ -1,0 +1,122 @@
+<style>
+#page {
+	height: 100%;
+	background: url("img/Blue Diamonds Background-640x1136 wallpapers.jpg") no-repeat;
+	background-size: cover;
+}
+
+#logo {
+	width: 300px;
+	margin: 0 auto;
+	padding-top: 50px;
+	display: block;
+}
+
+.info {
+	width: 300px;
+	margin: 0 auto;
+	color: white;
+	font-family: verdana;
+	text-align: center;
+}
+
+.hidden {
+	display: none;
+}
+
+#options {
+	background: rgba(250, 250, 250, .2);
+	margin: 0 25px;
+	padding: 0;
+	text-align: center;
+	text-decoration: none;
+	list-style: none;
+}
+
+li {
+	padding: 25px;
+	border-bottom: 1px solid #ccc;
+	color: white;
+	font-family: verdana;
+	text-align: center;
+}
+
+li:active {
+	background: rgba(50, 100, 200, .5);
+}
+</style>
+
+<div id="page">
+	<img id="logo" src="img/hhsfblalogo.png"/>
+	
+	<div id="expertise">
+		<div class="info">
+			<h4>Select your level of expertise in <br>Information Technology</h4>
+		</div>
+		<ul id="options" onclick="switchTo('expertise', 'register')">
+			<li>I'm an expert and I want to help people</li>
+			<li>I'm doing okay and I don't need help - but I'm not confident enough to help others</li>
+			<li>I need help</li>
+			<li>I need a tutor because I just can't get a hang of this subject</li>
+		</ul>
+		
+		<div style="text-align: center" onclick="switchTo('expertise', 'login')">Have an account already? Tap here to login</div>
+	</div>
+	
+	<div id="register" class="hidden">
+		<div class="info">
+			<h4>Fill out the following information</h4>
+		</div>
+		<form id="register-form">
+			<input type="text" placeholder="Name" /><br />
+			<input type="email" placeholder="Email" /><br />
+			<input type="password" placeholder="New password" /><br />
+			<input type="password" placeholder="Retype password" /><br />
+			<input type="submit" class="btn" value="Register" />
+		</form>
+	</div>
+	
+	<div id="login" class="hidden">
+		<div class="info">
+			<h4>Log in to your account</h4>
+		</div>
+		<form id="login-form">
+			<input type="email" name="user" placeholder="Email" /><br />
+			<input type="password" name="pass" placeholder="Password" /><br />
+			<input type="submit" class="btn" value="Log in" />
+		</form>
+	</div>
+	
+</div>
+
+<script>
+function switchTo(from, to) {
+	document.getElementById(from).classList.add("hidden");
+	document.getElementById(to).classList.remove("hidden");
+}
+
+$("#register-form").submit(function (e) {
+	e.preventDefault();
+	main();
+});
+$("#login-form").submit(function (e) {
+	e.preventDefault();
+	$(this, "input[type=submit]").prop("disabled", true);
+	
+	auth = {};
+	$.each($(this).serializeArray(), function () {
+		auth[this.name] = this.value;
+	});
+	
+	post("login.php", {}, function (d) {
+		if (d.status === "success") {
+			localStorage.auth = JSON.stringify(auth);
+			main();
+		} else {
+			alert("Your username and password combination was incorrect.");
+		}
+	}, function () {
+		alert("You need to be connected to the internet to log in.");
+	});
+});
+</script>
