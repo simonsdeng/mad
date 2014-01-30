@@ -1,6 +1,7 @@
 var container,
 	slider,
-	auth;
+	auth,
+	userdata;
 
 var menuOpen = 0;
 
@@ -69,7 +70,7 @@ function isLoggedIn() {
 // log in user and start main app
 function login() {
 	if (isLoggedIn()) {
-		auth = JSON.parse(localStorage.auth);
+		initGlobals();
 		main();
 	} else {
 		container.load("login.html");
@@ -82,6 +83,12 @@ function main() {
 	slider = new PageSlider(container);
 	$(window).on("popstate", route);
 	route();
+}
+
+// init globals
+function initGlobals() {
+	auth = JSON.parse(localStorage.auth);
+	userdata = JSON.parse(localStorage.userdata);
 }
 
 // init on phonegap ready
