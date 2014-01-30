@@ -3,10 +3,16 @@ var container,
 	auth,
 	userdata;
 
+var routing = false;
 var menuOpen = 0;
 
 // navigates to page
 function go(url, data, replace) {
+	if (routing) {
+		return;
+	}
+	routing = true;
+	
 	var state = {url: url, data: data};
 	
 	if (replace) {
@@ -51,6 +57,10 @@ function post(url, data, success, failure) {
 
 // handles history state changes through AJAX
 function route(back) {
+	if (back) {
+		routing = true;
+	}
+	
 	var url = (history.state) ? history.state.url : "main.html";
 	
 	$.get(url, function (data) {
