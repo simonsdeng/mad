@@ -58,7 +58,6 @@ function post(url, data, success, failure) {
 function route() {
 	routing = true;
 	
-	console.log(History.getCurrentIndex());
 	var url = History.getState().url;
 	if (url === mainUrl) {
 		url = "main.html";
