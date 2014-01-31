@@ -110,7 +110,9 @@ $("#login-form").submit(function (e) {
 	
 	post("login.php", {}, function (d) {
 		if (d.status === "success") {
+			userdata = d.userdata;
 			localStorage.auth = JSON.stringify(auth);
+			localStorage.userdata = JSON.stringify(userdata);
 			main();
 		} else {
 			alert("Your username and password combination was incorrect.");

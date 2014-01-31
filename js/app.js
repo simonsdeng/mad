@@ -1,11 +1,18 @@
 var container,
 	slider,
-	auth;
+	auth,
+	userdata;
 
+var routing = false;
 var menuOpen = 0;
 
 // navigates to page
 function go(url, data, replace) {
+	if (routing) {
+		return;
+	}
+	routing = true;
+	
 	var state = {url: url, data: data};
 	
 	if (replace) {
@@ -50,6 +57,10 @@ function post(url, data, success, failure) {
 
 // handles history state changes through AJAX
 function route(back) {
+	if (back) {
+		routing = true;
+	}
+	
 	var url = (history.state) ? history.state.url : "main.html";
 	
 	$.get(url, function (data) {
@@ -69,7 +80,7 @@ function isLoggedIn() {
 // log in user and start main app
 function login() {
 	if (isLoggedIn()) {
-		auth = JSON.parse(localStorage.auth);
+		initGlobals();
 		main();
 	} else {
 		container.load("login.html");
@@ -82,6 +93,12 @@ function main() {
 	slider = new PageSlider(container);
 	$(window).on("popstate", route);
 	route();
+}
+
+// init globals
+function initGlobals() {
+	auth = JSON.parse(localStorage.auth);
+	userdata = JSON.parse(localStorage.userdata);
 }
 
 // init on phonegap ready
