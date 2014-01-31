@@ -48,28 +48,33 @@
 
 	<div id="question-container">
 	
-		<h2>Question</h2>
-		<span id="post-content"><strong>What is an IP Address and what does it do?</strong></span><br>
-		<span id="post-notes">Some random notes about the question</span><br>
+		<h2 id="post-type"></h2>
+		<strong><span id="post-content"></span></strong><br>
+		<span id="post-notes"></span><br>
 		<i><span id="op-info"></span></i>
 	
 	</div>
-	<button id="add-response-button" onclick="go('new_answer.html', {id: data.id})">Add your own answer</button><br><br>
+	<button id="add-response-button" onclick="go('new_answer.html', {id: data.id})">Add your own <span id="response-type"></span></button><br><br>
 	
 	<h2>Responses</h2>
 
-	<ul id="answers" class="list">
-		
-	</ul>
+	<ul id="answers" class="list"></ul>
 </div>
 
 <script>
+$("#post-type").text((data.type < 3) ? "Question" : "Tip");
+$("#post-content").text(data.title);
+$("#post-notes").text(data.description);
+$("#op-info").text("\u2014 " + data.author + "(" + getExpertise(data.expertise) + ")");
+$("#response-type").text((data.type < 3) ? "answer" : "comment");
+
+console.log("get");
 get("discussion.php", {id: data.id}, function (d) {
 	var responses = d.responses;
 	for (var i = 0; i < responses.length; i++) {
 		var response = responses[i];
 		
-		$("#answers").append('<li><strong>' + response.author + '('
+		$("#answers").append('<li><strong>' + response.author + ' ('
 				+ getExpertise(response.expertise) + '): </strong><span class="response">' + response.response + '</span></li>');
 	}
 });
