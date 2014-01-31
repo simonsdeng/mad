@@ -82,8 +82,8 @@ function isLoggedIn() {
 // log in user and start main app
 function login() {
 	if (isLoggedIn()) {
-		initGlobals();
-		main();
+		auth = JSON.parse(localStorage.auth);
+		initUser(true);
 	} else {
 		container.load("login.html");
 	}
@@ -97,10 +97,23 @@ function main() {
 	route();
 }
 
-// init globals
-function initGlobals() {
-	auth = JSON.parse(localStorage.auth);
-	userdata = JSON.parse(localStorage.userdata);
+// initialize logged in user
+function initUser(saved) {
+	post("login.php", {}, function (d) {
+		if (d.status === "success") {
+			userdata = d.userdata;
+			localStorage.auth = JSON.stringify(auth);
+			localStorage.userdata = JSON.stringify(userdata);
+			main();
+		} else if (saved) {
+			delete localStorage.auth;
+			login();
+		} else {
+			alert("Your username and password combination was incorrect.");
+		}
+	}, function () {
+		alert("You need to be connected to the internet to log in.");
+	});
 }
 
 // init on phonegap ready
