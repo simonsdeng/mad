@@ -1,7 +1,8 @@
 var container,
 	slider,
 	auth,
-	userdata;
+	userdata,
+	data;
 
 var mainUrl = History.getState().url,
 	routing = false,
@@ -58,10 +59,12 @@ function post(url, data, success, failure) {
 function route() {
 	routing = true;
 	
-	var url = History.getState().url;
+	var state = History.getState();
+	var url = state.url;
 	if (url === mainUrl) {
 		url = "main.html";
 	}
+	data = state.data;
 	
 	$.get(url, function (data) {
 		var page = document.createElement("div");
