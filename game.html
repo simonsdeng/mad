@@ -264,15 +264,16 @@
                     alert("Great job that's the correct answer!")
                 }else{
                     points -= 1;
-                    alert("Incorrect answer. The correct answer was "+data.questions[qi].answers[parseInt(data.questions[qi].correct)-1]+".")
+                    alert("Incorrect answer. The correct answer was "+data.questions[qi].answers[parseInt(data.questions[qi].correct)-1]+" ("+String.fromCharCode(parseInt(data.questions[qi].correct)+64)+").")
                 }
                 next_question();
             }
         }
-        asteroid.setAttribute("data-y", parseInt(asteroid.getAttribute("data-y"))+parseInt(asteroid.getAttribute("v")));
-        asteroid.style.webkitTransform = "translate("+ asteroid.getAttribute("data-x") + "px, "+ asteroid.getAttribute("data-y") + "px)"
+        var newY = parseInt(asteroid.getAttribute("data-y"))+10;
+        asteroid.setAttribute("data-y", newY);
+        asteroid.style.webkitTransform = "translate("+ asteroid.getAttribute("data-x") + "px, "+ newY + "px)"
         if (parseInt(asteroid.getAttribute("data-r")) == c_rope) {
-            if (parseInt(asteroid.getAttribute("data-y")) >= ny && climb) {
+            if (newY >= ny && climb) {
                 sendasteroid();
                 points -= 1;
             }
