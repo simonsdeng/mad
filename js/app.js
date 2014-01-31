@@ -32,7 +32,7 @@ function get(url, data, success, failure) {
 		}, "text");
 	} else {
 		var d = localStorage[url + "?" + data];
-		if (d === undefined) {
+		if (d !== undefined) {
 			success(JSON.parse(d));
 		} else if (failure) {
 			failure();
