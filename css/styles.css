@@ -126,15 +126,27 @@ a {
 	padding: 10px 10px 10px 10px;
 }
 
-#ask-question {
-	width: 100%;
-	height: 30px;
-	position: fixed;
-	z-index: 999;
+.ask-question {
 	background: #0F517D;
 	color: #fff;
-	border: none;
-	
+	border: none;	
+	width: 45%;
+	height: 100%;
+	position: absolute;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
 }
 
 
+#discussion-button-container {
+	width:100%;
+	height: 30px;
+	position: fixed;
+	z-index: 999;
+}
