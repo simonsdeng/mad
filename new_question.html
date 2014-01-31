@@ -1,0 +1,67 @@
+<div id="container">
+	<div id="header" class="header"><div onclick="history.back()" style="height: 44px; width: 60px;text-align: left; padding-left: 5px; padding-top: 10px;position: fixed;"><img src="img/back_icon.png" width="24px"/></div><h1>New Question</h1></div>
+	<div id="drawer-menu" class="menu-hidden">
+		<ul class="list">
+			<li><a onclick="toggleMenu()"><img class="menu-icon" src="img/discussion_icon.png"/><strong><div class="menu-text">Discussion</div></strong></a></li>
+			<li><a onclick="history.back()"><img class="menu-icon" src="img/game_icon.png"/><strong><div class="menu-text">Main</div></strong></a></li>
+			<li><a onclick="go('game.html', page3, true)"><img class="menu-icon" src="img/achievements_icon.png"/><strong><div class="menu-text">Game</div></strong></a></li>
+			<li><a onclick="toggleMenu()"><img class="menu-icon" src="img/settings_icon.png"/><strong><div class="menu-text">Close Menu</div></strong></a></li>
+		</ul>
+	</div>
+	
+	<br><br><br>
+	
+	<form id="new-question-form" action="" method="post">
+		
+		<input id="question-text" type="text" name="question" placeholder="Question"/><br><br>
+		<textarea id="question-notes" name="question-notes" placeholder="Notes (optional)"></textarea><br><br>
+		<input type="submit" id="new-question-submit" value="Submit Question"/>
+		
+	</form>
+	
+	
+</div>
+
+<script>
+var page1 = {img: "buildbot.jpg", name: "Build Bot", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."};
+var page2 = {img: "medibot.jpg", name: "Medi Bot", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."};
+var page3 = {img: "buildbot.jpg", name: "Build Bot", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."};
+</script>
+
+
+<style>
+
+#question-text {
+	width: 90%;
+	height: 10%;
+	font-size: 1.2em;
+	margin-left: 5%;
+	padding: 0 5px 0 5px;
+	color: #0984c6;
+}
+
+#question-notes {
+	width: 90%;
+	height: 30%;
+	font-size: 1.2em;
+	padding: 5px;
+	color: #0984c6;
+	margin-left: 5%;
+}
+
+#new-question-submit {
+	width: 90%;
+	height: 15%;
+	background-color: #0984c6 !important;
+	color:#fff;
+	margin-left: 5%;
+	border-radius: 5px !important;
+	font-size: 1.75em;
+	-webkit-appearance:none;
+}
+
+#new-question-submit:active {
+	background-color: #0876b1 !important;
+}
+
+</style>
