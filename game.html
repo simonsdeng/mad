@@ -102,12 +102,14 @@
             clearTimeout(id);
         };
 }());
-    function blank(){}
+    function blank(){ started = true; }
     function blank_alert(str){
-        if (typeof navigator.notification !== 'undefined')
+        if (typeof navigator.notification !== 'undefined'){
+            started = false;
             navigator.notification.alert(str, blank, "Game", "OK");
-        else
+        }else{
             alert(str);
+        }
     }
     alert("Welcome to Learning the Ropes. In this game you will see a popup with a multiple choice question and different answers. Once you read the question and know your answer, dismiss the popup and you will see a character climbing up 4 ropes. Letters representing the different answers to the question will apper as you climb the rope and you must jump onto the rope the correct letter is on by taping on that rope. Also asteroids will be falling randomly so make sure you jump to avoid them. Enjoy!")
     //constants
@@ -227,9 +229,6 @@
         asteroid.setAttribute("data-v", Math.random()*scrollSpeed+scrollSpeed);
     }
     function render() {
-        if (!started) {
-            return;
-        }
         if (!(parseInt(asteroid.getAttribute("data-y")) < (height + 100))) {
             sendasteroid();
         }
@@ -319,6 +318,9 @@ function shuffle(o){ //v1.0
     return o;
 };
     function animloop() {
+        if (!started) {
+            return;
+        }
         requestAnimationFrame(animloop);
         render();
     }
