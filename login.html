@@ -3,12 +3,15 @@
 	height: 100%;
 	background: url("img/Blue Diamonds Background-640x1136 wallpapers.jpg") no-repeat;
 	background-size: cover;
+	overflow: auto;
+	position: fixed;
+	width: 100%;
 }
 
 #logo {
 	width: 300px;
 	margin: 0 auto;
-	padding-top: 50px;
+	padding-top: 25px;
 	display: block;
 }
 
@@ -44,36 +47,72 @@ li {
 li:active {
 	background: rgba(50, 100, 200, .5);
 }
+
+
+
+#register, #login {
+	width: 90%;
+	margin-left: 5%;
+	position: absolute;
+	height: 60%;
+	text-align: center;
+}
+
+input[type=text], input[type=password] {
+	width: 100%;
+	height: 30px;
+	border-radius: 5px;
+	padding-left: 10px;
+	margin-top: 15px;
+}
+
+select {
+	width: 100%;
+	height: 30px;
+	border-radius: 5px;
+	padding-left: 10px;
+	margin-top: 15px;
+}
+
+input[type=submit] {
+	background-color: #0984c6 !important;
+	color:#fff;
+	border-radius: 5px !important;
+	font-size: 1em;
+	height: 40px;
+	width: 100%;
+	-webkit-appearance:none;
+	margin-top: 15px;
+	
+}
+
+
+
+
 </style>
+
 
 <div id="page">
 	<img id="logo" src="img/hhsfblalogo.png"/>
-	
-	<div id="expertise">
+	<div id="register">
 		<div class="info">
-			<h4>Select your level of expertise in <br>Information Technology</h4>
-		</div>
-		<ul id="options" onclick="switchTo('expertise', 'register')">
-			<li>I'm an expert and I want to help people</li>
-			<li>I'm doing okay and I don't need help - but I'm not confident enough to help others</li>
-			<li>I need help</li>
-			<li>I need a tutor because I just can't get a hang of this subject</li>
-		</ul>
-		
-		<div style="text-align: center" onclick="switchTo('expertise', 'login')">Have an account already? Tap here to login</div>
-	</div>
-	
-	<div id="register" class="hidden">
-		<div class="info">
-			<h4>Fill out the following information</h4>
+			<h4>Please Fill out the following information</h4>
 		</div>
 		<form id="register-form">
-			<input type="text" placeholder="Name" /><br />
-			<input type="email" placeholder="Email" /><br />
+			<input type="text" placeholder="First Name" name="first_name"/><br />
+			<input type="text" placeholder="Last Name" name="last_name" /><br />
+			<select name="expertise">
+				<option value="0">What best describes you?</option>
+				<option value="1">I'm an expert</option>
+				<option value="2">I'm doing okay</option>
+				<option value="3">I need help</option>
+				<option value="4">I need a tutor</option>
+			</select><br>
 			<input type="password" placeholder="New password" /><br />
 			<input type="password" placeholder="Retype password" /><br />
-			<input type="submit" class="btn" value="Register" />
-		</form>
+			<input type="submit" value="Register" />
+		</form><br><br>
+		<div style="text-align: center; color:#fff; text-decoration: underline;" onclick="switchTo('register', 'login')">Have an account already? Tap here to login</div>
 	</div>
 	
 	<div id="login" class="hidden">
@@ -81,13 +120,15 @@ li:active {
 			<h4>Log in to your account</h4>
 		</div>
 		<form id="login-form">
-			<input type="email" name="user" placeholder="Email" /><br />
+			<input type="text" name="user" placeholder="Username" /><br />
 			<input type="password" name="pass" placeholder="Password" /><br />
-			<input type="submit" class="btn" value="Log in" />
-		</form>
+			<input type="submit" value="Log in" />
+		</form><br>
+		<div style="text-align: center; color:#fff; text-decoration: underline;" onclick="switchTo('login', 'register')">Register for a free account</div>
 	</div>
 	
 </div>
+
 
 <script>
 function switchTo(from, to) {

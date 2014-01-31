@@ -1,7 +1,9 @@
 body {
 	margin: 0px;
 	font: 14px sans-serif;
-	background-color: #EAEAEA;
+	//background-color: #EAEAEA;
+	background: url("img/Blue Diamonds Background-640x1136 wallpapers.jpg") no-repeat;
+	background-size: cover;
 	-webkit-user-select: none;
 }
 a {
@@ -9,21 +11,6 @@ a {
 	text-decoration: none;
 	-webkit-touch-callout: none;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
-
-.btn {
-	padding: 10px 20px;
-	color: inherit;
-	background: lightblue;
-	text-decoration: none;
-	box-shadow: 1px 1px gray;
-	border-radius: 2px;
-}
-
-.btn:active {
-	border-right: 1px solid lightblue;
-	border-bottom: 1px solid lightblue;
-	box-shadow: inset 1px 1px gray;
 }
 
 #container {
