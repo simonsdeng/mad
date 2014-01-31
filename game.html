@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>Game</title>
-</head>
-
-<body>
-
+<link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
 <style>
     * {
         overflow: hidden;
@@ -24,7 +16,7 @@
         background-repeat:no-repeat;
         background-size:cover;
     }
-    #container{
+    #cont{
         position: absolute;
         top: 0;
         left: 0;
@@ -38,19 +30,60 @@
         position: absolute;
 	z-index: 9999;
     }
+    .choice {
+        pointer-events:none;
+        position:absolute;
+        top:0;
+        left:0;
+        -webkit-transform: translate(-5000px, 0px);
+        font-size:50px;
+        font-family: 'Exo 2', sans-serif;
+        font-weight: bold;
+        color:white;
+    }
+    #back{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width:10%;
+    }
+    #asteroid {
+        -webkit-transform: translate(-5000px, 0px);
+    }
 </style>
-<div id="container">
+<div id="cont">
     <div class="rope" data-num="1"></div>
     <div class="rope" data-num="2"></div>
     <div class="rope" data-num="3"></div>
     <div class="rope" data-num="4"></div>
     <img id="guy"></img>
+    <div class="choice">A</div>
+    <div class="choice">B</div>
+    <div class="choice">C</div>
+    <div class="choice">D</div>
+    <img src="img/game/back.png" id="back" onclick="History.back();">
+    <img src="img/game/asteroid.png" id="asteroid">
 </div>
 <script src="js/animframe.js"></script>
 <script>
+    alert("Welcome to Learning the Ropes. In this game you will see a popup with a multiple choice question and different answers. Once you read the question and know your answer, dismiss the popup and you will see a character climbing up 4 ropes. Letters representing the different answers to the question will apper as you climb the rope and you must jump onto the rope the correct letter is on by taping on that rope. Also asteroids will be falling randomly so make sure you jump to avoid them. Enjoy!")
     //constants
-    var scrollSpeed = 5;
-
+    var scrollSpeed = 4;
+    var data = {
+        "questions": [
+            {"question": "What does JS stand for?", "answers":["JavaScript","EcmaScript","HI","OMG"],"correct":"1"},
+            {"question": "What do you say when you want to greet someone?", "answers":["JavaScript","EcmaScript","HI","OMG"],"correct":"3"},
+            {"question": "What does JS stand for?", "answers":["JavaScript","EcmaScript","HI","OMG"],"correct":"1"},
+            {"question": "What do you say when you want to greet someone?", "answers":["JavaScript","EcmaScript","HI","OMG"],"correct":"3"},
+            {"question": "What does JS stand for?", "answers":["JavaScript","EcmaScript","HI","OMG"],"correct":"1"},
+            {"question": "What do you say when you want to greet someone?", "answers":["JavaScript","EcmaScript","HI","OMG"],"correct":"3"}
+        ]
+    };
+    /*get("game.php",null,function(d){
+        window.data = d;
+        rope_img.src = "img/game/rope.png";
+    },function(){alert("You must be connected to the internet to download the list of questions.");History.back();});*/
+    
     function get_rope(i) {
         return (width / 5 * i - rope_img.width / 2)
     }
@@ -67,7 +100,6 @@
     var width = document.body.offsetWidth;
     var height = document.body.offsetHeight;
     var rope_img = new Image();
-    rope_img.src = "img/game/rope.png";
     var guy_img = new Image();
     var climbing = true;
     var climb1 = true;
@@ -79,6 +111,12 @@
     var gw;
     var old_time = -1;
     var expected_frame_delay = 16;
+    var qbox = document.getElementById("qbox");
+    var choices = document.getElementsByClassName("choice");
+    var qi = -1;
+    var points = 0;
+    var asteroid = document.getElementById("asteroid");
+    rope_img.src = "img/game/rope.png"
     rope_img.onload = function () {
         for (var i = 0; i < ropes.length; i++) {
             var temp = ropes[i];
@@ -93,19 +131,51 @@
             guy.style.width = guy_img.width + "px";
             guy.style.height = guy_img.height + "px";
             gw = (guy_img.width * c_scale);
-	    ny = height * 0.7;
+	    ny = height * 0.9 - guy_img.height;
             gotorope();
+            guy.style.display = "none";
+            next_question();
+            guy.style.display = "";
             animloop();
         }
     }
-
+    function next_question(){
+        qi += 1;
+        if (qi === data.questions.length) {
+            alert("You have finished all the questions.\nYour score is "+points+"!");
+            History.back();
+        }
+        var cq = data.questions[qi];
+        var a = cq.question+"\n";
+        for(var i=0;i<cq.answers.length;i++){
+            a+=String.fromCharCode(i+65)+". "+cq.answers[i]+"\n";
+        }
+        var order = shuffle([0,1,2,3]);
+        for(var i=0;i<order.length;i++){
+            var temp = choices[order[i]];
+            temp.setAttribute("data-top", "-500");
+            temp.setAttribute("data-left", get_rope(i+1)+rope_img.width/2-temp.offsetWidth/2);
+            temp.setAttribute("data-order", i)
+        }
+        alert(a);
+    }
     function gotorope() {
         nx = (get_rope(c_rope) - (gw - rope_img.width) / 2);
     }
-
+    function sendasteroid() {
+        var r = Math.ceil(Math.random()*ropes.length);
+        var x = get_rope(r)-30;
+        asteroid.setAttribute("data-x", x);
+        asteroid.setAttribute("data-r",r);
+        asteroid.setAttribute("data-y", -500);
+        asteroid.setAttribute("v", Math.random()*10+scrollSpeed*2);
+    }
     function render() {
         if (!started) {
             return;
+        }
+        if (!(parseInt(asteroid.getAttribute("data-y")) < (height + 100))) {
+            sendasteroid();
         }
         var steps = (new Date().getTime() - old_time)/expected_frame_delay;
         if (old_time !== -1) {
@@ -152,7 +222,6 @@
             climb1 = !climb1;
             counter = 0;
         }
-        console.log(steps);
         for (var i = 0; i < ropes.length; i++) {
             var temp = ropes[i];
             var newY = (parseInt(temp.getAttribute("data-top"), 10) + Math.round(scrollSpeed*steps));
@@ -162,13 +231,38 @@
 	    temp.setAttribute("data-top",newY);
             temp.style.webkitTransform = ("translate("+get_rope(parseInt(temp.getAttribute("data-num"), 10)) + "px, " + (newY) + "px)");
         }
+        for(var i=0;i<choices.length;i++){
+            var temp = choices[i];
+            var newY = parseInt(temp.getAttribute("data-top"), 10) + Math.round(scrollSpeed*steps);
+            temp.style.webkitTransform = "translate("+ temp.getAttribute("data-left") + "px, " + newY + "px)";
+            temp.setAttribute("data-top", newY);
+            if ((newY - temp.offsetHeight) >= ny) {
+                if (choices[parseInt(data.questions[qi].correct)-1].getAttribute("data-order") == c_rope-1) {
+                    points += 2;
+                    alert("Great job that's the correct answer!")
+                }else{
+                    points -= 1;
+                    alert("Incorrect answer. The correct answer was "+data.questions[qi].answers[parseInt(data.questions[qi].correct)-1]+".")
+                }
+                next_question();
+            }
+        }
+        asteroid.setAttribute("data-y", parseInt(asteroid.getAttribute("data-y"))+parseInt(asteroid.getAttribute("v")));
+        asteroid.style.webkitTransform = "translate("+ asteroid.getAttribute("data-x") + "px, "+ asteroid.getAttribute("data-y") + "px)"
+        if (parseInt(asteroid.getAttribute("data-r")) == c_rope) {
+            if (parseInt(asteroid.getAttribute("data-y")) >= ny && climb) {
+                sendasteroid();
+                points -= 1;
+            }
+        }
         old_time = new Date().getTime();
     }
-
+function shuffle(o){ //v1.0
+    for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+    return o;
+};
     function animloop() {
         requestAnimationFrame(animloop);
         render();
     }
 </script>
-</body>
-</html>
