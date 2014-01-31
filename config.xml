@@ -13,7 +13,9 @@
 	<gap:platform name="android" />
 	
 	<gap:plugin name="org.apache.cordova.network-information" />
-	
+	<plugin name="Notification" value="org.apache.cordova.Notification"/>
+	<plugin name="Notification" value="CDVNotification" />
+
 	<access origin="http://hhsfbla.com" subdomains="true" />
 	
 	<preference name="DisallowOverscroll" value="true" />
