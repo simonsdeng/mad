@@ -98,19 +98,22 @@ input[type=submit] {
 		<div class="info">
 			<h4>Please Fill out the following information</h4>
 		</div>
-		<form id="register-form">
-			<input type="text" placeholder="First Name" name="first_name"/><br />
-			<input type="text" placeholder="Last Name" name="last_name" /><br />
-			<select name="expertise">
+		<form id="register-userdata-form">
+			<input type="text" placeholder="First Name" name="first" required /><br />
+			<input type="text" placeholder="Last Name" name="last" required  /><br />
+			<select name="expertise" class="expertise">
 				<option value="0">What best describes you?</option>
 				<option value="1">I'm an expert</option>
 				<option value="2">I'm doing okay</option>
 				<option value="3">I need help</option>
 				<option value="4">I need a tutor</option>
 			</select><br>
-			<input type="password" placeholder="New password" /><br />
-			<input type="password" placeholder="Retype password" /><br />
-			<input type="submit" value="Register" />
+		</form>
+		<form id="register-auth-form">
+			<input type="text" placeholder="Username" name="user" required /><br />
+			<input type="password" class="password" placeholder="New password" name="pass" required /><br />
+			<input type="password" class="password-check" placeholder="Retype password"  required /><br />
+			<input id="register-btn" type="submit" value="Register" />
 		</form><br><br>
 		<div style="text-align: center; color:#fff; text-decoration: underline;" onclick="switchTo('register', 'login')">Have an account already? Tap here to login</div>
 	</div>
@@ -120,8 +123,8 @@ input[type=submit] {
 			<h4>Log in to your account</h4>
 		</div>
 		<form id="login-form">
-			<input type="text" name="user" placeholder="Username" /><br />
-			<input type="password" name="pass" placeholder="Password" /><br />
+			<input type="text" name="user" placeholder="Username" required /><br />
+			<input type="password" name="pass" placeholder="Password" required /><br />
 			<input type="submit" value="Log in" />
 		</form><br>
 		<div style="text-align: center; color:#fff; text-decoration: underline;" onclick="switchTo('login', 'register')">Register for a free account</div>
@@ -136,9 +139,41 @@ function switchTo(from, to) {
 	document.getElementById(to).classList.remove("hidden");
 }
 
-$("#register-form").submit(function (e) {
+$("#register-btn").click(function (e) {
 	e.preventDefault();
-	main();
+	
+	var userdataForm = $("#register-userdata-form");
+	var authForm = $("#register-auth-form");
+	
+	if (authForm.find(".password").val() !== authForm.find(".password-check").val()) {
+		alert("Passwords do not match.");
+		return;
+	}
+	
+	if (userdataForm.find(".expertise").val() === "0") {
+		alert("Please select your level of expertise in Information Technology.");
+		return;
+	}
+	
+	auth = {};
+	userdata = {};
+	
+	$.each(authForm.serializeArray(), function () {
+		auth[this.name] = this.value;
+	});
+	$.each(userdataForm.serializeArray(), function () {
+		userdata[this.name] = this.value;
+	});
+	
+	post("register.php", {userdata: userdata}, function (d) {
+		if (d.status === "success") {
+			main();
+		} else {
+			alert("Sorry, this username has already been taken.");
+		}
+	}, function () {
+		alert("You must be online to register for an account.");
+	});
 });
 $("#login-form").submit(function (e) {
 	e.preventDefault();
