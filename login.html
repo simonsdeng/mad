@@ -159,7 +159,9 @@ $("#register-btn").click(function (e) {
 	userdata = {};
 	
 	$.each(authForm.serializeArray(), function () {
-		auth[this.name] = this.value;
+		if (this.name) {
+			auth[this.name] = this.value;
+		}
 	});
 	$.each(userdataForm.serializeArray(), function () {
 		userdata[this.name] = this.value;
