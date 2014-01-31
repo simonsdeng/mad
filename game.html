@@ -102,10 +102,6 @@
             {"question": "What do you say when you want to greet someone?", "answers":["JavaScript","EcmaScript","HI","OMG"],"correct":"3"}
         ]
     };*/
-    get("game.php",null,function(d){
-        window.data = d;
-        rope_img.src = "img/game/rope.png";
-    },function(){alert("You must be connected to the internet to download the list of questions.");History.back();});
     
     function get_rope(i) {
         return (width / 5 * i - rope_img.width / 2)
@@ -139,7 +135,10 @@
     var qi = -1;
     var points = 0;
     var asteroid = document.getElementById("asteroid");
-    rope_img.src = "img/game/rope.png"
+    get("game.php",null,function(d){
+        window.data = d;
+        rope_img.src = "img/game/rope.png";
+    },function(){alert("You must be connected to the internet to download the list of questions.");History.back();});
     rope_img.onload = function () {
         for (var i = 0; i < ropes.length; i++) {
             var temp = ropes[i];
