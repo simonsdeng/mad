@@ -65,11 +65,14 @@ function route() {
 	}
 	
 	$.get(url, function (data) {
+		var page = document.createElement("div");
+		page.innerHTML = data;
+		
 		if (forward) {
-			slider.slidePageFrom($("<div>").html(data), "right");
+			slider.slidePageFrom($(page), "right");
 			forward = false;
 		} else {
-			slider.slidePageFrom($("<div>").html(data), "left");
+			slider.slidePageFrom($(page).html(data), "left");
 		}
 	});
 }
