@@ -11,14 +11,15 @@
 	
 	<br><br><br>
 	
-	<form id="new-tip-form" action="" method="post">
+	<form id="new-tip-form">
 		
-		<textarea id="tip" name="tip" placeholder="Tip"></textarea><br><br>
+		<textarea id="tip" name="title" placeholder="Tip"></textarea><br><br>
+		<input type="hidden" name="type" value="3" />
 		<input type="submit" id="new-answer-submit" value="Submit Answer"/>
 		
 	</form>
 	
-	<div class="achievement-div">
+	<!--<div class="achievement-div">
 		<h1>WooHoo!</h1>
 		<h2>New Achievement:</h2>
 		<span id="achievement-name"><h2><i>First time giving a tip!</i></h2></span>
@@ -26,15 +27,30 @@
 		<button class="achievement-dialog-button">Share</button><br><br>
 		<button onclick="go('achievements.html', page3)" class="achievement-dialog-button">View All</button><br><br>
 		<button class="achievement-dialog-button">Dismiss</button>
-	</div>
+	</div>-->
 	
 	
 </div>
 
 <script>
-var page1 = {img: "buildbot.jpg", name: "Build Bot", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."};
-var page2 = {img: "medibot.jpg", name: "Medi Bot", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."};
-var page3 = {img: "buildbot.jpg", name: "Build Bot", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."};
+$("#new-tip-form").submit(function (e) {
+	e.preventDefault();
+	
+	var data = {};
+	$.each($(this).serializeArray(), function () {
+		data[this.name] = this.value;
+	});
+	
+	post("discussion.php", data, function (d) {
+		if (d.status === "success") {
+			History.back();
+		} else {
+			alert("Please enter a tip.");
+		}
+	}, function () {
+		alert("You must be online to submit a new tip.");
+	});
+});
 </script>
 
 
