@@ -112,6 +112,10 @@
             return
         g_rope = parseInt(i);
     }
+    function blank(){}
+    function blank_alert(str){
+        navigator.notification.alert(str, blank, "Game", "OK");
+    }
     var started = true;
     var g_rope = 1;
     var ropes = document.getElementsByClassName("rope");
@@ -138,7 +142,7 @@
     get("game.php",null,function(d){
         window.data = d;
         rope_img.src = "img/game/rope.png";
-    },function(){alert("You must be connected to the internet to download the list of questions.");History.back();});
+    },function(){blank_alert("You must be connected to the internet to download the list of questions.");History.back();});
     rope_img.onload = function () {
         for (var i = 0; i < ropes.length; i++) {
             var temp = ropes[i];
@@ -164,7 +168,7 @@
     function next_question(){
         qi += 1;
         if (qi === data.questions.length) {
-            alert("You have finished all the questions.\nYour score is "+points+"!");
+            blank_alert("You have finished all the questions.\nYour score is "+points+"!");
             History.back();
         }
         var cq = data.questions[qi];
@@ -179,7 +183,7 @@
             temp.setAttribute("data-left", get_rope(i+1)+rope_img.width/2-temp.offsetWidth/2);
             temp.setAttribute("data-order", i)
         }
-        alert(a);
+        blank_alert(a);
     }
     function gotorope() {
         nx = (get_rope(c_rope) - (gw - rope_img.width) / 2);
@@ -261,10 +265,10 @@
             if ((newY - temp.offsetHeight) >= ny) {
                 if (choices[parseInt(data.questions[qi].correct)-1].getAttribute("data-order") == c_rope-1) {
                     points += 2;
-                    alert("Great job that's the correct answer!")
+                    blank_alert("Great job that's the correct answer!")
                 }else{
                     points -= 1;
-                    alert("Incorrect answer. The correct answer was "+data.questions[qi].answers[parseInt(data.questions[qi].correct)-1]+" ("+String.fromCharCode(parseInt(data.questions[qi].correct)+64)+").")
+                    blank_alert("Incorrect answer. The correct answer was "+data.questions[qi].answers[parseInt(data.questions[qi].correct)-1]+" ("+String.fromCharCode(parseInt(data.questions[qi].correct)+64)+").")
                 }
                 next_question();
             }
