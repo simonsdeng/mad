@@ -12,6 +12,7 @@ var menuOpen = 0;
 
 // navigates to page
 function go(url, data, replace) {
+	menuOpen = 0;
 	if (routing) {
 		return;
 	}

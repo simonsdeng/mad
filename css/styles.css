@@ -132,7 +132,7 @@ a {
 	border: none;	
 	width: 45%;
 	height: 100%;
-	position: absolute;
+	position: relative;
 }
 
 .left {

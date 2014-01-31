@@ -50,7 +50,8 @@
 	position: absolute;
 	//margin-left: 0;
 	vertical-align: middle;
-	margin-bottom: 35px;
+	//margin-bottom: 35px;
+	margin-top: -10px;
 }
 
 .menu-text {
