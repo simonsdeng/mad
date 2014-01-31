@@ -13,7 +13,6 @@
 	<gap:platform name="android" />
 	
 	<gap:plugin name="org.apache.cordova.network-information" />
-	<gap:plugin name="org.apache.cordova.dialogs" />
 	<access origin="http://hhsfbla.com" subdomains="true" />
 	
 	<preference name="DisallowOverscroll" value="true" />
