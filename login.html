@@ -150,7 +150,7 @@ $("#register-btn").click(function (e) {
 		return;
 	}
 	
-	if (userdataForm.find(".expertise").val() === "0") {
+	if (!userdataForm.find(".expertise").val()) {
 		alert("Please select your level of expertise in Information Technology.");
 		return;
 	}

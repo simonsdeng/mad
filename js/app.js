@@ -36,6 +36,19 @@ function go(url, data, replace) {
 	}
 }
 
+function getExpertise(id) {
+	switch (id) {
+	case 1:
+		return "tutor";
+	case 2:
+		return "experienced";
+	case 3:
+		return "beginner";
+	case 4:
+		return "tutee";
+}
+}
+
 // requests JSON data through AJAX or falls back to cache
 function get(url, data, success, failure) {
 	if (navigator.connection.type !== Connection.NONE) {

@@ -1,41 +1,3 @@
-<div id="container">
-	<div id="header" class="header"><div onclick="history.back()" style="height: 44px; width: 60px;text-align: left; padding-left: 5px; padding-top: 10px;position: fixed;"><img src="img/back_icon.png" width="24px"/></div><h1>Answers</h1></div>
-	<div id="drawer-menu" class="menu-hidden">
-		<ul class="list">
-			<li><a onclick="toggleMenu()"><img class="menu-icon" src="img/discussion_icon.png"/><strong><div class="menu-text">Discussion</div></strong></a></li>
-			<li><a onclick="history.back()"><img class="menu-icon" src="img/game_icon.png"/><strong><div class="menu-text">Main</div></strong></a></li>
-			<li><a onclick="go('game.html', page3, true)"><img class="menu-icon" src="img/achievements_icon.png"/><strong><div class="menu-text">Game</div></strong></a></li>
-			<li><a onclick="toggleMenu()"><img class="menu-icon" src="img/settings_icon.png"/><strong><div class="menu-text">Close Menu</div></strong></a></li>
-		</ul>
-	</div>
-	
-	<div id="discussion-scroller" class="scroller">
-	
-		<div id="question-container">
-		
-			<h2>Question</h2>
-			<span id="post-content"><strong>What is an IP Address and what does it do?</strong></span><br>
-			<span id="post-notes">Some random notes about the question</span><br>
-			<span id="op-info"><i>--Bob Jones (tutee)</i></span>
-		
-		</div>
-		<button id="add-response-button" onclick="go('new_answer.html', page3)">Add your own answer</button><br><br>
-		
-		<h2>Responses</h2>
-	
-		<ul id="answers" class="list">
-			<li><strong>Ayush Mehra (expert): </strong><span class="response">It stands for Internet Protocol Address.</span></li>
-			<li><strong>Tom Bousso (noob): </strong><span class="response">i have no idea i'm a noob</span></li>
-			<li><strong>Fred Jones (tutor): </strong><span class="response">whatevs i have a super long response to test how badly it breaks the css which is very sketch asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf </span></li>
-			<li><strong>Ayush Mehra (expert): </strong><span class="response">It stands for Internet Protocol Address.</span></li>
-			<li><strong>Tom Bousso (noob): </strong><span class="response">i have no idea i'm a noob</span></li>
-			<li><strong>Fred Jones (tutor): </strong><span class="response">whatevs i have a super long response to test how badly it breaks the css which is very sketch asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf </span></li>
-		</ul>
-	</div>
-	
-	
-</div>
-
 <style>
 
 #question-container {
@@ -71,3 +33,44 @@
 
 
 </style>
+
+<div id="header" class="header"><div onclick="history.back()" style="height: 44px; width: 60px;text-align: left; padding-left: 5px; padding-top: 10px;position: fixed;"><img src="img/back_icon.png" width="24px"/></div><h1>Answers</h1></div>
+<div id="drawer-menu" class="menu-hidden">
+	<ul class="list">
+		<li><a onclick="toggleMenu()"><img class="menu-icon" src="img/discussion_icon.png"/><strong><div class="menu-text">Discussion</div></strong></a></li>
+		<li><a onclick="history.back()"><img class="menu-icon" src="img/game_icon.png"/><strong><div class="menu-text">Main</div></strong></a></li>
+		<li><a onclick="go('game.html', page3, true)"><img class="menu-icon" src="img/achievements_icon.png"/><strong><div class="menu-text">Game</div></strong></a></li>
+		<li><a onclick="toggleMenu()"><img class="menu-icon" src="img/settings_icon.png"/><strong><div class="menu-text">Close Menu</div></strong></a></li>
+	</ul>
+</div>
+
+<div id="discussion-scroller" class="scroller">
+
+	<div id="question-container">
+	
+		<h2>Question</h2>
+		<span id="post-content"><strong>What is an IP Address and what does it do?</strong></span><br>
+		<span id="post-notes">Some random notes about the question</span><br>
+		<i><span id="op-info"></span></i>
+	
+	</div>
+	<button id="add-response-button" onclick="go('new_answer.html', {id: data.id})">Add your own answer</button><br><br>
+	
+	<h2>Responses</h2>
+
+	<ul id="answers" class="list">
+		
+	</ul>
+</div>
+
+<script>
+get("discussion.php", {id: data.id}, function (d) {
+	var responses = d.responses;
+	for (var i = 0; i < responses.length; i++) {
+		var response = responses[i];
+		
+		$("#answers").append('<li><strong>' + response.author + '('
+				+ getExpertise(response.expertise) + '): </strong><span class="response">' + response.response + '</span></li>');
+	}
+});
+</script>
