@@ -194,7 +194,7 @@
         asteroid.setAttribute("data-x", x);
         asteroid.setAttribute("data-r",r);
         asteroid.setAttribute("data-y", -500);
-        asteroid.setAttribute("v", Math.random()*10+scrollSpeed*2);
+        asteroid.setAttribute("data-v", Math.random()*scrollSpeed+scrollSpeed);
     }
     function render() {
         if (!started) {
@@ -273,7 +273,7 @@
                 next_question();
             }
         }
-        var newY = parseInt(asteroid.getAttribute("data-y"))+10;
+        var newY = parseInt(asteroid.getAttribute("data-y"))+parseInt(asteroid.getAttribute("data-v"))*steps;
         asteroid.setAttribute("data-y", newY);
         asteroid.style.webkitTransform = "translate("+ asteroid.getAttribute("data-x") + "px, "+ newY + "px)"
         if (parseInt(asteroid.getAttribute("data-r")) == c_rope) {
