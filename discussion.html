@@ -1,15 +1,15 @@
 <div id="container">
-	<div id="header" class="header"><a onclick="toggleMenu()" class="btn">Menu</a><h1>Discussion</h1></div>
+	<div id="header" class="header"><div onclick="toggleMenu()" style="height: 44px; width: 60px;text-align: left; padding-left: 5px; padding-top: 10px;position: fixed;"><img src="img/menu_icon.png" width="24px"/></div><h1>Discussion</h1></div>
 	<div id="drawer-menu" class="menu-hidden">
 		<ul class="list">
 			<li><a onclick="toggleMenu()"><img class="menu-icon" src="img/discussion_icon.png"/><strong><div class="menu-text">Discussion</div></strong></a></li>
 			<li><a onclick="history.back()"><img class="menu-icon" src="img/game_icon.png"/><strong><div class="menu-text">Main</div></strong></a></li>
-			<li><a onclick="go('details.html', page3, true)"><img class="menu-icon" src="img/achievements_icon.png"/><strong><div class="menu-text">Ripple Bot</div></strong></a></li>
+			<li><a onclick="go('game.html', page3, true)"><img class="menu-icon" src="img/achievements_icon.png"/><strong><div class="menu-text">Game</div></strong></a></li>
 			<li><a onclick="toggleMenu()"><img class="menu-icon" src="img/settings_icon.png"/><strong><div class="menu-text">Close Menu</div></strong></a></li>
 		</ul>
 	</div>
 	
-	<button class="ask-question">Ask a question</button>
+	<button class="ask-question" onclick="go('new_question.html', page3)">Ask a question</button>
 	<div id="discussion-scroller" class="scroller">
 		<ul id="dicussion-list" class="list">
 			<li><a onclick="go('details.html', page1)"><img src="img/discussion_answered.png"class="discussion-icon"/><strong>Build Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
