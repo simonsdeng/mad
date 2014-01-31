@@ -28,12 +28,12 @@ function get(url, data, success, failure) {
 	if (navigator.connection.type !== Connection.NONE) {
 		$.get("http://hhsfbla.com/mad2013/" + url, data, function (d) {
 			localStorage[url + "?" + data] = d;
-			success(d);
-		}, "json");
+			success(JSON.parse(d));
+		}, "text");
 	} else {
 		var d = localStorage[url + "?" + data];
 		if (d === undefined) {
-			success(d);
+			success(JSON.parse(d));
 		} else if (failure) {
 			failure();
 		}
