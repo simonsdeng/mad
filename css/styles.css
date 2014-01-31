@@ -126,6 +126,7 @@ a {
 	padding: 10px 10px 10px 10px;
 }
 
+/*
 .ask-question {
 	background: #0F517D;
 	color: #fff;
@@ -134,13 +135,22 @@ a {
 	height: 100%;
 	position: relative;
 }
+*/
+
+.discussion-ask-question {
+	width: 40%;
+	position: absolute;
+	height: 30px;
+}
 
 .left {
 	float: left;
+	left: 0;
 }
 
 .right {
 	float: right;
+	right: 0;
 }
 
 
