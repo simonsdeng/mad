@@ -23,6 +23,7 @@
 	
 	<gap:plugin name="org.apache.cordova.network-information" />
 	<gap:plugin name="org.apache.cordova.dialogs" />
+	<gap:plugin name="nl.x-services.plugins.socialsharing" />
 	<access origin="http://hhsfbla.com" subdomains="true" />
 	
 	<preference name="DisallowOverscroll" value="true" />

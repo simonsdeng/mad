@@ -9,7 +9,18 @@ var mainUrl = History.getState().url,
 	forward = false;
 
 var menuOpen = 0;
-
+function share(){
+	window.plugins.socialsharing.share('I just got an achievement on IT Academy: '+document.getElementById('achievement-name').firstChild.firstChild.innerHTML);
+}
+function dismiss_achievements(){
+	var arr = document.getElementsByClassName('achievement-div');
+	for(var i=0;i<arr.length;i++){
+		arr[i].style.display = "none";
+	}
+}
+function show_achievement(achievement){
+	document.innerHTML += '<div class="achievement-div"><h1>WooHoo!</h1><h2>New Achievement:</h2><span id="achievement-name"><h2><i>'+achievement+'</i></h2></span><br><button class="achievement-dialog-button" onclick="share();">Share</button><br><br><button onclick="go(\'achievements.html\', page3)" class="achievement-dialog-button">View All</button><br><br><button class="achievement-dialog-button" onclick="dismiss">Dismiss</button></div>';
+}
 // navigates to page
 function go(url, data, replace) {
 	menuOpen = 0;
