@@ -169,6 +169,8 @@ $("#register-btn").click(function (e) {
 	
 	post("register.php", {userdata: userdata}, function (d) {
 		if (d.status === "success") {
+			localStorage.auth = JSON.stringify(auth);
+			localStorage.userdata = JSON.stringify(userdata);
 			main();
 		} else {
 			alert("Sorry, this username has already been taken.");
