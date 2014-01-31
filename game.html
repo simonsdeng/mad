@@ -102,12 +102,31 @@
             clearTimeout(id);
         };
 }());
+    function blank(){
+        alert_out = false;
+        if(data == null){
+            get("game.php",null,function(d){
+                window.data = d;
+                rope_img.src = "img/game/rope.png";
+            },function(){blank_alert("You must be connected to the internet to download the list of questions.");started = false;History.back();});
+        }else{
+            started = true;
+            old_time = new Date().getTime();
+            animloop();
+        }
+    }
     function blank_alert(str){
-        alert(str);
+        if(typeof navigator.notification !== 'undefined'){
+            started = false;
+            alert_out = true;
+            navigator.notification.alert(str,blank,"Game","OK");
+        }else
+            alert(str);
     }
     blank_alert("Welcome to Learning the Ropes. In this game you will see a popup with a multiple choice question and different answers. Once you read the question and know your answer, dismiss the popup and you will see a character climbing up 4 ropes. Letters representing the different answers to the question will apper as you climb the rope and you must jump onto the rope the correct letter is on by taping on that rope. Also asteroids will be falling randomly so make sure you jump to avoid them. Enjoy!")
     //constants
     var scrollSpeed = 5;
+    var data = null;
     /*var data = {
         "questions": [
             {"question": "What does JS stand for?", "answers":["JavaScript","EcmaScript","HI","OMG"],"correct":"1"},
@@ -118,7 +137,7 @@
             {"question": "What do you say when you want to greet someone?", "answers":["JavaScript","EcmaScript","HI","OMG"],"correct":"3"}
         ]
     };*/
-    
+    var alert_out = false;
     function get_rope(i) {
         return (width / 5 * i - rope_img.width / 2)
     }
@@ -164,10 +183,6 @@
     var qi = -1;
     var points = 0;
     var asteroid = document.getElementById("asteroid");
-    get("game.php",null,function(d){
-        window.data = d;
-        rope_img.src = "img/game/rope.png";
-    },function(){blank_alert("You must be connected to the internet to download the list of questions.");started = false;History.back();});
     rope_img.onload = function () {
         for (var i = 0; i < ropes.length; i++) {
             var temp = ropes[i];
@@ -185,15 +200,15 @@
 	    ny = height * 0.9 - guy_img.height;
             gotorope();
             guy.style.display = "none";
-            next_question();
+            next_question('');
             guy.style.display = "";
-            animloop();
+            //animloop();
         }
     }
-    function next_question(){
+    function next_question(ap){
         qi += 1;
         if (qi === data.questions.length) {
-            blank_alert("You have finished all the questions.\nYour score is "+points+"!");
+            blank_alert(ap+" You have finished all the questions.\nYour score is "+points+"!");
             started = false;
             History.back();
         }
@@ -209,14 +224,14 @@
             temp.setAttribute("data-left", get_rope(i+1)+rope_img.width/2-temp.offsetWidth/2);
             temp.setAttribute("data-order", i)
         }
-        blank_alert(a);
+        blank_alert(ap+" "+a);
     }
     function gotorope() {
         nx = (get_rope(c_rope) - (gw - rope_img.width) / 2);
     }
     function sendasteroid() {
         var r = Math.ceil(Math.random()*ropes.length);
-        var x = get_rope(r)-30;
+        var x = get_rope(r)-45;
         asteroid.setAttribute("data-x", x);
         asteroid.setAttribute("data-r",r);
         asteroid.setAttribute("data-y", -500);
@@ -286,17 +301,18 @@
             temp.style.webkitTransform = "translate("+ temp.getAttribute("data-left") + "px, " + newY + "px)";
             temp.setAttribute("data-top", newY);
             if ((newY - temp.offsetHeight) >= ny) {
+                var a = "";
                 if (choices[parseInt(data.questions[qi].correct)-1].getAttribute("data-order") == c_rope-1) {
                     change_points(2,true);
-                    blank_alert("Great job that's the correct answer!")
+                    a = "Great job that's the correct answer!";
                 }else{
                     change_points(1,false);
-                    blank_alert("Incorrect answer. The correct answer was "+data.questions[qi].answers[parseInt(data.questions[qi].correct)-1]+" ("+String.fromCharCode(parseInt(data.questions[qi].correct)+64)+").")
+                    a = "Incorrect answer. The correct answer was "+data.questions[qi].answers[parseInt(data.questions[qi].correct)-1]+" ("+String.fromCharCode(parseInt(data.questions[qi].correct)+64)+").";
                 }
-                next_question();
+                next_question(a);
             }
         }
-        var newY = parseInt(asteroid.getAttribute("data-y"))+parseInt(asteroid.getAttribute("data-v"))*steps;
+        var newY = parseInt(asteroid.getAttribute("data-y"))+Math.round(parseInt(asteroid.getAttribute("data-v"))*steps);
         asteroid.setAttribute("data-y", newY);
         asteroid.style.webkitTransform = "translate("+ asteroid.getAttribute("data-x") + "px, "+ newY + "px)"
         if (parseInt(asteroid.getAttribute("data-r")) == c_rope) {
