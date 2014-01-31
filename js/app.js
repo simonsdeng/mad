@@ -3,7 +3,10 @@ var container,
 	auth,
 	userdata;
 
-var routing = false;
+var mainUrl = History.getState().url,
+	routing = false,
+	forward = false;
+
 var menuOpen = 0;
 
 // navigates to page
@@ -11,17 +14,13 @@ function go(url, data, replace) {
 	if (routing) {
 		return;
 	}
-	routing = true;
 	
-	var state = {url: url, data: data};
-	
+	forward = true;
 	if (replace) {
-		history.replaceState(state);
+		History.replaceState(data, null, url);
 	} else {
-		history.pushState(state);
+		History.pushState(data, null, url);
 	}
-	
-	route();
 }
 
 // requests JSON data through AJAX or falls back to cache
@@ -56,18 +55,21 @@ function post(url, data, success, failure) {
 }
 
 // handles history state changes through AJAX
-function route(back) {
-	if (back) {
-		routing = true;
+function route() {
+	routing = true;
+	
+	console.log(History.getCurrentIndex());
+	var url = History.getState().url;
+	if (url === mainUrl) {
+		url = "main.html";
 	}
 	
-	var url = (history.state) ? history.state.url : "main.html";
-	
 	$.get(url, function (data) {
-		if (back) {
-			slider.slidePageFrom($("<div>").html(data), "left");
-		} else {
+		if (forward) {
 			slider.slidePageFrom($("<div>").html(data), "right");
+			forward = false;
+		} else {
+			slider.slidePageFrom($("<div>").html(data), "left");
 		}
 	});
 }

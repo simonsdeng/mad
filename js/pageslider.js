@@ -13,7 +13,7 @@ function PageSlider(container) {
     this.slidePage = function(page) {
 
         var l = stateHistory.length,
-            state = history.state;
+            state = History.getState();
 
         if (l === 0) {
             stateHistory.push(state);
@@ -38,6 +38,7 @@ function PageSlider(container) {
         if (!currentPage || !from) {
             page.attr("class", "page center");
             currentPage = page;
+			routing = false;
             return;
         }
 
