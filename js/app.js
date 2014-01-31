@@ -19,7 +19,7 @@ function dismiss_achievements(){
 	}
 }
 function show_achievement(achievement){
-	document.innerHTML += '<div class="achievement-div"><h1>WooHoo!</h1><h2>New Achievement:</h2><span id="achievement-name"><h2><i>'+achievement+'</i></h2></span><br><button class="achievement-dialog-button" onclick="share();">Share</button><br><br><button onclick="go(\'achievements.html\', page3)" class="achievement-dialog-button">View All</button><br><br><button class="achievement-dialog-button" onclick="dismiss">Dismiss</button></div>';
+	document.body.innerHTML += '<div class="achievement-div"><h1>WooHoo!</h1><h2>New Achievement:</h2><span id="achievement-name"><h2><i>'+achievement+'</i></h2></span><br><button class="achievement-dialog-button" onclick="share();">Share</button><br><br><button onclick="go(\'achievements.html\', page3)" class="achievement-dialog-button">View All</button><br><br><button class="achievement-dialog-button" onclick="dismiss">Dismiss</button></div>';
 }
 // navigates to page
 function go(url, data, replace) {
