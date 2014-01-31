@@ -50,6 +50,18 @@
     #asteroid {
         -webkit-transform: translate(-5000px, 0px);
     }
+    .fade_opacity{
+        -webkit-transition: opacity 1s linear !important;
+    }
+    #points_change{
+        position: absolute;
+        top:0;
+        right:0;
+        font-size:40px;
+        color:green;
+        font-weight: bolder;
+        -webkit-transition: none;
+    }
 </style>
 <div id="cont">
     <div class="rope" data-num="1"></div>
@@ -63,6 +75,7 @@
     <div class="choice">D</div>
     <img src="img/game/back.png" id="back" onclick="History.back();">
     <img src="img/game/asteroid.png" id="asteroid">
+    <div id="points_change"></div>
 </div>
 <script>
 (function() {
@@ -98,7 +111,7 @@
     }
     alert("Welcome to Learning the Ropes. In this game you will see a popup with a multiple choice question and different answers. Once you read the question and know your answer, dismiss the popup and you will see a character climbing up 4 ropes. Letters representing the different answers to the question will apper as you climb the rope and you must jump onto the rope the correct letter is on by taping on that rope. Also asteroids will be falling randomly so make sure you jump to avoid them. Enjoy!")
     //constants
-    var scrollSpeed = 4;
+    var scrollSpeed = 5;
     var data = {
         "questions": [
             {"question": "What does JS stand for?", "answers":["JavaScript","EcmaScript","HI","OMG"],"correct":"1"},
@@ -119,8 +132,21 @@
             return
         g_rope = parseInt(i);
     }
+    function change_points(amount,positive){
+        var c = amount*(positive ? 1 : -1);
+        points += c;
+        points_change.className = '';
+        if(positive)
+            points_change.style.color = "green";
+        else
+            points_change.style.color = "red";
+        points_change.innerHTML = c;
+        points_change.style.opacity = 1;
+        setTimeout(function(){points_change.className = 'fade_opacity';points_change.style.opacity = 0;},1000);
+    }
     var started = true;
     var g_rope = 1;
+    var points_change = document.getElementById("points_change");
     var ropes = document.getElementsByClassName("rope");
     var guy = document.getElementById("guy");
     var width = document.body.offsetWidth;
@@ -267,10 +293,10 @@
             temp.setAttribute("data-top", newY);
             if ((newY - temp.offsetHeight) >= ny) {
                 if (choices[parseInt(data.questions[qi].correct)-1].getAttribute("data-order") == c_rope-1) {
-                    points += 2;
+                    change_points(2,true);
                     blank_alert("Great job that's the correct answer!")
                 }else{
-                    points -= 1;
+                    change_points(1,false);
                     blank_alert("Incorrect answer. The correct answer was "+data.questions[qi].answers[parseInt(data.questions[qi].correct)-1]+" ("+String.fromCharCode(parseInt(data.questions[qi].correct)+64)+").")
                 }
                 next_question();
@@ -282,7 +308,7 @@
         if (parseInt(asteroid.getAttribute("data-r")) == c_rope) {
             if (newY >= ny && climb) {
                 sendasteroid();
-                points -= 1;
+                change_points(1,false);
             }
         }
         old_time = new Date().getTime();
