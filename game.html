@@ -140,7 +140,7 @@
             points_change.style.color = "green";
         else
             points_change.style.color = "red";
-        points_change.innerHTML = c;
+        points_change.innerHTML = (positive ? '+' : '') + c;
         points_change.style.opacity = 1;
         setTimeout(function(){points_change.className = 'fade_opacity';points_change.style.opacity = 0;},1000);
     }
