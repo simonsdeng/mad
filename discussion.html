@@ -10,30 +10,37 @@
 
 <button class="ask-question left" onclick="go('new_question.html', page3)">New Question</button></td><td><button class="ask-question right" onclick="go('new_question.html', page3)">New Tip</button>
 <div id="discussion-scroller" class="scroller">
-	<ul id="dicussion-list" class="list">
-		<li><a onclick="go('post.html', page1)"><img src="img/discussion_answered.png"class="discussion-icon"/><strong>Build Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
-		<li><a onclick="go('post.html', page2)"><img src="img/discussion_question.png" class="discussion-icon"/><strong>Medi Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
-		<li><a onclick="go('post.html', page3)"><img src="img/discussion_tip.png" class="discussion-icon"/><strong>Ripple Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
-		<li><a onclick="go('post.html', page1)"><img src="img/discussion_answered.png"class="discussion-icon"/><strong>Build Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
-		<li><a onclick="go('post.html', page2)"><img src="img/discussion_question.png" class="discussion-icon"/><strong>Medi Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
-		<li><a onclick="go('post.html', page3)"><img src="img/discussion_tip.png" class="discussion-icon"/><strong>Ripple Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
-		<li><a onclick="go('post.html', page1)"><img src="img/discussion_answered.png"class="discussion-icon"/><strong>Build Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
-		<li><a onclick="go('post.html', page2)"><img src="img/discussion_question.png" class="discussion-icon"/><strong>Medi Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
-		<li><a onclick="go('post.html', page3)"><img src="img/discussion_tip.png" class="discussion-icon"/><strong>Ripple Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
-		<li><a onclick="go('post.html', page1)"><img src="img/discussion_answered.png"class="discussion-icon"/><strong>Build Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
-		<li><a onclick="go('post.html', page2)"><img src="img/discussion_question.png" class="discussion-icon"/><strong>Medi Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
-		<li><a onclick="go('post.html', page3)"><img src="img/discussion_tip.png" class="discussion-icon"/><strong>Ripple Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
-		<li><a onclick="go('post.html', page1)"><img src="img/discussion_answered.png"class="discussion-icon"/><strong>Build Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
-		<li><a onclick="go('post.html', page2)"><img src="img/discussion_question.png" class="discussion-icon"/><strong>Medi Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
-		<li><a onclick="go('post.html', page3)"><img src="img/discussion_tip.png" class="discussion-icon"/><strong>Ripple Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
-		<li><a onclick="go('post.html', page1)"><img src="img/discussion_answered.png"class="discussion-icon"/><strong>Build Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
-		<li><a onclick="go('post.html', page2)"><img src="img/discussion_question.png" class="discussion-icon"/><strong>Medi Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
-		<li><a onclick="go('post.html', page3)"><img src="img/discussion_tip.png" class="discussion-icon"/><strong>Ripple Bot</strong><span class="discussion-date">mm/dd/yyyy</span></a></li>
-	</ul>
+	<ul id="discussion-list" class="list"></ul>
 </div>
 
 <script>
-var page1 = {img: "buildbot.jpg", name: "Build Bot", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."};
-var page2 = {img: "medibot.jpg", name: "Medi Bot", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."};
-var page3 = {img: "buildbot.jpg", name: "Build Bot", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."};
+var discussions;
+get("discussion.php", null, function(d) {
+	discussions = d.discussions;
+	for (var i = 0; i < discussions.length; i++) {
+		var discussion = discussions[i];
+		
+		var type;
+		switch (discussion.type) {
+		case 1:
+			type = "question";
+			break;
+		case 2:
+			type = "answered";
+			break;
+		case 3:
+			type = "tip";
+			break;
+		}
+		
+		var date = new Date(discussion.timestamp * 1000).toLocaleDateString();
+		
+		$("#discussion-list").append('<li><a onclick="go(\'post.html\', discussions[' + i + '])">'
+				+ '<img src="img/discussion_' + type + '.png" class="discussion-icon"/>'
+				+ '<strong>' + discussion.title + '</strong>'
+				+ '<span class="discussion-date">' + date + '</span></a></li>');
+	}
+}, function () {
+	alert("You must be online to see new discussions.");
+});
 </script>

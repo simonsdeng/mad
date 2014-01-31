@@ -9,21 +9,25 @@
 		Homestead FBLA Mobile Application Development 2013-14
 	</description>
 	
+	<icon src="icon.png" />
+	
+	<icon src="icon/icon_57.png" gap:platform="ios" width="57" height="57" />
+	<icon src="icon/icon_72.png" gap:platform="ios" width="72" height="72" />
+	<icon src="icon/icon_114.png" gap:platform="ios" width="114" height="114" />
+
+	<!-- retina iPad support: PhoneGap 2.5.0+ only -->
+	<icon src="icon/icon_144.png" gap:platform="ios" width="144" height="144" />
+	
 	<gap:platform name="ios" />
 	<gap:platform name="android" />
 	
 	<gap:plugin name="org.apache.cordova.network-information" />
+	<gap:plugin name="org.apache.cordova.dialogs" />
 	<access origin="http://hhsfbla.com" subdomains="true" />
 	
 	<preference name="DisallowOverscroll" value="true" />
 	<preference name="webviewbounce" value="false" />
-	
-	<icon src="icon.png" />
-	<icon src="icons/ios/icon_57.png" gap:platform="ios" width="57" height="57" />
-	<icon src="icons/ios/icon_72.png" gap:platform="ios" width="72" height="72" />
-	<icon src="icons/ios/icon_114.png" gap:platform="ios" width="114" height="114" />
-
-	<!-- retina iPad support: PhoneGap 2.5.0+ only -->
-	<icon src="icons/ios/icon_144.png" gap:platform="ios" width="144" height="144" />
+	<preference name="Orienation" value="portrait" />
+	<preference name="ios-statusbarstyle" value="black-translucent" />
 	
 </widget>

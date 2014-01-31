@@ -11,10 +11,11 @@
 	
 	<br><br><br>
 	
-	<form id="new-question-form" action="" method="post">
+	<form id="new-question-form">
 		
-		<input id="question-text" type="text" name="question" placeholder="Question"/><br><br>
-		<textarea id="question-notes" name="question-notes" placeholder="Notes (optional)"></textarea><br><br>
+		<input id="question-text" type="text" name="title" placeholder="Question"/><br><br>
+		<textarea id="question-notes" name="description" placeholder="Notes (optional)"></textarea><br><br>
+		<input type="hidden" name="type" value="1" />
 		<input type="submit" id="new-question-submit" value="Submit Question"/>
 		
 	</form>
@@ -23,9 +24,24 @@
 </div>
 
 <script>
-var page1 = {img: "buildbot.jpg", name: "Build Bot", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."};
-var page2 = {img: "medibot.jpg", name: "Medi Bot", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."};
-var page3 = {img: "buildbot.jpg", name: "Build Bot", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."};
+$("#new-question-form").submit(function (e) {
+	e.preventDefault();
+	
+	var data = {};
+	$.each($(this).serializeArray(), function () {
+		data[this.name] = this.value;
+	});
+	
+	post("discussion.php", data, function (d) {
+		if (d.status === "success") {
+			History.back();
+		} else {
+			alert("Please enter a question.");
+		}
+	}, function () {
+		alert("You must be logged in to submit a new question.");
+	});
+});
 </script>
 
 
