@@ -71,7 +71,7 @@ function route() {
 			slider.slidePageFrom($(page), "right");
 			forward = false;
 		} else {
-			slider.slidePageFrom($(page).html(data), "left");
+			slider.slidePageFrom($(page), "left");
 		}
 	});
 }
