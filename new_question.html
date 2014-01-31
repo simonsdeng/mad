@@ -1,27 +1,23 @@
-<div id="container">
-	<div id="header" class="header"><div onclick="history.back()" style="height: 44px; width: 60px;text-align: left; padding-left: 5px; padding-top: 10px;position: fixed;"><img src="img/back_icon.png" width="24px"/></div><h1>New Question</h1></div>
-	<div id="drawer-menu" class="menu-hidden">
-		<ul class="list">
-			<li><a onclick="toggleMenu()"><img class="menu-icon" src="img/discussion_icon.png"/><strong><div class="menu-text">Discussion</div></strong></a></li>
-			<li><a onclick="history.back()"><img class="menu-icon" src="img/game_icon.png"/><strong><div class="menu-text">Main</div></strong></a></li>
-			<li><a onclick="go('game.html', page3, true)"><img class="menu-icon" src="img/achievements_icon.png"/><strong><div class="menu-text">Game</div></strong></a></li>
-			<li><a onclick="toggleMenu()"><img class="menu-icon" src="img/settings_icon.png"/><strong><div class="menu-text">Close Menu</div></strong></a></li>
-		</ul>
-	</div>
-	
-	<br><br><br>
-	
-	<form id="new-question-form">
-		
-		<input id="question-text" type="text" name="title" placeholder="Question"/><br><br>
-		<textarea id="question-notes" name="description" placeholder="Notes (optional)"></textarea><br><br>
-		<input type="hidden" name="type" value="1" />
-		<input type="submit" id="new-question-submit" value="Submit Question"/>
-		
-	</form>
-	
-	
+<div id="header" class="header"><div onclick="history.back()" style="height: 44px; width: 60px;text-align: left; padding-left: 5px; padding-top: 10px;position: fixed;"><img src="img/back_icon.png" width="24px"/></div><h1>New Question</h1></div>
+<div id="drawer-menu" class="menu-hidden">
+	<ul class="list">
+		<li><a onclick="toggleMenu()"><img class="menu-icon" src="img/discussion_icon.png"/><strong><div class="menu-text">Discussion</div></strong></a></li>
+		<li><a onclick="history.back()"><img class="menu-icon" src="img/game_icon.png"/><strong><div class="menu-text">Main</div></strong></a></li>
+		<li><a onclick="go('game.html', page3, true)"><img class="menu-icon" src="img/achievements_icon.png"/><strong><div class="menu-text">Game</div></strong></a></li>
+		<li><a onclick="toggleMenu()"><img class="menu-icon" src="img/settings_icon.png"/><strong><div class="menu-text">Close Menu</div></strong></a></li>
+	</ul>
 </div>
+
+<br><br><br>
+
+<form id="new-question-form">
+	
+	<input id="question-text" type="text" name="title" placeholder="Question"/><br><br>
+	<textarea id="question-notes" name="description" placeholder="Notes (optional)"></textarea><br><br>
+	<input type="hidden" name="type" value="1" />
+	<input type="submit" id="new-question-submit" value="Submit Question"/>
+	
+</form>
 
 <script>
 $("#new-question-form").submit(function (e) {
