@@ -35,6 +35,25 @@ a {
 	z-index: 1100;
 	background-color: #fff;
 }
+#achievement-name {
+	color: #109adc;
+}
+
+.achievement-dialog-button {
+	left: 0;
+	width: 90%;
+	height: 40px;
+	//margin-left: 5%;
+	font-size: 1.5em;
+	color:#fff;
+	background-color: #0984c6;
+	margin-bottom: 5px;
+	border-radius: 10px;
+}
+
+.achievement-dialog-button:hover {
+	background-color: #105E87;
+}
 .header {
 	position: absolute;
 	top: 0px;
