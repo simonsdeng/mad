@@ -16,7 +16,6 @@
 	
 </form>
 
-<!--
 <div class="achievement-div">
 	<h1>WooHoo!</h1>
 	<h2>New Achievement:</h2>
@@ -24,13 +23,13 @@
 	<br>
 	<button class="achievement-dialog-button">Share</button><br><br>
 	<button onclick="go('achievements.html', page3)" class="achievement-dialog-button">View All</button><br><br>
-	<button class="achievement-dialog-button">Dismiss</button>
+	<button class="achievement-dialog-button" onclick="dismiss_achievements();">Dismiss</button>
 </div>
--->
 
 <script>
-
-show_achievement('First time answering a question!');
+if(localStorage["answered_question"] == "true")
+	dismiss_achievements();
+localStorage["answered_question"] = "true";
 $("#new-answer-form").submit(function (e) {
 	e.preventDefault();
 	
