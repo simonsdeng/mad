@@ -19,7 +19,22 @@ a {
 	position: absolute;
 	overflow: hidden;
 }
-
+.achievement-div {
+	top: 0;
+	left: 0;
+	width: 80%;
+	height: 70%;
+	margin-top: 25%;
+	margin-left: 10%;
+	position: fixed;
+	border-radius: 5px;
+	border: 5px solid #6087A1;
+	color: #6087A1;
+	text-align: center;
+	box-shadow: 0 0 100px #000;
+	z-index: 1100;
+	background-color: #fff;
+}
 .header {
 	position: absolute;
 	top: 0px;
