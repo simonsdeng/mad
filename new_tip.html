@@ -20,6 +20,9 @@
 </div>
 
 <script>
+if(localStorage["tipped"] == "true")
+	dismiss_achievements();
+localStorage["tipped"] = "true";
 $("#new-tip-form").submit(function (e) {
 	e.preventDefault();
 	
