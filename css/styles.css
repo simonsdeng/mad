@@ -89,7 +89,7 @@ a {
 	background-color: #0876b1;
 }
 
-.page .scroller {
+.scroller {
 	position: absolute;
 	overflow-y: auto;
 	top: 45px;
@@ -97,7 +97,7 @@ a {
 	right: 0;
 	bottom: 0;
 	-webkit-overflow-scrolling: touch;
-	overflow-x: hidden;
+	overflow-x: hidden !important;
 }
 
 
