@@ -18,8 +18,19 @@
 	<input type="submit" id="new-question-submit" value="Submit Question"/>
 	
 </form>
-
+<div class="achievement-div">
+	<h1>WooHoo!</h1>
+	<h2>New Achievement:</h2>
+	<span id="achievement-name"><h2><i>First time asking a question</i></h2></span>
+	<br>
+	<button class="achievement-dialog-button" onclick="share();">Share</button><br><br>
+	<button onclick="go('achievements.html', page3)" class="achievement-dialog-button">View All</button><br><br>
+	<button class="achievement-dialog-button" onclick="dismiss_achievements();">Dismiss</button>
+</div>
 <script>
+if(localStorage["asking_question"] == "true")
+	dismiss_achievements();
+localStorage["asking_question"] = "true";
 $("#new-question-form").submit(function (e) {
 	e.preventDefault();
 	
