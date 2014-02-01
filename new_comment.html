@@ -1,26 +1,26 @@
-<div id="header" class="header"><div onclick="history.back()" style="height: 44px; width: 60px;text-align: left; padding-left: 5px; padding-top: 10px;position: fixed;"><img src="img/back_icon.png" width="24px"/></div><h1>New Answer</h1></div>
+<div id="header" class="header"><div onclick="history.back()" style="height: 44px; width: 60px;text-align: left; padding-left: 5px; padding-top: 10px;position: fixed;"><img src="img/back_icon.png" width="24px"/></div><h1>New Comment</h1></div>
 
 <br><br><br>
 
 <form id="new-answer-form">
-	<textarea id="answer" name="response" placeholder="Your answer"></textarea><br><br>
-	<input type="submit" id="new-answer-submit" value="Submit Answer"/>
+	<textarea id="answer" name="response" placeholder="Your comment"></textarea><br><br>
+	<input type="submit" id="new-answer-submit" value="Submit Comment"/>
 	
 </form>
 
 <div class="achievement-div">
 	<h1>WooHoo!</h1>
 	<h2>New Achievement:</h2>
-	<span id="achievement-name"><h2><i>First time answering a question</i></h2></span>
+	<span id="achievement-name"><h2><i>First time commenting on a tip</i></h2></span>
 	<br>
 	<button class="achievement-dialog-button" onclick="share();">Share</button><br><br>
 	<button class="achievement-dialog-button" onclick="dismiss_achievements();">Dismiss</button>
 </div>
 
 <script>
-if(localStorage["answered_question"] == "true")
+if(localStorage["answered_comment"] == "true")
 	dismiss_achievements();
-localStorage["answered_question"] = "true";
+localStorage["answered_comment"] = "true";
 $("#new-answer-form").submit(function (e) {
 	e.preventDefault();
 	
@@ -33,10 +33,10 @@ $("#new-answer-form").submit(function (e) {
 		if (d.status === "success") {
 			History.back();
 		} else {
-			navigator.notification.alert("Please enter an answer.", null, "New Answer", "OK");
+			navigator.notification.alert("Please enter a comment.", null, "New Comment", "OK");
 		}
 	}, function () {
-		navigator.notification.alert("You must be online to submit an answer.", null, "New Answer", "OK");
+		navigator.notification.alert("You must be online to submit a comment.", null, "New Comment", "OK");
 	});
 });
 </script>
