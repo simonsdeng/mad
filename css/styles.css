@@ -12,7 +12,9 @@ a {
 	-webkit-touch-callout: none;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-
+*{
+overflow-x: hidden;
+}
 #container {
 	width: 100%;
 	height: 100%;
