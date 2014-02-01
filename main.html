@@ -47,11 +47,7 @@
 </div>
 <div id="main-scroll" class="scroller">
 	<div id="user-summary" class="info-card">
-		<strong># of Questions: </strong><span id="num-questions"></span><br>
-		<strong># of Answers: </strong><span id="num-answers"></span><br>
-		<strong># of Tips: </strong><span id="num-tips"></span><br>
 		<strong>Game Highscore: </strong><span id="game-highscore"></span><br>
-		<strong>Total Points: </strong><span id="total-points"></span><br><br>
 		<button onclick="go('game_instructions.html')" class="main-button">Play Game</button><br>
 	</div>
 
@@ -64,6 +60,9 @@
 
 <script>
 $("#user").text(userdata.first + " " + userdata.last);
+if (localStorage["high_score"]) {
+	$("#game-highscore").text(localStorage["high_score"]);
+}
 
 var discussions;
 get("discussion.php", null, function(d) {
