@@ -136,10 +136,10 @@ function initUser(saved) {
 			delete localStorage.auth;
 			login();
 		} else {
-			alert("Your username and password combination was incorrect.");
+			navigator.notification.alert("Your username and password combination was incorrect.", null, "Login", "OK");
 		}
 	}, function () {
-		alert("You need to be connected to the internet to log in.");
+		navigator.notification.alert("You need to be connected to the internet to log in.", null, "Login", "OK");
 	});
 }
 

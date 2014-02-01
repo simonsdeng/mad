@@ -40,6 +40,6 @@ get("discussion.php", null, function(d) {
 				+ '<span class="discussion-date">' + date + '</span></a></li>');
 	}
 }, function () {
-	alert("You must be online to see new discussions.");
+	navigator.notification.alert("You must be online to see new discussions.", null, "Discussion", "OK");
 });
 </script>

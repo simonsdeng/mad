@@ -146,12 +146,12 @@ $("#register-btn").click(function (e) {
 	var authForm = $("#register-auth-form");
 	
 	if (authForm.find(".password").val() !== authForm.find(".password-check").val()) {
-		alert("Passwords do not match.");
+		navigator.notification.alert("Passwords do not match.", null, "Register", "OK");
 		return;
 	}
 	
 	if (!userdataForm.find(".expertise").val()) {
-		alert("Please select your level of expertise in Information Technology.");
+		navigator.notification.alert("Please select your level of expertise in Information Technology.", null, "Register", "OK");
 		return;
 	}
 	
@@ -173,10 +173,10 @@ $("#register-btn").click(function (e) {
 			localStorage.userdata = JSON.stringify(userdata);
 			main();
 		} else {
-			alert("Sorry, this username has already been taken.");
+			navigator.notification.alert("Sorry, this username has already been taken.", null, "Register", "OK");
 		}
 	}, function () {
-		alert("You must be online to register for an account.");
+		navigator.notification.alert("You must be online to register for an account.", null, "Register", "OK");
 	});
 });
 $("#login-form").submit(function (e) {

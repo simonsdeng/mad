@@ -34,10 +34,10 @@ $("#new-question-form").submit(function (e) {
 		if (d.status === "success") {
 			History.back();
 		} else {
-			alert("Please enter a question.");
+			navigator.notification.alert("Please enter a question.", null, "New Question", "OK");
 		}
 	}, function () {
-		alert("You must be online to submit a new question.");
+		navigator.notification.alert("You must be online to post a new question.", null, "New Question", "OK");
 	});
 });
 </script>
