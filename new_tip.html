@@ -35,10 +35,10 @@ $("#new-tip-form").submit(function (e) {
 		if (d.status === "success") {
 			History.back();
 		} else {
-			alert("Please enter a tip.");
+			navigator.notification.alert("Please enter a tip.", null, "New Tip", "OK");
 		}
 	}, function () {
-		alert("You must be online to submit a new tip.");
+		navigator.notification.alert("You must be online to submit a new tip.", null, "New Tip", "OK");
 	});
 });
 </script>

@@ -33,10 +33,10 @@ $("#new-answer-form").submit(function (e) {
 		if (d.status === "success") {
 			History.back();
 		} else {
-			alert("Please enter an answer.");
+			navigator.notification.alert("Please enter an answer.", null, "New Answer", "OK");
 		}
 	}, function () {
-		alert("You must be online to submit a new question.");
+		navigator.notification.alert("You must be online to submit an answer.", null, "New Answer", "OK");
 	});
 });
 </script>
