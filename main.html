@@ -29,7 +29,7 @@ var page3 = {img: "buildbot.jpg", name: "Build Bot", description: "Lorem ipsum d
 
 	<div id="discussion-summary" class="info-card">
 		<h2 style="text-align:center;">Recent Discussion</h2>
-		<ul class="list">
+		<ul id="discussion-list" class="list">
 			<li>How does blah work</li>
 			<li>How asd asdfas asdf</li>
 			<li>asdfasdfasdf</li>
@@ -52,6 +52,16 @@ var page3 = {img: "buildbot.jpg", name: "Build Bot", description: "Lorem ipsum d
 
 <script>
 $("#user").text(userdata.first + " " + userdata.last);
+
+var discussions;
+get("discussion.php", null, function(d) {
+	discussions = d.discussions;
+	var max = Math.min(discussions.length, 4);
+	for (var i = 0; i < max; i++) {
+		var discussion = discussions[i];
+		$("#discussion-list").append('<li><a onclick="go(\'post.html\', discussions[' + i + '])">' + discussion.title + '</a></li>');
+	}
+});
 </script>
 
 <style>
