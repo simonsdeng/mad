@@ -3,17 +3,13 @@
 <link rel="stylesheet" href="css/menu.css">
 <script src="js/app.js"></script>
 
-<script>
-var page1 = {img: "buildbot.jpg", name: "Build Bot", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."};
-var page2 = {img: "medibot.jpg", name: "Medi Bot", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."};
-var page3 = {img: "buildbot.jpg", name: "Build Bot", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."};
-</script>
 <div class="header"><div onclick="toggleMenu()" style="height: 44px; width: 70px;text-align: left; padding-left: 10px; padding-top: 10px;position: fixed;"><img src="img/menu_icon.png" width="24px"/></div><h1>Achievements</h1></div>
 <div id="drawer-menu" class="menu-hidden">
 	<ul class="list">
-		<li><a onclick="go('discussion.html', page1)"><img class="menu-icon" src="img/discussion_icon.png"/><strong><div class="menu-text">Discussion</div></strong></a></li>
-		<li><a onclick="go('main.html', page1)"><img class="menu-icon" src="img/game_icon.png"/><strong><div class="menu-text">Main</div></strong></a></li>
-		<li><a onclick="go('game_instructions.html', page3)"><img class="menu-icon" src="img/achievements_icon.png"/><strong><div class="menu-text">Game</div></strong></a></li>
+		<li><a onclick="History.back()"><img class="menu-icon" src="img/main_icon.png"/><strong><div class="menu-text">Main</div></strong></a></li>
+		<li><a onclick="go('discussion.html', null, true)"><img class="menu-icon" src="img/discussion_icon.png"/><strong><div class="menu-text">Discussion</div></strong></a></li>
+		<li><a onclick="go('game_instructions.html', null, true)"><img class="menu-icon" src="img/game_icon.png"/><strong><div class="menu-text">Game</div></strong></a></li>
+		<li><a onclick="go('achievements.html', null, true)"><img class="menu-icon" src="img/achievements_icon.png"/><strong><div class="menu-text">Achievements</div></strong></a></li>
 		<li><a onclick="toggleMenu()"><img class="menu-icon" src="img/settings_icon.png"/><strong><div class="menu-text">Close Menu</div></strong></a></li>
 	</ul>
 </div>

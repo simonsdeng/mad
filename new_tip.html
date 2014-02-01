@@ -1,28 +1,25 @@
-<div id="container">
-	<div id="header" class="header"><div onclick="history.back()" style="height: 44px; width: 60px;text-align: left; padding-left: 5px; padding-top: 10px;position: fixed;"><img src="img/back_icon.png" width="24px"/></div><h1>New Tip</h1></div>
-	<div id="drawer-menu" class="menu-hidden">
-		<ul class="list">
-			<li><a onclick="toggleMenu()"><img class="menu-icon" src="img/discussion_icon.png"/><strong><div class="menu-text">Discussion</div></strong></a></li>
-			<li><a onclick="history.back()"><img class="menu-icon" src="img/game_icon.png"/><strong><div class="menu-text">Main</div></strong></a></li>
-			<li><a onclick="go('game.html', page3, true)"><img class="menu-icon" src="img/achievements_icon.png"/><strong><div class="menu-text">Game</div></strong></a></li>
-			<li><a onclick="toggleMenu()"><img class="menu-icon" src="img/settings_icon.png"/><strong><div class="menu-text">Close Menu</div></strong></a></li>
-		</ul>
-	</div>
+<div id="header" class="header"><div onclick="history.back()" style="height: 44px; width: 60px;text-align: left; padding-left: 5px; padding-top: 10px;position: fixed;"><img src="img/back_icon.png" width="24px"/></div><h1>New Tip</h1></div>
+
+<br><br><br>
+
+<form id="new-tip-form">
 	
-	<br><br><br>
+	<textarea id="tip" name="title" placeholder="Tip"></textarea><br><br>
+	<input type="hidden" name="type" value="3" />
+	<input type="submit" id="new-answer-submit" value="Submit Answer"/>
 	
-	<form id="new-tip-form">
-		
-		<textarea id="tip" name="title" placeholder="Tip"></textarea><br><br>
-		<input type="hidden" name="type" value="3" />
-		<input type="submit" id="new-answer-submit" value="Submit Answer"/>
-		
-	</form>
-	
-	
-	
-	
-</div>
+</form>
+
+<!--<div class="achievement-div">
+	<h1>WooHoo!</h1>
+	<h2>New Achievement:</h2>
+	<span id="achievement-name"><h2><i>First time giving a tip!</i></h2></span>
+	<br>
+	<button class="achievement-dialog-button">Share</button><br><br>
+	<button onclick="go('achievements.html', page3)" class="achievement-dialog-button">View All</button><br><br>
+	<button class="achievement-dialog-button">Dismiss</button>
+</div>-->
+
 <script>
 $("#new-tip-form").submit(function (e) {
 	e.preventDefault();
