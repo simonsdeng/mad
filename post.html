@@ -49,7 +49,7 @@
 	</div>
 	<button id="add-response-button" onclick="go((data.type < 3) ? 'new_answer.html' : 'new_comment.html', {id: data.id})">Add your own <span id="response-type"></span></button><br><br>
 	
-	<h2>Responses</h2>
+	<h2 style="margin-left: 5px">Responses</h2>
 
 	<ul id="answers" class="list"></ul>
 </div>
@@ -58,10 +58,9 @@
 $("#post-type").text((data.type < 3) ? "Question" : "Tip");
 $("#post-content").text(data.title);
 $("#post-notes").text(data.description);
-$("#op-info").text("\u2014 " + data.author + "(" + getExpertise(data.expertise) + ")");
+$("#op-info").text("\u2014 " + data.author + " (" + getExpertise(data.expertise) + ")");
 $("#response-type").text((data.type < 3) ? "answer" : "comment");
 
-console.log("get");
 get("discussion.php", {id: data.id}, function (d) {
 	var responses = d.responses;
 	for (var i = 0; i < responses.length; i++) {

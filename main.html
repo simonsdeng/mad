@@ -98,7 +98,7 @@ get("discussion.php", null, function(d) {
 	var max = Math.min(discussions.length, 4);
 	for (var i = 0; i < max; i++) {
 		var discussion = discussions[i];
-		$("#discussion-list").append('<li><a onclick="go(\'post.html\', discussions[' + i + '])">' + discussion.title + '</a></li>');
+		$("#discussion-list").append('<li><a onclick="go(\'post.html\', discussions[' + i + '])"><img src="img/discussion_' + getPostType(discussion.type) + '.png" class="discussion-icon"/>' + discussion.title + '</a></li>');
 	}
 });
 </script>

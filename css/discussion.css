@@ -20,14 +20,10 @@
 	background: #3D85B3;
 }
 
-#discussion-list li {
-	text-align: center;
-}
-
 .discussion-icon {
 	float: left;
 	width: 30px;
-	margin-right: 5px;
+	margin-right: 12px;
 	margin-left: 5px;
 	margin-top: -8px;
 }

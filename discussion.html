@@ -17,25 +17,10 @@ var discussions;
 get("discussion.php", null, function(d) {
 	discussions = d.discussions;
 	for (var i = 0; i < discussions.length; i++) {
-		var discussion = discussions[i];
-		
-		var type;
-		switch (discussion.type) {
-		case 1:
-			type = "question";
-			break;
-		case 2:
-			type = "answered";
-			break;
-		case 3:
-			type = "tip";
-			break;
-		}
-		
 		var date = new Date(discussion.timestamp * 1000).toLocaleDateString();
 		
 		$("#discussion-list").append('<li><a onclick="go(\'post.html\', discussions[' + i + '])">'
-				+ '<img src="img/discussion_' + type + '.png" class="discussion-icon"/>'
+				+ '<img src="img/discussion_' + getPostType(discussion.type) + '.png" class="discussion-icon"/>'
 				+ '<strong>' + discussion.title + '</strong>'
 				+ '<span class="discussion-date">' + date + '</span></a></li>');
 	}

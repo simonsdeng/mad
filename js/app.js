@@ -43,7 +43,18 @@ function getExpertise(id) {
 		return "beginner";
 	case 4:
 		return "tutee";
+	}
 }
+
+function getPostType(type) {
+	switch (type) {
+	case 1:
+		return "question";
+	case 2:
+		return "answered";
+	case 3:
+		return "tip";
+	}
 }
 
 // requests JSON data through AJAX or falls back to cache
