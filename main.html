@@ -48,10 +48,10 @@
 <div id="main-scroll" class="scroller">
 	<div id="user-summary" class="info-card">
 		<h2 style="text-align:center;">Your Points</h2>
-		<strong># of Questions(x3 pts): </strong><span id="total-questions">3</span><br>
-		<strong># of Answers(x5 pts): </strong><span id="total-answers">4</span><br>
-		<strong># of Tips(x5 pts): </strong><span id="total-tips">1</span><br>
-		<strong>Total Points: </strong><span id="total-points">34</span><br><br>
+		<strong># of Questions (3 pts): </strong><span id="total-questions">0</span><br>
+		<strong># of Answers (5 pts): </strong><span id="total-answers">0</span><br>
+		<strong># of Tips (5 pts): </strong><span id="total-tips">0</span><br>
+		<strong>Total Points: </strong><span id="total-points">0</span><br><br>
 		<strong>Game Highscore: </strong><span id="game-highscore">0</span><br><br>
 		<button onclick="go('game_instructions.html')" class="main-button">Play Game</button><br>
 	</div>
@@ -65,6 +65,24 @@
 
 <script>
 $("#user").text(userdata.first + " " + userdata.last);
+post("stats.php", {}, function (d) {
+	if (d.status === "success") {
+		localStorage.stats = JSON.stringify(d.stats);
+		$("#total-questions").text(d.stats.questions);
+		$("#total-answers").text(d.stats.answers);
+		$("#total-tips").text(d.stats.tips);
+		$("#total-points").text(d.stats.questions * 3 + d.stats.answers * 5 + d.stats.tips * 5);
+	}
+}, function () {
+	if (localStorage.stats) {
+		var stats = JSON.parse(localStorage.stats);
+		$("#total-questions").text(stats.questions);
+		$("#total-answers").text(stats.answers);
+		$("#total-tips").text(stats.tips);
+		$("#total-points").text(stats.questions * 3 + stats.answers * 5 + stats.tips * 5);
+	}
+});
+
 if (localStorage["high_score"]) {
 	$("#game-highscore").text(localStorage["high_score"]);
 }
