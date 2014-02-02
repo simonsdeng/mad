@@ -13,7 +13,11 @@
 </div>
 
 <script>
-get("discussion.php", null, function(d) {
+get("discussion.php", null, function (d) {	
+	var handler = function (discussion) {
+		return function () { go("post.html", discussion); };
+	};
+	
 	for (var i = 0; i < d.discussions.length; i++) {
 		var discussion = d.discussions[i];
 		var date = new Date(discussion.timestamp * 1000).toLocaleDateString();
@@ -22,7 +26,7 @@ get("discussion.php", null, function(d) {
 			.append('<a><img src="img/discussion_' + getPostType(discussion.type) + '.png" class="discussion-icon"/>'
 					+ '<strong>' + discussion.title + '</strong>'
 					+ '<span class="discussion-date">' + date + '</span></a>')
-			.click(function () { go("post.html", discussion); }));
+			.click(handler(discussion)));
 	}
 }, function () {
 	navigator.notification.alert("You must be online to see new discussions.", null, "Discussion", "OK");
