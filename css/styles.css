@@ -1,7 +1,6 @@
 body {
 	margin: 0px;
 	font: 14px sans-serif;
-	//background-color: #EAEAEA;
 	background: url("img/Blue Diamonds Background-640x1136 wallpapers.jpg") no-repeat;
 	background-size: cover;
 	-webkit-user-select: none;
@@ -43,7 +42,6 @@ a {
 	left: 0;
 	width: 90%;
 	height: 40px;
-	//margin-left: 5%;
 	font-size: 1.5em;
 	color:#fff;
 	background-color: #0984c6;
@@ -64,6 +62,22 @@ a {
 	color: #FFFFFF;
 	border-bottom: 1px solid #0E5895;
 	z-index: 999;
+}
+
+.header .menu {
+	height: 44px;
+	width: 70px;
+	padding-left: 10px;
+	padding-top: 10px;
+	position: fixed;
+}
+
+.header .back {
+	height: 44px;
+	width: 60px;
+	padding-left: 5px;
+	padding-top: 10px;
+	position: fixed;
 }
 
 .header h1 {
@@ -146,9 +160,7 @@ a {
 
 
 #content-table {
-	//float: right;
 	border-collapse: collapse;
-	//text-align: center;
 	margin: 0 auto;
 }
 
@@ -160,17 +172,6 @@ a {
 #content-table td{
 	padding: 10px 10px 10px 10px;
 }
-
-/*
-.ask-question {
-	background: #0F517D;
-	color: #fff;
-	border: none;	
-	width: 45%;
-	height: 100%;
-	position: relative;
-}
-*/
 
 .discussion-ask-question {
 	width: 49.5%;
@@ -185,13 +186,10 @@ a {
 
 .left {
 	float: left;
-	//left: 0;
 }
 
 .right {
 	float: right;
-	//right: 0;
-	//margin-left: 3px;
 }
 
 

@@ -2,7 +2,6 @@
 	width: 60%;
 	background: #353A3B;
 	height: 100%;
-	//padding-top: 5%;
 	-webkit-transition: all ease .5s;
 	margin-top: 44px;
 	position: absolute;
@@ -20,7 +19,6 @@
 
 #drawer-menu .list {
 	margin: 0;
-	//padding: 0;
 	list-style: none;
 }
 
@@ -35,8 +33,6 @@
 #drawer-menu .list li > a {
 	position: relative;
 	display: block;
-	//margin-left: 30%;
-	//margin: -20px -10px;
 }
 
 #drawer-menu .list li > a:active {
@@ -45,12 +41,8 @@
 
 .menu-icon {
 	width: 45px;
-	//margin-right: 20px;
-//	margin-left: 5px;
 	position: absolute;
-	//margin-left: 0;
 	vertical-align: middle;
-	//margin-bottom: 35px;
 	margin-top: -10px;
 }
 

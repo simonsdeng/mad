@@ -1,4 +1,4 @@
-<div id="header" class="header"><div onclick="toggleMenu()" style="height: 44px; width: 70px;text-align: left; padding-left: 10px; padding-top: 10px;position: fixed;"><img src="img/menu_icon.png" width="24px"/></div><h1>Discussion</h1></div>
+<div id="header" class="header"><div onclick="toggleMenu()" class="icon menu"><img src="img/menu_icon.png" width="24px"/></div><h1>Discussion</h1></div>
 <div id="drawer-menu" class="menu-hidden">
 	<ul class="list">
 		<li><a onclick="History.back()"><img class="menu-icon" src="img/main_icon.png"/><strong><div class="menu-text">Main</div></strong></a></li>
@@ -13,16 +13,16 @@
 </div>
 
 <script>
-var discussions;
 get("discussion.php", null, function(d) {
-	discussions = d.discussions;
-	for (var i = 0; i < discussions.length; i++) {
+	for (var i = 0; i < d.discussions.length; i++) {
+		var discussion = d.discussions[i];
 		var date = new Date(discussion.timestamp * 1000).toLocaleDateString();
 		
-		$("#discussion-list").append('<li><a onclick="go(\'post.html\', discussions[' + i + '])">'
-				+ '<img src="img/discussion_' + getPostType(discussion.type) + '.png" class="discussion-icon"/>'
-				+ '<strong>' + discussion.title + '</strong>'
-				+ '<span class="discussion-date">' + date + '</span></a></li>');
+		$("#discussion-list").append($("<li>")
+			.append('<a><img src="img/discussion_' + getPostType(discussion.type) + '.png" class="discussion-icon"/>'
+					+ '<strong>' + discussion.title + '</strong>'
+					+ '<span class="discussion-date">' + date + '</span></a>')
+			.click(function () { go("post.html", discussion); }));
 	}
 }, function () {
 	navigator.notification.alert("You must be online to see new discussions.", null, "Discussion", "OK");

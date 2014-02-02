@@ -9,15 +9,7 @@ var mainUrl = History.getState().url,
 	forward = false;
 
 var menuOpen = 0;
-function share(){
-	window.plugins.socialsharing.share('I just got an achievement on IT Academy: '+document.getElementById('achievement-name').firstChild.firstChild.innerHTML);
-}
-function dismiss_achievements(){
-	var arr = document.getElementsByClassName('achievement-div');
-	for(var i=0;i<arr.length;i++){
-		arr[i].style.display = "none";
-	}
-}
+
 // navigates to page
 function go(url, data, replace) {
 	menuOpen = 0;
@@ -30,30 +22,6 @@ function go(url, data, replace) {
 		History.replaceState(data, null, url);
 	} else {
 		History.pushState(data, null, url);
-	}
-}
-
-function getExpertise(id) {
-	switch (id) {
-	case 1:
-		return "tutor";
-	case 2:
-		return "experienced";
-	case 3:
-		return "beginner";
-	case 4:
-		return "tutee";
-	}
-}
-
-function getPostType(type) {
-	switch (type) {
-	case 1:
-		return "question";
-	case 2:
-		return "answered";
-	case 3:
-		return "tip";
 	}
 }
 
@@ -139,8 +107,10 @@ function main() {
 function initUser(saved) {
 	post("login.php", {}, function (d) {
 		if (d.status === "success") {
+			if (!saved) {
+				localStorage.auth = JSON.stringify(auth);
+			}
 			userdata = d.userdata;
-			localStorage.auth = JSON.stringify(auth);
 			localStorage.userdata = JSON.stringify(userdata);
 			main();
 		} else if (saved) {
@@ -171,6 +141,42 @@ function toggleMenu() {
 	else {
 		document.getElementById("drawer-menu").className = "menu-hidden";
 		menuOpen = 0;
+	}
+}
+
+function getExpertise(id) {
+	switch (id) {
+	case 1:
+		return "tutor";
+	case 2:
+		return "experienced";
+	case 3:
+		return "beginner";
+	case 4:
+		return "tutee";
+	}
+}
+
+function getPostType(type) {
+	switch (type) {
+	case 1:
+		return "question";
+	case 2:
+		return "answered";
+	case 3:
+		return "tip";
+	}
+}
+
+function share() {
+	window.plugins.socialsharing.share('I just got an achievement on IT Academy: '
+			+ document.getElementById('achievement-name').firstChild.firstChild.innerHTML);
+}
+
+function dismiss_achievements() {
+	var arr = document.getElementsByClassName('achievement-div');
+	for (var i=0;i<arr.length;i++) {
+		arr[i].style.display = "none";
 	}
 }
 

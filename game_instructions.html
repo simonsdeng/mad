@@ -1,35 +1,3 @@
-<div id="container">
-	<div id="header" class="header"><div onclick="history.back()" style="height: 44px; width: 60px;text-align: left; padding-left: 5px; padding-top: 10px;position: fixed;"><img src="img/back_icon.png" width="24px"/></div><h1>Learnin' the Ropes</h1></div>
-	
-	<br><br><br>
-	
-	<div id="game-instructions-scroller" class="scroller">
-		<h1 style="text-align: center;">Learnin' the Ropes</h1>
-		<p>Welcome to Learnin' the Ropes!<br>In this game you will be given many multiple choice questions in popup boxes. When you are done reading a question/its answer choices and are ready to play, click OK on the popup.<br><br>The background and your character will then start to move. You will have to quickly click on the rope that has the letter corresponding to the correct answer. The letters appear in a random order so be quick!<br><br>Watch out for asteroids!<br><br>Each correct answer is worth 2 points, each wrong answer is -1 point, and getting hit by the asteroid is -1 point.<br><br>Happy learnin'!</p>
-	</div>
-	<button id="play-button" onclick="go('game.html')">Ok, let's play!</button>
-	
-	<!--
-	<div class="achievement-div" style="display: hidden;">
-		<h1>WooHoo!</h1>
-		<h2>New Achievement:</h2>
-		<span id="achievement-name"><h2><i>First time answering a question</i></h2></span>
-		<br>
-		<button class="achievement-dialog-button">Share</button><br><br>
-		<button onclick="go('achievements.html', page3)" class="achievement-dialog-button">View All</button><br><br>
-		<button class="achievement-dialog-button">Dismiss</button>
-	</div>
-	-->
-	
-</div>
-
-<script>
-var page1 = {img: "buildbot.jpg", name: "Build Bot", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."};
-var page2 = {img: "medibot.jpg", name: "Medi Bot", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."};
-var page3 = {img: "buildbot.jpg", name: "Build Bot", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."};
-</script>
-
-
 <style>
 
 #play-button {
@@ -49,3 +17,24 @@ var page3 = {img: "buildbot.jpg", name: "Build Bot", description: "Lorem ipsum d
 }
 
 </style>
+
+<div id="header" class="header"><div onclick="toggleMenu()" class="icon menu"><img src="img/menu_icon.png" width="24px"/></div><h1>Learnin' the Ropes</h1></div>
+<div id="drawer-menu" class="menu-hidden">
+	<ul class="list">
+		<li><a onclick="History.back()"><img class="menu-icon" src="img/main_icon.png"/><strong><div class="menu-text">Main</div></strong></a></li>
+		<li><a onclick="go('discussion.html', null, true)"><img class="menu-icon" src="img/discussion_icon.png"/><strong><div class="menu-text">Discussion</div></strong></a></li>
+		<li><a onclick="toggleMenu()"><img class="menu-icon" src="img/game_icon.png"/><strong><div class="menu-text">Game</div></strong></a></li></li>
+		<li><a onclick="toggleMenu()"><img class="menu-icon" src="img/settings_icon.png"/><strong><div class="menu-text">Close Menu</div></strong></a></li>
+	</ul>
+</div>
+<div id="game-instructions-scroller" class="scroller">
+	<h1 style="text-align: center;">Learnin' the Ropes</h1>
+	<p>Welcome to Learnin' the Ropes!<br>In this game you will be given many multiple choice questions in popup boxes. When you are done reading a question/its answer choices and are ready to play, click OK on the popup.<br><br>The background and your character will then start to move. You will have to quickly click on the rope that has the letter corresponding to the correct answer. The letters appear in a random order so be quick!<br><br>Watch out for asteroids!<br><br>Each correct answer is worth 2 points, each wrong answer is -1 point, and getting hit by the asteroid is -1 point.<br><br>Happy learnin'!</p>
+</div>
+<button id="play-button" onclick="go('game.html')">Ok, let's play!</button>
+
+<script>
+var page1 = {img: "buildbot.jpg", name: "Build Bot", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."};
+var page2 = {img: "medibot.jpg", name: "Medi Bot", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."};
+var page3 = {img: "buildbot.jpg", name: "Build Bot", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."};
+</script>
