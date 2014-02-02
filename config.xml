@@ -18,6 +18,17 @@
 	<!-- retina iPad support: PhoneGap 2.5.0+ only -->
 	<icon src="img/icon/icon_144.png" gap:platform="ios" width="144" height="144" />
 	
+	<gap:splash src="splash.png" />
+	
+	<gap:splash src="img/splash/splash_640_960.png" gap:platform="ios" width="640" height="960" />
+	<gap:splash src="img/splash/splash_640_1136.png" gap:platform="ios" width="640" height="1136" />
+	<gap:splash src="img/splash/splash_1024_748.png" gap:platform="ios" width="1024" height="748" />
+	<gap:splash src="img/splash/splash_768_1004.png" gap:platform="ios" width="768" height="1004" />
+
+	<!-- retina iPad support: PhoneGap 2.5.0+ only -->
+	<gap:splash src="img/splash/splash_2048_1496.png" gap:platform="ios" width="2048" height="1496" />
+	<gap:splash src="img/splash/splash_1536_2008.png" gap:platform="ios" width="1536" height="2008" />
+	
 	<gap:platform name="ios" />
 	<gap:platform name="android" />
 	
