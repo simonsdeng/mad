@@ -120,7 +120,12 @@ function initUser(saved) {
 			navigator.notification.alert("Your username and password combination was incorrect.", null, "Login", "OK");
 		}
 	}, function () {
-		navigator.notification.alert("You need to be connected to the internet to log in.", null, "Login", "OK");
+		if (saved) {
+			userdata = JSON.parse(localStorage.userdata);
+			main();
+		} else {
+			navigator.notification.alert("You need to be connected to the internet to log in.", null, "Login", "OK");
+		}
 	});
 }
 
