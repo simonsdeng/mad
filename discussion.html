@@ -13,7 +13,10 @@
 </div>
 
 <script>
-get("discussion.php", null, function (d) {	
+get("discussion.php", null, function (d) {
+	var list = $("#discussion-list");
+	list.empty();
+	
 	var handler = function (discussion) {
 		return function () { go("post.html", discussion); };
 	};
@@ -22,7 +25,7 @@ get("discussion.php", null, function (d) {
 		var discussion = d.discussions[i];
 		var date = new Date(discussion.timestamp * 1000).toLocaleDateString();
 		
-		$("#discussion-list").append($("<li>")
+		list.append($("<li>")
 			.append('<a><img src="img/discussion_' + getPostType(discussion.type) + '.png" class="discussion-icon"/>'
 					+ '<strong>' + discussion.title + '</strong>'
 					+ '<span class="discussion-date">' + date + '</span></a>')

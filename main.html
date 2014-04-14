@@ -87,6 +87,9 @@ if (localStorage.high_score) {
 }
 
 get("discussion.php", null, function (d) {
+	var list = $("#discussion-summary .list");
+	list.empty();
+	
 	var max = Math.min(d.discussions.length, 4);
 	var handler = function (discussion) {
 		return function () { go("post.html", discussion); };
@@ -95,7 +98,7 @@ get("discussion.php", null, function (d) {
 	for (var i = 0; i < max; i++) {
 		var discussion = d.discussions[i];
 		
-		$("#discussion-summary .list").append($("<li>")
+		list.append($("<li>")
 			.append('<a><img src="img/discussion_' + getPostType(discussion.type) + '.png" class="discussion-icon"/>' + discussion.title + '</a>')
 			.click(handler(discussion)));
 	}

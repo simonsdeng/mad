@@ -58,12 +58,15 @@ $("#op-info").text("\u2014 " + data.author + " (" + getExpertise(data.expertise)
 $("#response-type").text((data.type < 3) ? "answer" : "comment");
 
 get("discussion.php", {id: data.id}, function (d) {
+	var list = $("#answers");
+	list.empty();
+	
 	var responses = d.responses;
 	for (var i = 0; i < responses.length; i++) {
 		var response = responses[i];
 		
-		$("#answers").append('<li><strong>' + response.author + ' ('
-				+ getExpertise(response.expertise) + '): </strong><span class="response">' + response.response + '</span></li>');
+		list.append('<li><strong>' + response.author + ' (' + getExpertise(response.expertise)
+				+ '): </strong><span class="response">' + response.response + '</span></li>');
 	}
 });
 </script>
