@@ -25,21 +25,19 @@ function go(url, data, replace) {
 	}
 }
 
-// requests JSON data through AJAX or falls back to cache
+// loads JSON data first from cache, then through AJAX
+// (success callback may be called twice)
 function get(url, data, success, failure) {
+	var key = url + (data !== null ? "?" + $.param(data) : "");
+	var d = localStorage[key];
+	if (d !== undefined) success(JSON.parse(d));
+	
 	if (navigator.connection.type !== Connection.NONE) {
 		$.get("http://hhsfbla.com/mad2013/" + url, data, function (d) {
-			if (data !== null) url += "?" + $.param(data);
-			localStorage[url] = d;
+			localStorage[key] = d;
 			success(JSON.parse(d));
 		}, "text");
-	} else {
-		if (data !== null) url += "?" + $.param(data);
-		var d = localStorage[url];
-		if (d !== undefined) {
-			success(JSON.parse(d));
-		} else if (failure) failure();
-	}
+	} else if (d === undefined && failure) failure();
 }
 
 // posts data through AJAX with authentication
@@ -63,9 +61,9 @@ function route() {
 	}
 	data = state.data;
 	
-	$.get(url, function (data) {
+	$.get(url, function (d) {
 		var page = document.createElement("div");
-		page.innerHTML = data;
+		page.innerHTML = d;
 		
 		if (forward) {
 			slider.slidePageFrom($(page), "right");
