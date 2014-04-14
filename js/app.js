@@ -29,16 +29,16 @@ function go(url, data, replace) {
 function get(url, data, success, failure) {
 	if (navigator.connection.type !== Connection.NONE) {
 		$.get("http://hhsfbla.com/mad2013/" + url, data, function (d) {
-			localStorage[url + "?" + data] = d;
+			if (data !== null) url += "?" + $.param(data);
+			localStorage[url] = d;
 			success(JSON.parse(d));
 		}, "text");
 	} else {
-		var d = localStorage[url + "?" + data];
+		if (data !== null) url += "?" + $.param(data);
+		var d = localStorage[url];
 		if (d !== undefined) {
 			success(JSON.parse(d));
-		} else if (failure) {
-			failure();
-		}
+		} else if (failure) failure();
 	}
 }
 
@@ -47,13 +47,9 @@ function post(url, data, success, failure) {
 	if (navigator.connection.type !== Connection.NONE) {
 		if (data !== null) data.auth = auth;
 		$.post("http://hhsfbla.com/mad2013/" + url, data, function (d) {
-			if (success) {
-				success(d);
-			}
+			if (success) success(d);
 		}, "json");
-	} else if (failure) {
-		failure();
-	}
+	} else if (failure) failure();
 }
 
 // handles history state changes through AJAX
