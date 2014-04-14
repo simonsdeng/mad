@@ -45,7 +45,7 @@ function get(url, data, success, failure) {
 // posts data through AJAX with authentication
 function post(url, data, success, failure) {
 	if (navigator.connection.type !== Connection.NONE) {
-		data.auth = auth;
+		if (data !== null) data.auth = auth;
 		$.post("http://hhsfbla.com/mad2013/" + url, data, function (d) {
 			if (success) {
 				success(d);
