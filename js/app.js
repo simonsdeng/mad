@@ -43,7 +43,8 @@ function get(url, data, success, failure) {
 // posts data through AJAX with authentication
 function post(url, data, success, failure) {
 	if (navigator.connection.type !== Connection.NONE) {
-		if (data !== null) data.auth = auth;
+		if (!data) data = {};
+		data.auth = auth;
 		$.post("http://hhsfbla.com/mad2013/" + url, data, function (d) {
 			if (success) success(d);
 		}, "json");
@@ -99,7 +100,7 @@ function main() {
 
 // initialize logged in user
 function initUser(saved) {
-	post("login.php", {}, function (d) {
+	post("login.php", null, function (d) {
 		if (d.status === "success") {
 			if (!saved) {
 				localStorage.auth = JSON.stringify(auth);
