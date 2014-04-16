@@ -1,10 +1,10 @@
 #drawer-menu {
 	width: 60%;
 	background: #353A3B;
-	height: 100%;
-	margin-top: 44px;
 	-webkit-transition: all ease .25s;
 	position: absolute;
+	top: 44px;
+	bottom: 0;
 	z-index: 999;
 }
 

@@ -25,6 +25,18 @@ function go(url, data, replace) {
 	}
 }
 
+// processes drawer menu item click
+function menuGo(url) {
+	toggleMenu();
+	
+	var curr = History.getState().url;
+	if (url === "main.html") {
+		if (curr !== mainUrl) History.back();
+	} else if (curr !== url) {
+		go(url, null, curr !== mainUrl);
+	}
+}
+
 // loads JSON data first from cache, then through AJAX
 // (success callback may be called twice)
 function get(url, data, success, failure) {
@@ -127,11 +139,18 @@ function initUser(saved) {
 // init on phonegap ready
 function init() {
 	FastClick.attach(document.body);
+	document.addEventListener("backbutton", onBack, false)
+	$("#menu-container").load("menu.html");
 	container = $("#container");
 	
 	login();
 }
 
+// back button callback
+function onBack() {
+	if (menuOpen) toggleMenu();
+	History.back();
+}
 
 // toggle drawer menu
 function toggleMenu() {
