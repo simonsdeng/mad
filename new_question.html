@@ -53,12 +53,12 @@
 	<span id="achievement-name"><h2><i>First time asking a question</i></h2></span>
 	<br>
 	<button class="achievement-dialog-button" onclick="share();">Share</button><br><br>
-	<button class="achievement-dialog-button" onclick="dismiss_achievements();">Dismiss</button>
+	<button class="achievement-dialog-button" onclick="dismissAchievements();">Dismiss</button>
 </div>
 
 <script>
 if (localStorage["asking_question"] == "true") {
-	dismiss_achievements();
+	dismissAchievements();
 } else {
 	localStorage["asking_question"] = "true";
 }

@@ -8,11 +8,11 @@ var mainUrl = History.getState().url,
 	routing = false,
 	forward = false;
 
-var menuOpen = 0;
+var menuOpen = false;
 
 // navigates to page
 function go(url, data, replace) {
-	menuOpen = 0;
+	menuOpen = false;
 	if (routing) {
 		return;
 	}
@@ -132,15 +132,15 @@ function init() {
 	login();
 }
 
-function toggleMenu() {
 
-	if(menuOpen==0) {
-		document.getElementById("drawer-menu").className = "menu-visible";
-		menuOpen = 1;
-	}
-	else {
+// toggle drawer menu
+function toggleMenu() {
+	if (menuOpen) {
 		document.getElementById("drawer-menu").className = "menu-hidden";
-		menuOpen = 0;
+		menuOpen = false;
+	} else {
+		document.getElementById("drawer-menu").className = "menu-visible";
+		menuOpen = true;
 	}
 }
 
@@ -168,14 +168,16 @@ function getPostType(type) {
 	}
 }
 
+// share achievement
 function share() {
 	window.plugins.socialsharing.share('I just got an achievement on IT Academy: '
 			+ document.getElementById('achievement-name').firstChild.firstChild.innerHTML);
 }
 
-function dismiss_achievements() {
+// dismiss achievement popups
+function dismissAchievements() {
 	var arr = document.getElementsByClassName('achievement-div');
-	for (var i=0;i<arr.length;i++) {
+	for (var i = 0; i < arr.length; i++) {
 		arr[i].style.display = "none";
 	}
 }

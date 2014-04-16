@@ -42,12 +42,12 @@
 	<span id="achievement-name"><h2><i>First time commenting on a tip</i></h2></span>
 	<br>
 	<button class="achievement-dialog-button" onclick="share();">Share</button><br><br>
-	<button class="achievement-dialog-button" onclick="dismiss_achievements();">Dismiss</button>
+	<button class="achievement-dialog-button" onclick="dismissAchievements();">Dismiss</button>
 </div>
 
 <script>
 if (localStorage["answered_comment"] == "true") {
-	dismiss_achievements();
+	dismissAchievements();
 } else {
 	localStorage["answered_comment"] = "true";
 }
