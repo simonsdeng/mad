@@ -155,12 +155,12 @@ function onBack() {
 // toggle drawer menu
 function toggleMenu() {
 	if (menuOpen) {
-		document.getElementById("drawer-menu").className = "menu-hidden";
-		menuOpen = false;
+		$("#menu-container").removeClass("menu-visible");
 	} else {
-		document.getElementById("drawer-menu").className = "menu-visible";
-		menuOpen = true;
+		$("#menu-container").addClass("menu-visible");
 	}
+	
+	menuOpen = !menuOpen;
 }
 
 function getExpertise(id) {
