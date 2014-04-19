@@ -148,8 +148,13 @@ function init() {
 
 // back button callback
 function onBack() {
-	if (menuOpen) toggleMenu();
-	History.back();
+	if (menuOpen) {
+		toggleMenu();
+	} else if (History.getState().url !== mainUrl) {
+		History.back();
+	} else {
+		navigator.app.exitApp();
+	}
 }
 
 // toggle drawer menu
