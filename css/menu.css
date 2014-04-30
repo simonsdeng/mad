@@ -1,7 +1,7 @@
 #drawer-menu {
 	width: 60%;
 	background: #353A3B;
-	-webkit-transition: all ease .25s;
+	-webkit-transition: all .25s ease;
 	position: absolute;
 	top: 44px;
 	bottom: 0;
@@ -52,11 +52,13 @@
 	top: 44px;
 	bottom: 0;
 	z-index: 998;
-	display: none;
-	overflow: scroll;
-	-webkit-overflow-scrolling: touch;
+	background: black;
+	opacity: 0;
+	pointer-events: none;
+	-webkit-transition: opacity .25s ease;
 }
 
 .menu-visible #menu-overlay {
-	display: block;
+	opacity: .5;
+	pointer-events: auto;
 }
