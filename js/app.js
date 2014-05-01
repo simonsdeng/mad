@@ -71,6 +71,13 @@ function login() {
 	}
 }
 
+// log out user and return to login/register page
+function logout() {
+	slider.clearHistory();
+	delete localStorage.auth;
+	login();
+}
+
 // start main app interface
 function main() {
 	container.empty();

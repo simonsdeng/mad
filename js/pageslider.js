@@ -35,6 +35,13 @@ function PageSlider(container) {
 
 		return this.state.data;
 	};
+	
+	// clears all history
+	this.clearHistory = function () {
+		currentPage = null;
+		this.state = null;
+		stateHistory.length = 0;
+	};
 
 	// slides page in from left or right
 	this.slidePage = function (url, from) {
