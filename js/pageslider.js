@@ -1,62 +1,73 @@
-/* Notes:
- * - History management is currently done using window.location.hash.  This could easily be changed to use Push State instead.
- * - jQuery dependency for now. This could also be easily removed.
- */
-
 function PageSlider(container) {
 
-    var container = container,
-        currentPage,
-        stateHistory = [];
+	var currentPage,
+	    stateHistory = [],
+	    sliding = false;
 
-    // Use this function if you want PageSlider to automatically determine the sliding direction based on the state history
-    this.slidePage = function(page) {
+	this.state = null;
 
-        var l = stateHistory.length,
-            state = History.getState();
+	// slides to next page
+	this.go = function (url, data, replace) {
+		var state = {url: url, data: data};
 
-        if (l === 0) {
-            stateHistory.push(state);
-            this.slidePageFrom(page);
-            return;
-        }
-        if (state === stateHistory[l-2]) {
-            stateHistory.pop();
-            this.slidePageFrom(page, 'left');
-        } else {
-            stateHistory.push(state);
-            this.slidePageFrom(page, 'right');
-        }
+		if (replace) stateHistory.pop();
+		stateHistory.push(state);
+		this.state = state;
+		this.slidePage(url, stateHistory.length > 1 ? "right" : false);
+	};
 
-    }
+	// slides back to previous page
+	this.back = function () {
+		if (stateHistory.length <= 1) {
+			navigator.app.exitApp();
+			return;
+		}
+		
+		stateHistory.pop();
+		this.state = stateHistory[stateHistory.length - 1];
+		this.slidePage(this.state.url, "left");
 
-    // Use this function directly if you want to control the sliding direction outside PageSlider
-    this.slidePageFrom = function(page, from) {
+		return this.state.data;
+	};
 
-        container.append(page);
+	// slides page in from left or right
+	this.slidePage = function (url, from) {
+		if (sliding) return false;
+		
+		sliding = true;
+		
+		$.get(url, function (d) {
+			var page = document.createElement("div");
+			page.innerHTML = d;
+			page = $(page);
 
-        if (!currentPage || !from) {
-            page.attr("class", "page center");
-            currentPage = page;
-			routing = false;
-            return;
-        }
+			container.append(page);
 
-        // Position the page at the starting position of the animation
-        page.attr("class", "page " + from);
+			if (!currentPage || !from) {
+				page.attr("class", "page center");
+				currentPage = page;
+				sliding = false;
+				return;
+			}
 
-        currentPage.one('webkitTransitionEnd', function(e) {
-            $(e.target).remove();
-            routing = false;
-        });
+			// Position the page at the starting position of the animation
+			page.attr("class", "page " + from);
 
-        // Force reflow. More information here: http://www.phpied.com/rendering-repaint-reflowrelayout-restyle/
-        container[0].offsetWidth;
+			currentPage.one('webkitTransitionEnd', function(e) {
+				$(e.target).remove();
+				sliding = false;
+			});
 
-        // Position the new page and the current page at the ending position of their animation with a transition class indicating the duration of the animation
-        page.attr("class", "page transition center");
-        currentPage.attr("class", "page transition " + (from === "left" ? "right" : "left"));
-        currentPage = page;
-    }
+			// Force reflow. More information here: http://www.phpied.com/rendering-repaint-reflowrelayout-restyle/
+			container[0].offsetWidth;
+
+			// Position the new page and the current page at the ending position of their animation with a transition class indicating the duration of the animation
+			page.attr("class", "page transition center");
+			currentPage.attr("class", "page transition " + (from === "left" ? "right" : "left"));
+			currentPage = page;
+		});
+		
+		return true;
+	};
 
 }

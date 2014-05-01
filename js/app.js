@@ -1,39 +1,32 @@
 var container,
-	slider,
-	auth,
-	userdata,
-	data;
-
-var mainUrl = History.getState().url,
-	routing = false,
-	forward = false;
+    slider,
+    auth,
+    userdata,
+    data;
 
 var menuOpen = false;
 
-// navigates to page
+// navigates to new page
 function go(url, data, replace) {
-	menuOpen = false;
-	if (routing) {
-		return;
-	}
-	
-	forward = true;
-	if (replace) {
-		History.replaceState(data, null, url);
-	} else {
-		History.pushState(data, null, url);
-	}
+	window.data = data;
+	slider.go(url, data, replace);
+}
+
+// navigates back to previous page
+function back() {
+	data = slider.back();
 }
 
 // processes drawer menu item click
 function menuGo(url) {
 	toggleMenu();
 	
-	var curr = History.getState().url;
+	if (url === slider.state.url) return;
+	
 	if (url === "main.html") {
-		if (curr !== mainUrl) History.back();
-	} else if (curr !== url) {
-		go(url, null, curr !== mainUrl);
+		back();
+	} else {
+		go(url, null, slider.state.url !== "main.html");
 	}
 }
 
@@ -63,30 +56,6 @@ function post(url, data, success, failure) {
 	} else if (failure) failure();
 }
 
-// handles history state changes through AJAX
-function route() {
-	routing = true;
-	
-	var state = History.getState();
-	var url = state.url;
-	if (url === mainUrl) {
-		url = "main.html";
-	}
-	data = state.data;
-	
-	$.get(url, function (d) {
-		var page = document.createElement("div");
-		page.innerHTML = d;
-		
-		if (forward) {
-			slider.slidePageFrom($(page), "right");
-			forward = false;
-		} else {
-			slider.slidePageFrom($(page), "left");
-		}
-	});
-}
-
 // check for saved credentials
 function isLoggedIn() {
 	return !!localStorage.auth;
@@ -106,8 +75,7 @@ function login() {
 function main() {
 	container.empty();
 	slider = new PageSlider(container);
-	$(window).on("popstate", route);
-	route();
+	go("main.html");
 }
 
 // initialize logged in user
@@ -139,7 +107,7 @@ function initUser(saved) {
 // init on phonegap ready
 function init() {
 	FastClick.attach(document.body);
-	document.addEventListener("backbutton", onBack, false)
+	document.addEventListener("backbutton", onBack, false);
 	$("#menu-container").load("menu.html");
 	container = $("#container");
 	
@@ -150,10 +118,8 @@ function init() {
 function onBack() {
 	if (menuOpen) {
 		toggleMenu();
-	} else if (History.getState().url !== mainUrl) {
-		History.back();
 	} else {
-		navigator.app.exitApp();
+		back();
 	}
 }
 

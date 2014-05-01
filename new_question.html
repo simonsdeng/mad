@@ -35,7 +35,7 @@
 
 </style>
 
-<div id="header" class="header"><div onclick="history.back()" class="back"><img src="img/back_icon.png" width="24px"/></div><h1>New Question</h1></div>
+<div id="header" class="header"><div onclick="back()" class="back"><img src="img/back_icon.png" width="24px"/></div><h1>New Question</h1></div>
 <div class="scroller">
 	<br>
 	<form id="new-question-form">
@@ -73,7 +73,7 @@ $("#new-question-form").submit(function (e) {
 	
 	post("discussion.php", data, function (d) {
 		if (d.status === "success") {
-			History.back();
+			back();
 		} else {
 			navigator.notification.alert("Please enter a question.", null, "New Question", "OK");
 		}

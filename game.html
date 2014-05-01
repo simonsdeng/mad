@@ -72,7 +72,7 @@
     <div class="choice">B</div>
     <div class="choice">C</div>
     <div class="choice">D</div>
-    <img src="img/game/back.png" id="back" onclick="started = false;History.back();">
+    <img src="img/game/back.png" id="back" onclick="started = false;window.back();">
     <img src="img/game/asteroid.png" id="asteroid">
     <div id="points_change"></div>
 </div>
@@ -107,7 +107,7 @@
             get("game.php",null,function(d){
                 window.data = d;
                 rope_img.src = "img/game/rope.png";
-            },function(){blank_alert("You must be connected to the internet to download the list of questions.");started = false;History.back();});
+            },function(){blank_alert("You must be connected to the internet to download the list of questions.");started = false;back();});
         }else{
             started = true;
             old_time = new Date().getTime();
@@ -212,7 +212,7 @@
         	}
             blank_alert(ap+" You have finished all the questions.\nYour score is "+points+"!");
             started = false;
-            History.back();
+            back();
         }
         var cq = data.questions[qi];
         var a = cq.question+"\n";
