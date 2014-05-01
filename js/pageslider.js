@@ -9,8 +9,14 @@ function PageSlider(container) {
 	// slides to next page
 	this.go = function (url, data, replace) {
 		var state = {url: url, data: data};
+		var scroller = $(".scroller");
 
-		if (replace) stateHistory.pop();
+		if (replace) {
+			stateHistory.pop();
+		} else if (scroller.length) {
+			this.state.scroll = scroller.scrollTop();
+		}
+		
 		stateHistory.push(state);
 		this.state = state;
 		this.slidePage(url, stateHistory.length > 1 ? "right" : false);
@@ -33,8 +39,9 @@ function PageSlider(container) {
 	// slides page in from left or right
 	this.slidePage = function (url, from) {
 		if (sliding) return false;
-		
 		sliding = true;
+		
+		var scroll = this.state.scroll;
 		
 		$.get(url, function (d) {
 			var page = document.createElement("div");
@@ -42,6 +49,7 @@ function PageSlider(container) {
 			page = $(page);
 
 			container.append(page);
+			if (scroll) $(".scroller").scrollTop(scroll);
 
 			if (!currentPage || !from) {
 				page.attr("class", "page center");
