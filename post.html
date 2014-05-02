@@ -28,6 +28,66 @@
 	margin-top: 15px;
 }
 
+#main-like-button {
+        float: right;
+        margin-right: 2%;
+        color: #fff;
+        padding: 5px 10px;
+        background-color: #0F517D;
+        border-radius: 5px;
+        line-height: 1;
+        margin-bottom: -40px;
+}
+
+.answer-like {
+        width: 13%;
+        left: 2%;
+        top: 10%;
+        //padding: 10px 5px;
+        //padding: 10px;
+        background-color: #6087A1;
+        color: #fff;
+        position: absolute;
+        height: 80%;
+        //text-align: center;
+        //vertical-align: middle;
+        //margin-top: 10%;
+        border-radius: 20px;
+        
+}
+    
+.answer-div {
+        width: 85%;
+        position: relative;
+        left: 15%;
+}
+
+.liked {
+        background-color: #109adc;        
+}
+    
+.like-icon {
+        position: absolute;
+        top: 15px;
+        text-align:center;
+        width: 100%;
+        
+}
+
+.num-likes {
+        position: absolute;
+        bottom: 10px;
+        width: 100%;
+        text-align: center;
+        font-size: 1.5em;
+        font-weight: bold;
+}
+    
+.report {
+        right: 10px;
+        margin-top: 5px;
+        position: absolute;
+    }
 
 </style>
 
@@ -41,13 +101,28 @@
 		<strong><span id="post-content"></span></strong><br>
 		<span id="post-notes"></span><br>
 		<i><span id="op-info"></span></i>
+        <span id="main-like-button">like (5)</span>
 	
 	</div>
 	<button id="add-response-button" onclick="go((data.type < 3) ? 'new_answer.html' : 'new_comment.html', {id: data.id})">Add your own <span id="response-type"></span></button><br><br>
 	
 	<h2 style="margin-left: 5px">Responses</h2>
 
-	<ul id="answers" class="list"></ul>
+	<ul id="answers" class="list">
+	<!--
+        <li><div class="answer-like"><span class="like-icon">like</span><span class="num-likes">5</span></div><div class="answer-div"><strong>First Last (expert): </strong><span class="response">Lol some super lo ng answer which means absolute crap lol gay-z-a</span><span class="report"><img src="img/report_icon.png" width="20px"/></span></div></li>
+        
+        <li><div class="answer-like liked"><span class="like-icon">unlike</span><span class="num-likes">6</span></div><div class="answer-div"><strong>First Last (expert): </strong><span class="response">Lol some super lo ng answer which means absolute crap lol gay-z-a</span><span class="report"><img src="img/report_icon.png" width="20px"/></span></div></li>
+        
+        <li><div class="answer-like"><span class="like-icon">like</span><span class="num-likes">5</span></div><div class="answer-div"><strong>First Last (expert): </strong><span class="response">Lol some super lo ng answer which means absolute crap lol gay-z-a</span><span class="report"><img src="img/report_icon.png" width="20px"/></span></div></li>
+        
+        <li><div class="answer-like"><span class="like-icon">like</span><span class="num-likes">5</span></div><div class="answer-div"><strong>First Last (expert): </strong><span class="response">Lol some super lo ng answer which means absolute crap lol gay-z-a</span><span class="report"><img src="img/report_icon.png" width="20px"/></span></div></li>
+        
+        <li><div class="answer-like liked"><span class="like-icon">unlike</span><span class="num-likes">6</span></div><div class="answer-div"><strong>First Last (expert): </strong><span class="response">Lol some super lo ng answer which means absolute crap lol gay-z-a</span><span class="report"><img src="img/report_icon.png" width="20px"/></span></div></li>
+        
+        <li><div class="answer-like"><span class="like-icon">like</span><span class="num-likes">5</span></div><div class="answer-div"><strong>First Last (expert): </strong><span class="response">Lol some super lo ng answer which means absolute crap lol gay-z-a</span><span class="report"><img src="img/report_icon.png" width="20px"/></span></div></li>
+        -->
+    </ul>
 </div>
 
 <script>
@@ -65,8 +140,8 @@ get("discussion.php", {id: data.id}, function (d) {
 	for (var i = 0; i < responses.length; i++) {
 		var response = responses[i];
 		
-		list.append('<li><strong>' + response.author + ' (' + getExpertise(response.expertise)
-				+ '): </strong><span class="response">' + response.response + '</span></li>');
+		list.append('<li><div class="answer-like"><span class="like-icon">like</span><span class="num-likes">5</span></div><div class="answer-div"><strong>' + response.author + ' ('
+				+ getExpertise(response.expertise) + '): </strong><span class="response">' + response.response + '</span><span class="report"><img src="img/report_icon.png" width="20px"/></span></div></li>');
 	}
 });
 </script>
