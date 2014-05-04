@@ -179,4 +179,31 @@ function dismissAchievements() {
 	}
 }
 
+function toggleLike(button, data, isResponse) {
+	var type = isResponse ? 1 : 0;
+	button = $(button);
+	var likeText = button.find(".like-text");
+	var numLikes = button.find(".num-likes");
+	
+	if (data.liked) {
+		post("discussion.php", {unlike: type, id: data.id}, function () {
+			data.likes--;
+			data.liked = 0;
+			likeText.text("like");
+			numLikes.text(data.likes);
+		}, function () {
+			navigator.nofication.alert("You must be online to unlike this post.", null, "Post");
+		});
+	} else {
+		post("discussion.php", {like: type, id: data.id}, function () {
+			data.likes++;
+			data.liked = 1;
+			likeText.text("unlike");
+			numLikes.text(data.likes);
+		}, function () {
+			navigator.nofication.alert("You must be online to like this post.", null, "Post");
+		});
+	}
+}
+
 $(document).on("deviceready", init);

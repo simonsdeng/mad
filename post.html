@@ -69,7 +69,7 @@
         background-color: #109adc;        
 }
     
-.like-icon {
+.answer-like .like-text {
         position: absolute;
         top: 15px;
         text-align:center;
@@ -77,7 +77,7 @@
         
 }
 
-.num-likes {
+.answer-like .num-likes {
         position: absolute;
         bottom: 10px;
         width: 100%;
@@ -104,28 +104,14 @@
 		<strong><span id="post-content"></span></strong><br>
 		<span id="post-notes"></span><br>
 		<i><span id="op-info"></span></i>
-        <span id="main-like-button">like (5)</span>
+        <span id="main-like-button"><span class="like-text">like</span> (<span class="num-likes">0</span>)</span>
 	
 	</div>
 	<button id="add-response-button" onclick="go((data.type < 3) ? 'new_answer.html' : 'new_comment.html', {id: data.id})">Add your own <span id="response-type"></span></button><br><br>
 	
 	<h2 style="margin-left: 5px">Responses</h2>
 
-	<ul id="answers" class="list">
-	<!--
-        <li><div class="answer-like"><span class="like-icon">like</span><span class="num-likes">5</span></div><div class="answer-div"><strong>First Last (expert): </strong><span class="response">Lol some super lo ng answer which means absolute crap lol gay-z-a</span><span class="report"><img src="img/report_icon.png" width="20px"/></span></div></li>
-        
-        <li><div class="answer-like liked"><span class="like-icon">unlike</span><span class="num-likes">6</span></div><div class="answer-div"><strong>First Last (expert): </strong><span class="response">Lol some super lo ng answer which means absolute crap lol gay-z-a</span><span class="report"><img src="img/report_icon.png" width="20px"/></span></div></li>
-        
-        <li><div class="answer-like"><span class="like-icon">like</span><span class="num-likes">5</span></div><div class="answer-div"><strong>First Last (expert): </strong><span class="response">Lol some super lo ng answer which means absolute crap lol gay-z-a</span><span class="report"><img src="img/report_icon.png" width="20px"/></span></div></li>
-        
-        <li><div class="answer-like"><span class="like-icon">like</span><span class="num-likes">5</span></div><div class="answer-div"><strong>First Last (expert): </strong><span class="response">Lol some super lo ng answer which means absolute crap lol gay-z-a</span><span class="report"><img src="img/report_icon.png" width="20px"/></span></div></li>
-        
-        <li><div class="answer-like liked"><span class="like-icon">unlike</span><span class="num-likes">6</span></div><div class="answer-div"><strong>First Last (expert): </strong><span class="response">Lol some super lo ng answer which means absolute crap lol gay-z-a</span><span class="report"><img src="img/report_icon.png" width="20px"/></span></div></li>
-        
-        <li><div class="answer-like"><span class="like-icon">like</span><span class="num-likes">5</span></div><div class="answer-div"><strong>First Last (expert): </strong><span class="response">Lol some super lo ng answer which means absolute crap lol gay-z-a</span><span class="report"><img src="img/report_icon.png" width="20px"/></span></div></li>
-        -->
-    </ul>
+	<ul id="answers" class="list"></ul>
 </div>
 
 <script>
@@ -134,17 +120,27 @@ $("#post-content").text(data.title);
 $("#post-notes").text(data.description);
 $("#op-info").text("\u2014 " + data.author + " (" + getExpertise(data.expertise) + ")");
 $("#response-type").text((data.type < 3) ? "answer" : "comment");
+$("#main-like-button").click(function () { toggleLike(this, data); });
 
-get("discussion.php", {id: data.id}, function (d) {
+get("discussion.php", {id: data.id, user: auth.user}, function (d) {
+	var responses = d.responses;
+	data.likes = d.likes;
+	data.liked = d.liked;
+	
+	$("#main-like-button .like-text").text(d.liked ? "unlike" : "like");
+	$("#main-like-button .num-likes").text(d.likes);
+	
 	var list = $("#answers");
 	list.empty();
 	
-	var responses = d.responses;
 	for (var i = 0; i < responses.length; i++) {
 		var response = responses[i];
 		
-		list.append('<li><div class="answer-like"><span class="like-icon">like</span><span class="num-likes">5</span></div><div class="answer-div"><strong>' + response.author + ' ('
-				+ getExpertise(response.expertise) + '): </strong><span class="response">' + response.response + '</span><span class="report"><img src="img/report_icon.png" width="20px"/></span></div></li>');
+		list.append($("<li>")
+			.append($('<div class="answer-like"><span class="like-text">' + (response.liked ? "unlike" : "like") + '</span><span class="num-likes">' + response.likes + '</span></div>')
+				.click(function () { toggleLike(this, response, true); }))
+			.append('<div class="answer-div"><strong>' + response.author + ' ('
+					+ getExpertise(response.expertise) + '): </strong><span class="response">' + response.response + '</span><span class="report"><img src="img/report_icon.png" width="20px"/></span></div></li>'));
 	}
 });
 </script>
