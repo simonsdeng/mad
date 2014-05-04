@@ -1,12 +1,13 @@
 #drawer-menu {
 	width: 60%;
-	background: #353A3B;
-	-webkit-transition: all .25s ease;
 	position: absolute;
 	top: 44px;
 	bottom: 0;
 	z-index: 999;
+	background: #353A3B;
+	font-size: .8em;
 	-webkit-transform: translate3d(-100%, 0, 0);
+	-webkit-transition: all .25s ease;
 }
 
 .menu-visible #drawer-menu {
