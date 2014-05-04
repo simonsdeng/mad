@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="css/styles.css">
+<script src="js/app.js"></script>
 <style>
 
 .share-button {
@@ -16,7 +18,7 @@
 	background-color: #105E87;
 }
 
-#main-scroll {
+#achievements-scroller {
 	background-color: #6087A1;
 }
 
@@ -26,17 +28,171 @@
 	margin: 20px 2.5% 20px 2.5%;
 	background-color: #fff;
 	border-radius: 10px;
-	padding: 10px;
+	padding: 8px;
 }
+
 
 .achievement-card h2 {
 	color: #109adc;
 }
 
+.bar-container {
+	background-color: #109adc;
+	width: 100%;
+	height: 10px;
+	padding: 3px;
+	border-radius: 5px;
+	margin: 5px 0;
+}
+
+.bar {
+	height: 100%;
+	background-color: #fff;
+	border-radius: 5px;
+}
+
+#pointsbar {
+	width: 20%;
+}
+
+#gamebar {
+	width: 30%;
+}
+
+#achievements-table {
+	width: 100%;
+}
+#achievements-table td{
+	width: 33%;
+}
+
+.achievement-image {
+	width: 32%;
+}
+
+.faded {
+	-webkit-filter: grayscale(100%);
+}
+
+#achievement-description-div {
+	display: none;
+	height: 55%;
+	margin-top: 40%;
+}
+
 </style>
 
-<div class="header"><div onclick="toggleMenu()" class="icon menu"><img src="img/menu_icon.png" width="24px"/></div><h1>Achievements</h1></div>
+<div id="header" class="header"><div onclick="back()" class="back"><img src="img/back_icon.png" width="24px"/></div><h1>Achievements</h1></div>
 
-<div id="main-scroll" class="scroller">
-	<div class="achievement-card"></div>
+<div id="achievements-scroller" class="scroller">
+	<div class="achievement-card">
+		<h2 style="text-align:center;">Your Points</h2>
+		<strong># of Questions (3 pts): </strong><span id="total-questions">0</span><br>
+		<strong># of Answers (5 pts): </strong><span id="total-answers">0</span><br>
+		<strong># of Tips (5 pts): </strong><span id="total-tips">0</span><br><br>
+		<strong>Total Points: </strong><span id="total-points">0</span><br>
+		<div class="bar-container"><div id="pointsbar" class="bar"></div></div>
+		Achievement Progress (20/100)<br>
+	</div>
+	
+	<div class="achievement-card">
+		<h2 style="text-align:center;">Game</h2>
+		<strong>Highscore: </strong><span id="game-highscore">0</span><br>
+		<div class="bar-container"><div id="gamebar" class="bar"></div></div>
+		Achievement Progress (10/20)<br>
+	</div>
+	
+	<div class="achievement-card">
+		<table id="achievements-table">
+			<tr>
+				<td>
+					<img class="achievement-image faded" src="img/achievements/question.png" onclick="createpopup('question');"/>
+					<img class="achievement-image" src="img/achievements/tip.png" onclick="createpopup('tip');"/>
+					<img class="achievement-image" src="img/achievements/answer.png" onclick="createpopup('answer');"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<img class="achievement-image" src="img/achievements/comment.png" onclick="createpopup('comment');"/>
+					<img class="achievement-image faded" src="img/achievements/social.png" onclick="createpopup('social');"/>
+					<img class="achievement-image" src="img/achievements/game.png" onclick="createpopup('game');"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<img class="achievement-image" src="img/achievements/checkin.png" onclick="createpopup('checkin');"/>
+					<img class="achievement-image" src="img/achievements/starapp.png" onclick="createpopup('starapp');"/>
+					<img class="achievement-image faded" src="img/achievements/stargame.png" onclick="createpopup('stargame');"/>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
 </div>
+
+<div id="achievement-description-div" class="achievement-div">
+	<h1 id="achievement-name">Achievement</h1>
+	<h2><i><span id="achievement-description">First time answering a question</i></span></h2>
+	<br>
+	<button id="share-button" class="achievement-dialog-button" onclick="share();">Share</button><br><br>
+	<button class="achievement-dialog-button" onclick="closePopup();">Dismiss</button>
+</div>
+
+
+<script>
+
+	var createpopup = function(achievement) {
+		
+		switch(achievement) {
+			case "question":
+				document.getElementById('achievement-description').innerHTML = "First time asking a question.";
+				break;
+			case "tip":
+				document.getElementById('achievement-description').innerHTML = "First time submitting a tip.";
+				break;
+			case "answer":
+				document.getElementById('achievement-description').innerHTML = "First time submitting an answer to a question.";
+				break;
+			case "comment":
+				document.getElementById('achievement-description').innerHTML = "First time commenting on a tip.";
+				break;
+			case "social":
+				document.getElementById('achievement-description').innerHTML = "First time sharing an achievement on social media.";
+				break;
+			case "game":
+				document.getElementById('achievement-description').innerHTML = "First time playing 'Learning-the-ropes.";
+				break;
+			case "checkin":
+				document.getElementById('achievement-description').innerHTML = "First time checking in.";
+				break;
+			case "starapp":
+				document.getElementById('achievement-description').innerHTML = "Reaching 100 points from asking questions and submitting answers/tips.";
+				break;
+			case "stargame":
+				document.getElementById('achievement-description').innerHTML = "Getting a highscore of 20 in the game.";
+				break;
+		}
+		
+		var unlocked = false;
+		
+		var sharebutton = document.getElementById('share-button');
+		
+		if(unlocked)
+			sharebutton.disabled = false;
+		else {
+			sharebutton.disabled = true;
+			sharebutton.style.backgroundColor = "#949494";
+			sharebutton.style.webkitFilter = "gray(100%)";
+		}
+			
+		document.getElementById('achievement-description-div').style.display = "block";
+		
+	}
+	
+	var closePopup = function() {
+		document.getElementById('achievement-description-div').style.display = "none";
+	}
+
+</script>
+
+

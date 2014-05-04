@@ -39,6 +39,5 @@
 	
 	<preference name="DisallowOverscroll" value="true" />
 	<preference name="webviewbounce" value="false" />
-	<preference name="ios-statusbarstyle" value="black-translucent" />
 	
 </widget>
