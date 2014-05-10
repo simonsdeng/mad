@@ -66,7 +66,7 @@
 }
 
 .liked {
-        background-color: #109adc;        
+        background-color: #109adc !important;
 }
     
 .answer-like .like-text {
@@ -127,8 +127,10 @@ get("discussion.php", {id: data.id, user: auth.user}, function (d) {
 	data.likes = d.likes;
 	data.liked = d.liked;
 	
-	$("#main-like-button .like-text").text(d.liked ? "unlike" : "like");
-	$("#main-like-button .num-likes").text(d.likes);
+	var mainButton = $("#main-like-button");
+	if (d.liked) mainButton.addClass("liked");
+	mainButton.find(".like-text").text(d.liked ? "unlike" : "like");
+	mainButton.find(".num-likes").text(d.likes);
 	
 	var list = $("#answers");
 	list.empty();
@@ -137,7 +139,7 @@ get("discussion.php", {id: data.id, user: auth.user}, function (d) {
 		var response = responses[i];
 		
 		list.append($("<li>")
-			.append($('<div class="answer-like"><span class="like-text">' + (response.liked ? "unlike" : "like") + '</span><span class="num-likes">' + response.likes + '</span></div>')
+			.append($('<div class="answer-like' + (response.liked ? " liked" : "") + '"><span class="like-text">' + (response.liked ? "unlike" : "like") + '</span><span class="num-likes">' + response.likes + '</span></div>')
 				.click(function () { toggleLike(this, response, true); }))
 			.append('<div class="answer-div"><strong>' + response.author + ' ('
 					+ getExpertise(response.expertise) + '): </strong><span class="response">' + response.response + '</span><span class="report"><img src="img/report_icon.png" width="20px"/></span></div></li>'));

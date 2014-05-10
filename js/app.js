@@ -189,6 +189,7 @@ function toggleLike(button, data, isResponse) {
 		post("discussion.php", {unlike: type, id: data.id}, function () {
 			data.likes--;
 			data.liked = 0;
+			button.removeClass("liked");
 			likeText.text("like");
 			numLikes.text(data.likes);
 		}, function () {
@@ -198,6 +199,7 @@ function toggleLike(button, data, isResponse) {
 		post("discussion.php", {like: type, id: data.id}, function () {
 			data.likes++;
 			data.liked = 1;
+			button.addClass("liked");
 			likeText.text("unlike");
 			numLikes.text(data.likes);
 		}, function () {
