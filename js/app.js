@@ -87,16 +87,18 @@ function main() {
 
 // initialize logged in user
 function initUser(saved) {
+	if (saved && localStorage.pendingAchievements) updatePendingAchievements();
+	
 	post("login.php", null, function (d) {
 		if (d.status === "success") {
-			if (!saved) {
-				localStorage.auth = JSON.stringify(auth);
-			}
+			if (!saved) localStorage.auth = JSON.stringify(auth);
 			userdata = d.userdata;
 			localStorage.userdata = JSON.stringify(userdata);
 			main();
 		} else if (saved) {
 			delete localStorage.auth;
+			delete localStorage.userdata;
+			delete localStorage.pendingAchievements;
 			login();
 		} else {
 			navigator.notification.alert("Your username and password combination was incorrect.", null, "Login", "OK");
@@ -108,6 +110,13 @@ function initUser(saved) {
 		} else {
 			navigator.notification.alert("You need to be connected to the internet to log in.", null, "Login", "OK");
 		}
+	});
+}
+
+// send pending achievements to server
+function updatePendingAchievements() {
+	post("achievements.php", {achievements: JSON.parse(localStorage.pendingAchievements)}, function() {
+		delete localStorage.pendingAchievements;
 	});
 }
 
@@ -206,6 +215,24 @@ function toggleLike(button, data, isResponse) {
 			navigator.nofication.alert("You must be online to like this post.", null, "Post");
 		});
 	}
+}
+
+function setAchievement(id, progress) {
+	var achievements = {};
+	achievements[id] = progress;
+	userdata.achievements[id] = progress;
+	localStorage.userdata = JSON.stringify(userdata);
+	
+	post("achievements.php", {achievements: achievements}, null, function () {
+		var pending = {};
+		if (localStorage.pendingAchievements) {
+			pending = JSON.parse(localStorage.pendingAchievements);
+		}
+		
+		pending[id] = progress;
+		
+		localStorage.pendingAchievements = JSON.stringify(pending);
+	});
 }
 
 $(document).on("deviceready", init);
