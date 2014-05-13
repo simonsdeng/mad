@@ -51,11 +51,13 @@
         background-color: #6087A1;
         color: #fff;
         position: absolute;
-        height: 80%;
+        //height: 80%;
         //text-align: center;
         //vertical-align: middle;
         //margin-top: 10%;
         border-radius: 20px;
+        min-height: 60px;
+        max-height: 65px;
         
 }
     
@@ -71,7 +73,7 @@
     
 .answer-like .like-text {
         position: absolute;
-        top: 15px;
+        top: 10px;
         text-align:center;
         width: 100%;
         
@@ -79,7 +81,7 @@
 
 .answer-like .num-likes {
         position: absolute;
-        bottom: 10px;
+        bottom: 5px;
         width: 100%;
         text-align: center;
         font-size: 1.5em;
@@ -91,6 +93,10 @@
         margin-top: 5px;
         position: absolute;
     }
+
+   .post-li {
+   	min-height: 40px;
+   }
 
 </style>
 
@@ -138,7 +144,7 @@ get("discussion.php", {id: data.id, user: auth.user}, function (d) {
 	for (var i = 0; i < responses.length; i++) {
 		var response = responses[i];
 		
-		list.append($("<li>")
+		list.append($("<li class='post-li'>")
 			.append($('<div class="answer-like' + (response.liked ? " liked" : "") + '"><span class="like-text">' + (response.liked ? "unlike" : "like") + '</span><span class="num-likes">' + response.likes + '</span></div>')
 				.click(function () { toggleLike(this, response, true); }))
 			.append('<div class="answer-div"><strong>' + response.author + ' ('
