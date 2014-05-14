@@ -4,6 +4,18 @@ var container,
     userdata,
     data;
 
+var achievements = {
+	starapp: {id: 1, description: "Reaching 100 points from asking questions and submitting answers/tips.", value: 100},
+	stargame: {id: 2, description: "Getting a highscore of 20 in the game.", value: 20},
+	question: {id: 3, description: "First time asking a question.", value: 1},
+	tip: {id: 4, description: "First time submitting a tip.", value: 1},
+	answer: {id: 5, description: "First time submitting an answer to a question.", value: 1},
+	comment: {id: 6, description: "First time commenting on a tip.", value: 1},
+	social: {id: 7, description: "First time sharing an achievement on social media.", value: 1}
+	game: {id: 8, description: "First time playing \"Learnin' the Ropes.\"", value: 1}
+	checkin: {id: 9, description: "First time checking in.", value: 1}
+};
+
 var menuOpen = false;
 
 // navigates to new page
