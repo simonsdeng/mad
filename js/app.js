@@ -14,6 +14,13 @@ function go(url, data, replace) {
 
 // navigates back to previous page
 function back() {
+	// save game highscore if leaving game page
+	if (slider.state.url == "game.html") {
+		if (points && (!userdata.highscore || userdata.highscore < points)) {
+			updateUserdata({highscore: points});
+		}
+	}
+	
 	data = slider.back();
 }
 
