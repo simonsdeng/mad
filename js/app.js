@@ -56,6 +56,21 @@ function post(url, data, success, failure) {
 	} else if (failure) failure();
 }
 
+// applies userdata updates and sends them to the server
+// (don't write to userdata directly)
+function updateUserdata(data) {
+	$.extend(userdata, data);
+	localStorage.userdata = JSON.stringify(userdata);
+	
+	post("userdata.php", {update: JSON.stringify(data)}, null, function () {
+		var pending = {};
+		if (localStorage.pending) pending = JSON.parse(localStorage.pending);
+		
+		$.extend(pending, data);
+		localStorage.pending = JSON.stringify(pending);
+	});
+}
+
 // check for saved credentials
 function isLoggedIn() {
 	return !!localStorage.auth;
@@ -87,7 +102,7 @@ function main() {
 
 // initialize logged in user
 function initUser(saved) {
-	if (saved && localStorage.pendingAchievements) updatePendingAchievements();
+	if (saved && localStorage.pending) updatePending();
 	
 	post("login.php", null, function (d) {
 		if (d.status === "success") {
@@ -113,10 +128,10 @@ function initUser(saved) {
 	});
 }
 
-// send pending achievements to server
-function updatePendingAchievements() {
-	post("achievements.php", {achievements: JSON.parse(localStorage.pendingAchievements)}, function() {
-		delete localStorage.pendingAchievements;
+// update userdata on server
+function updatePending() {
+	post("userdata.php", {update: JSON.parse(localStorage.pending)}, function() {
+		delete localStorage.pending;
 	});
 }
 
@@ -218,21 +233,10 @@ function toggleLike(button, data, isResponse) {
 }
 
 function setAchievement(id, progress) {
-	var achievements = {};
-	achievements[id] = progress;
-	userdata.achievements[id] = progress;
-	localStorage.userdata = JSON.stringify(userdata);
+	var achievement = {};
+	achievement[id] = progress;
 	
-	post("achievements.php", {achievements: achievements}, null, function () {
-		var pending = {};
-		if (localStorage.pendingAchievements) {
-			pending = JSON.parse(localStorage.pendingAchievements);
-		}
-		
-		pending[id] = progress;
-		
-		localStorage.pendingAchievements = JSON.stringify(pending);
-	});
+	updateUserdata({achievements: achievement});
 }
 
 $(document).on("deviceready", init);
