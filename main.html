@@ -75,9 +75,7 @@ post("stats.php", null, function (d) {
 	}
 });
 
-if (localStorage.high_score) {
-	$("#game-highscore").text(localStorage.high_score);
-}
+if (userdata.highscore) $("#game-highscore").text(userdata.highscore);
 
 get("discussion.php", null, function (d) {
 	var list = $("#discussion-summary .list");

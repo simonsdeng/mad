@@ -207,8 +207,8 @@
     function next_question(ap){
         qi += 1;
         if (qi === data.questions.length) {
-        	if(!(parseInt(localStorage["high_score"]) > points)){
-        		localStorage["high_score"] = points;
+        	if(!userdata.highscore || userdata.highscore < points){
+        		updateUserdata({highscore: points});
         	}
             blank_alert(ap+" You have finished all the questions.\nYour score is "+points+"!");
             started = false;
