@@ -132,46 +132,52 @@
 	<h1 id="achievement-name">Achievement</h1>
 	<h2><i><span id="achievement-description">First time answering a question</i></span></h2>
 	<br>
-	<button id="share-button" class="achievement-dialog-button" onclick="share();">Share</button><br><br>
+	<button id="share-button" class="achievement-dialog-button" onclick="achievementsPageShare(achievementDescription);">Share</button><br><br>
 	<button class="achievement-dialog-button" onclick="closePopup();">Dismiss</button>
 </div>
 
 
 <script>
 
+	var achievementDescription = "";
+
 	var createpopup = function(achievement) {
+
+		
 		
 		switch(achievement) {
 			case "question":
-				document.getElementById('achievement-description').innerHTML = "First time asking a question.";
+				achievementDescription = "First time asking a question.";
 				break;
 			case "tip":
-				document.getElementById('achievement-description').innerHTML = "First time submitting a tip.";
+				achievementDescription = "First time submitting a tip.";
 				break;
 			case "answer":
-				document.getElementById('achievement-description').innerHTML = "First time submitting an answer to a question.";
+				achievementDescription = "First time submitting an answer to a question.";
 				break;
 			case "comment":
-				document.getElementById('achievement-description').innerHTML = "First time commenting on a tip.";
+				achievementDescription = "First time commenting on a tip.";
 				break;
 			case "social":
-				document.getElementById('achievement-description').innerHTML = "First time sharing an achievement on social media.";
+				achievementDescription = "First time sharing an achievement on social media.";
 				break;
 			case "game":
-				document.getElementById('achievement-description').innerHTML = "First time playing 'Learning-the-ropes.";
+				achievementDescription = "First time playing 'Learning-the-ropes.";
 				break;
 			case "checkin":
-				document.getElementById('achievement-description').innerHTML = "First time checking in.";
+				achievementDescription = "First time checking in.";
 				break;
 			case "starapp":
-				document.getElementById('achievement-description').innerHTML = "Reaching 100 points from asking questions and submitting answers/tips.";
+				achievementDescription = "Reaching 100 points from asking questions and submitting answers/tips.";
 				break;
 			case "stargame":
-				document.getElementById('achievement-description').innerHTML = "Getting a highscore of 20 in the game.";
+				achievementDescription = "Getting a highscore of 20 in the game.";
 				break;
 		}
+
+		document.getElementById('achievement-description').innerHTML = achievementDescription;
 		
-		var unlocked = false;
+		var unlocked = true;
 		
 		var sharebutton = document.getElementById('share-button');
 		

@@ -192,6 +192,10 @@ function share() {
 			+ document.getElementById('achievement-name').firstChild.firstChild.innerHTML);
 }
 
+function achievementsPageShare(description) {
+	window.plugins.socialsharing.share('I just got an achievement on IT Academy: '+description);
+}
+
 // dismiss achievement popups
 function dismissAchievements() {
 	var arr = document.getElementsByClassName('achievement-div');
