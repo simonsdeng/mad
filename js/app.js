@@ -11,8 +11,8 @@ var achievements = {
 	tip: {id: 4, description: "First time submitting a tip.", value: 1},
 	answer: {id: 5, description: "First time submitting an answer to a question.", value: 1},
 	comment: {id: 6, description: "First time commenting on a tip.", value: 1},
-	social: {id: 7, description: "First time sharing an achievement on social media.", value: 1}
-	game: {id: 8, description: "First time playing \"Learnin' the Ropes.\"", value: 1}
+	social: {id: 7, description: "First time sharing an achievement on social media.", value: 1},
+	game: {id: 8, description: "First time playing \"Learnin' the Ropes.\"", value: 1},
 	checkin: {id: 9, description: "First time checking in.", value: 1}
 };
 
