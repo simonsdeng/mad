@@ -4,6 +4,18 @@ var container,
     userdata,
     data;
 
+var achievements = {
+	starapp: {id: 1, description: "Reaching 100 points from asking questions and submitting answers/tips.", value: 100},
+	stargame: {id: 2, description: "Getting a highscore of 20 in the game.", value: 20},
+	question: {id: 3, description: "First time asking a question.", value: 1},
+	tip: {id: 4, description: "First time submitting a tip.", value: 1},
+	answer: {id: 5, description: "First time submitting an answer to a question.", value: 1},
+	comment: {id: 6, description: "First time commenting on a tip.", value: 1},
+	social: {id: 7, description: "First time sharing an achievement on social media.", value: 1},
+	game: {id: 8, description: "First time playing \"Learnin' the Ropes.\"", value: 1},
+	checkin: {id: 9, description: "First time checking in.", value: 1}
+};
+
 var menuOpen = false;
 
 // navigates to new page
@@ -14,11 +26,13 @@ function go(url, data, replace) {
 
 // navigates back to previous page
 function back() {
-	// save game highscore if leaving game page
+	// save game highscore and set achievement if leaving game page
 	if (slider.state.url == "game.html") {
 		if (points && (!userdata.highscore || userdata.highscore < points)) {
 			updateUserdata({highscore: points});
 		}
+		
+		setAchievement("game", 1);
 	}
 	
 	data = slider.back();
@@ -154,9 +168,10 @@ function init() {
 
 // back button callback
 function onBack() {
+	// check for open menu or achievements
 	if (menuOpen) {
 		toggleMenu();
-	} else {
+	} else if (!dismissAchievement()) {
 		back();
 	}
 }
@@ -196,20 +211,6 @@ function getPostType(type) {
 	}
 }
 
-// share achievement
-function share() {
-	window.plugins.socialsharing.share('I just got an achievement on IT Academy: '
-			+ document.getElementById('achievement-name').firstChild.firstChild.innerHTML);
-}
-
-// dismiss achievement popups
-function dismissAchievements() {
-	var arr = document.getElementsByClassName('achievement-div');
-	for (var i = 0; i < arr.length; i++) {
-		arr[i].style.display = "none";
-	}
-}
-
 function toggleLike(button, data, isResponse) {
 	var type = isResponse ? 1 : 0;
 	button = $(button);
@@ -239,11 +240,50 @@ function toggleLike(button, data, isResponse) {
 	}
 }
 
-function setAchievement(id, progress) {
-	var achievement = {};
-	achievement[id] = progress;
+// updates achievement progress and shows popup if achieved
+function setAchievement(name, progress) {
+	var achievement = achievements[name];
 	
-	updateUserdata({achievements: achievement});
+	if (progress === userdata.achievements[achievement.id]) return;
+	
+	var data = {};
+	data[achievement.id] = progress;
+	
+	updateUserdata({achievements: data});
+	
+	if (progress == achievement.value) showAchievement(name);
+}
+
+// shows achievement popup
+function showAchievement(name) {
+	var achievement = achievements[name];
+	var complete = userdata.achievements[achievement.id] === achievement.value;
+	
+	container.append('<div class="achievement-div">'
+		+ '<h1 class="achievement-name">Achievement</h1>'
+		+ '<h2>' + achievement.description + '</h2><br/>'
+		+ '<button class="achievement-dialog-button" onclick="shareAchievement(\'' + name + '\')"' + (complete ? "" : " disabled") + '>Share</button><br/><br/>'
+		+ '<button class="achievement-dialog-button" onclick="dismissAchievement()">Dismiss</button>'
+	+ '</div>');
+}
+
+// shares achievement
+function shareAchievement(name) {
+	plugins.socialsharing.share('I just got an achievement on IT Academy: '
+			+ achievements[name].description);
+	setAchievement("social", 1);
+}
+
+// dismisses an achievement popup
+function dismissAchievement() {
+	var popups = $(".achievement-div");
+	
+	if (popups.length > 0) {
+		popups[popups.length - 1].remove();
+		return true;
+	}
+	
+	return false;
 }
 
 $(document).on("deviceready", init);
