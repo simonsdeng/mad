@@ -18,40 +18,7 @@ a {
 	position: absolute;
 	overflow: hidden;
 }
-.achievement-div {
-	top: 0;
-	left: 0;
-	width: 80%;
-	height: 70%;
-	margin-top: 25%;
-	margin-left: 10%;
-	position: fixed;
-	border-radius: 5px;
-	border: 5px solid #6087A1;
-	color: #6087A1;
-	text-align: center;
-	box-shadow: 0 0 100px #000;
-	z-index: 1100;
-	background-color: #fff;
-}
-#achievement-name {
-	color: #109adc;
-}
 
-.achievement-dialog-button {
-	left: 0;
-	width: 90%;
-	height: 40px;
-	font-size: 1.5em;
-	color:#fff;
-	background-color: #0984c6;
-	margin-bottom: 5px;
-	border-radius: 10px;
-}
-
-.achievement-dialog-button:hover {
-	background-color: #105E87;
-}
 .header {
 	position: absolute;
 	top: 0px;
@@ -200,4 +167,45 @@ a {
 	z-index: 998;
 	margin-top: 44px;
 	overflow: hidden;
+}
+
+.achievement-div {
+	top: 0;
+	left: 0;
+	width: 80%;
+	height: 70%;
+	margin-top: 25%;
+	margin-left: 10%;
+	position: fixed;
+	border-radius: 5px;
+	border: 5px solid #6087A1;
+	color: #6087A1;
+	text-align: center;
+	box-shadow: 0 0 100px #000;
+	z-index: 1100;
+	background-color: #fff;
+}
+
+.achievement-name {
+	color: #109adc;
+}
+
+.achievement-dialog-button {
+	left: 0;
+	width: 90%;
+	height: 40px;
+	font-size: 1.5em;
+	color:#fff;
+	background-color: #0984c6;
+	margin-bottom: 5px;
+	border-radius: 10px;
+}
+
+.achievement-dialog-button:hover {
+	background-color: #105E87;
+}
+
+.achievement-dialog-button:disabled {
+	background-color: #949494;
+	-webkit-filter: gray(100%);
 }

@@ -26,6 +26,9 @@ function go(url, data, replace) {
 
 // navigates back to previous page
 function back() {
+	// set achievement if leaving game
+	if (slider.state.url === "game.html") setAchievement("game", 1);
+	
 	data = slider.back();
 }
 
@@ -144,9 +147,10 @@ function init() {
 
 // back button callback
 function onBack() {
+	// check for open menu or achievements
 	if (menuOpen) {
 		toggleMenu();
-	} else {
+	} else if (!dismissAchievement()) {
 		back();
 	}
 }
@@ -186,24 +190,6 @@ function getPostType(type) {
 	}
 }
 
-// share achievement
-function share() {
-	window.plugins.socialsharing.share('I just got an achievement on IT Academy: '
-			+ document.getElementById('achievement-name').firstChild.firstChild.innerHTML);
-}
-
-function achievementsPageShare(description) {
-	window.plugins.socialsharing.share('I just got an achievement on IT Academy: '+description);
-}
-
-// dismiss achievement popups
-function dismissAchievements() {
-	var arr = document.getElementsByClassName('achievement-div');
-	for (var i = 0; i < arr.length; i++) {
-		arr[i].style.display = "none";
-	}
-}
-
 function toggleLike(button, data, isResponse) {
 	var type = isResponse ? 1 : 0;
 	button = $(button);
@@ -233,22 +219,61 @@ function toggleLike(button, data, isResponse) {
 	}
 }
 
-function setAchievement(id, progress) {
-	var achievements = {};
-	achievements[id] = progress;
-	userdata.achievements[id] = progress;
+// updates achievement progress and shows popup if achieved
+function setAchievement(name, progress) {
+	var achievement = achievements[name];
+	
+	if (progress === userdata.achievements[achievement.id]) return;
+	
+	var data = {};
+	data[achievement.id] = progress;
+	userdata.achievements[achievement.id] = progress;
 	localStorage.userdata = JSON.stringify(userdata);
 	
-	post("achievements.php", {achievements: achievements}, null, function () {
+	post("achievements.php", {achievements: data}, null, function () {
 		var pending = {};
 		if (localStorage.pendingAchievements) {
 			pending = JSON.parse(localStorage.pendingAchievements);
 		}
 		
-		pending[id] = progress;
+		pending[achievement.id] = progress;
 		
 		localStorage.pendingAchievements = JSON.stringify(pending);
 	});
+	
+	if (progress == achievement.value) showAchievement(name);
+}
+
+// shows achievement popup
+function showAchievement(name) {
+	var achievement = achievements[name];
+	var complete = userdata.achievements[achievement.id] === achievement.value;
+	
+	container.append('<div class="achievement-div">'
+		+ '<h1 class="achievement-name">Achievement</h1>'
+		+ '<h2>' + achievement.description + '</h2><br/>'
+		+ '<button class="achievement-dialog-button" onclick="shareAchievement(\'' + name + '\')"' + (complete ? "" : " disabled") + '>Share</button><br/><br/>'
+		+ '<button class="achievement-dialog-button" onclick="dismissAchievement()">Dismiss</button>'
+	+ '</div>');
+}
+
+// shares achievement
+function shareAchievement(name) {
+	plugins.socialsharing.share('I just got an achievement on IT Academy: '
+			+ achievements[name].description);
+	setAchievement("social", 1);
+}
+
+// dismisses an achievement popup
+function dismissAchievement() {
+	var popups = $(".achievement-div");
+	
+	if (popups.length > 0) {
+		popups[popups.length - 1].remove();
+		return true;
+	}
+	
+	return false;
 }
 
 $(document).on("deviceready", init);

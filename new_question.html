@@ -47,22 +47,8 @@
 		
 	</form>
 </div>
-<div class="achievement-div">
-	<h1>WooHoo!</h1>
-	<h2>New Achievement:</h2>
-	<span id="achievement-name"><h2><i>First time asking a question</i></h2></span>
-	<br>
-	<button class="achievement-dialog-button" onclick="share();">Share</button><br><br>
-	<button class="achievement-dialog-button" onclick="dismissAchievements();">Dismiss</button>
-</div>
 
 <script>
-if (localStorage["asking_question"] == "true") {
-	dismissAchievements();
-} else {
-	localStorage["asking_question"] = "true";
-}
-
 $("#new-question-form").submit(function (e) {
 	e.preventDefault();
 	
@@ -74,6 +60,7 @@ $("#new-question-form").submit(function (e) {
 	post("discussion.php", data, function (d) {
 		if (d.status === "success") {
 			back();
+			setAchievement("question", 1);
 		} else {
 			navigator.notification.alert("Please enter a question.", null, "New Question", "OK");
 		}

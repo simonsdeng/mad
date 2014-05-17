@@ -38,22 +38,7 @@
 	</form>
 </div>
 
-<div class="achievement-div">
-	<h1>WooHoo!</h1>
-	<h2>New Achievement:</h2>
-	<span id="achievement-name"><h2><i>First time giving a tip!</i></h2></span>
-	<br>
-	<button class="achievement-dialog-button" onclick="share();">Share</button><br><br>
-	<button class="achievement-dialog-button" onclick="dismissAchievements();">Dismiss</button>
-</div>
-
 <script>
-if (localStorage["tipped"] == "true") {
-	dismissAchievements();
-} else {
-	localStorage["tipped"] = "true";
-}
-
 $("#new-tip-form").submit(function (e) {
 	e.preventDefault();
 	
@@ -65,6 +50,7 @@ $("#new-tip-form").submit(function (e) {
 	post("discussion.php", data, function (d) {
 		if (d.status === "success") {
 			back();
+			setAchievement("tip", 1);
 		} else {
 			navigator.notification.alert("Please enter a tip.", null, "New Tip", "OK");
 		}
