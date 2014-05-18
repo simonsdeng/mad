@@ -253,7 +253,15 @@ function setAchievement(name, progress) {
 	
 	if (progress == achievement.value) showAchievement(name);
 }
-
+function checkin(){
+	navigator.geolocation.getCurrentPosition(function(position) {
+		var latitude = position.coords.latitude;
+		var longitude = position.coords.longitude;
+		$.getJSON("http://maps.googleapis.com/maps/api/geocode/json", {"latlng":latitude+", "+longitude}).done(function(data){
+			plugins.socialsharing.share("I'm having fun while learning about IT from "+data.results[0].formatted_address+"!");
+		});
+	});
+}
 // shows achievement popup
 function showAchievement(name) {
 	var achievement = achievements[name];
