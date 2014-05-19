@@ -81,7 +81,7 @@ function post(url, data, success, failure) {
 // applies userdata updates and sends them to the server
 // (don't write to userdata directly)
 function updateUserdata(data) {
-	$.extend(userdata, data);
+	$.extend(true, userdata, data);
 	localStorage.userdata = JSON.stringify(userdata);
 	
 	post("userdata.php", {update: JSON.stringify(data)}, null, function () {
