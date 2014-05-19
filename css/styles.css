@@ -159,9 +159,8 @@ a {
 	float: right;
 }
 
-
 #discussion-button-container {
-	width:100%;
+	width: 100%;
 	height: 40px;
 	position: fixed;
 	z-index: 998;

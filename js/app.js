@@ -66,7 +66,7 @@ function get(url, data, success, failure) {
 	} else if (d === undefined && failure) failure();
 }
 
-// posts data through AJAX with authentication
+// posts data over AJAX with authentication
 function post(url, data, success, failure) {
 	if (navigator.connection.type !== Connection.NONE) {
 		if (!data) data = {};
@@ -92,12 +92,12 @@ function updateUserdata(data) {
 	});
 }
 
-// check for saved credentials
+// checks for saved credentials
 function isLoggedIn() {
 	return !!localStorage.auth;
 }
 
-// log in user and start main app
+// logs in user and start main app
 function login() {
 	if (isLoggedIn()) {
 		auth = JSON.parse(localStorage.auth);
@@ -107,21 +107,21 @@ function login() {
 	}
 }
 
-// log out user and return to login/register page
+// logs out user and returns to login/register page
 function logout() {
 	slider.clearHistory();
 	delete localStorage.auth;
 	login();
 }
 
-// start main app interface
+// starts main app interface
 function main() {
 	container.empty();
 	slider = new PageSlider(container);
 	go("main.html");
 }
 
-// initialize logged in user
+// initializes logged in user
 function initUser(saved) {
 	if (saved && localStorage.pending) updatePending();
 	
@@ -149,7 +149,7 @@ function initUser(saved) {
 	});
 }
 
-// update userdata on server
+// updates userdata on server
 function updatePending() {
 	post("userdata.php", {update: JSON.parse(localStorage.pending)}, function() {
 		delete localStorage.pending;
@@ -176,7 +176,7 @@ function onBack() {
 	}
 }
 
-// toggle drawer menu
+// toggles drawer menu
 function toggleMenu() {
 	if (menuOpen) {
 		$("#menu-container").removeClass("menu-visible");
@@ -211,6 +211,7 @@ function getPostType(type) {
 	}
 }
 
+// toggles the like button for a post or response
 function toggleLike(button, data, isResponse) {
 	var type = isResponse ? 1 : 0;
 	button = $(button);
@@ -253,15 +254,18 @@ function setAchievement(name, progress) {
 	
 	if (progress == achievement.value) showAchievement(name);
 }
-function checkin(){
-	navigator.geolocation.getCurrentPosition(function(position) {
+
+// shares status containing current location
+function checkin() {
+	navigator.geolocation.getCurrentPosition(function (position) {
 		var latitude = position.coords.latitude;
 		var longitude = position.coords.longitude;
-		$.getJSON("http://maps.googleapis.com/maps/api/geocode/json", {"latlng":latitude+", "+longitude}).done(function(data){
-			plugins.socialsharing.share("I'm having fun while learning about IT from "+data.results[0].formatted_address+"!");
+		$.getJSON("http://maps.googleapis.com/maps/api/geocode/json", {"latlng": latitude + ", " + longitude}).done(function (data){
+			plugins.socialsharing.share("I'm having fun while learning about IT from " + data.results[0].formatted_address+"!");
 		});
 	});
 }
+
 // shows achievement popup
 function showAchievement(name) {
 	var achievement = achievements[name];
