@@ -26,10 +26,11 @@ function go(url, data, replace) {
 
 // navigates back to previous page
 function back() {
-	// save game highscore and set achievement if leaving game page
+	// save game high score and set achievement if leaving game page
 	if (slider.state.url == "game.html") {
 		if (points && (!userdata.highscore || userdata.highscore < points)) {
 			updateUserdata({highscore: points});
+			setAchievement("stargame", points);
 		}
 		
 		setAchievement("game", 1);
@@ -80,7 +81,7 @@ function post(url, data, success, failure) {
 // applies userdata updates and sends them to the server
 // (don't write to userdata directly)
 function updateUserdata(data) {
-	$.extend(userdata, data);
+	$.extend(true, userdata, data);
 	localStorage.userdata = JSON.stringify(userdata);
 	
 	post("userdata.php", {update: JSON.stringify(data)}, null, function () {
@@ -132,9 +133,7 @@ function initUser(saved) {
 			localStorage.userdata = JSON.stringify(userdata);
 			main();
 		} else if (saved) {
-			delete localStorage.auth;
-			delete localStorage.userdata;
-			delete localStorage.pendingAchievements;
+			localStorage.clear();
 			login();
 		} else {
 			navigator.notification.alert("Your username and password combination was incorrect.", null, "Login", "OK");
@@ -245,7 +244,10 @@ function toggleLike(button, data, isResponse) {
 function setAchievement(name, progress) {
 	var achievement = achievements[name];
 	
-	if (progress === userdata.achievements[achievement.id]) return;
+	if (progress === userdata.achievements[achievement.id]
+			|| progress > achievement.value) {
+		return;
+	}
 	
 	var data = {};
 	data[achievement.id] = progress;
@@ -296,6 +298,37 @@ function dismissAchievement() {
 	}
 	
 	return false;
+}
+
+// show points
+function showStats(statsContainer) {
+	statsContainer = $(statsContainer);
+	
+	var totalQuestions = statsContainer.find(".total-questions");
+	var totalAnswers = statsContainer.find(".total-answers");
+	var totalTips = statsContainer.find(".total-tips");
+	var totalPoints = statsContainer.find(".total-points");
+	
+	if (localStorage.stats) {
+		var stats = JSON.parse(localStorage.stats);
+		totalQuestions.text(stats.questions);
+		totalAnswers.text(stats.answers);
+		totalTips.text(stats.tips);
+		totalPoints.text(stats.questions * 3 + stats.answers * 5 + stats.tips * 5);
+	}
+	
+	post("stats.php", null, function (d) {
+		if (d.status === "success") {
+			var total = d.stats.questions * 3 + d.stats.answers * 5 + d.stats.tips * 5;
+			setAchievement("starapp", total);
+			
+			localStorage.stats = JSON.stringify(d.stats);
+			totalQuestions.text(d.stats.questions);
+			totalAnswers.text(d.stats.answers);
+			totalTips.text(d.stats.tips);
+			totalPoints.text(total);
+		}
+	});
 }
 
 $(document).on("deviceready", init);

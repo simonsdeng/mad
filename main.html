@@ -36,15 +36,15 @@
 <div id="main-scroll" class="scroller">
 	<div id="user-summary" class="info-card">
 		<h2 style="text-align:center;">Your Points</h2>
-		<strong># of Questions (3 pts): </strong><span id="total-questions">0</span><br>
-		<strong># of Answers (5 pts): </strong><span id="total-answers">0</span><br>
-		<strong># of Tips (5 pts): </strong><span id="total-tips">0</span><br><br>
-		<strong>Total Points: </strong><span id="total-points">0</span><br><br>
+		<strong># of Questions (3 pts): </strong><span class="total-questions">0</span><br>
+		<strong># of Answers (5 pts): </strong><span class="total-answers">0</span><br>
+		<strong># of Tips (5 pts): </strong><span class="total-tips">0</span><br><br>
+		<strong>Total Points: </strong><span class="total-points">0</span><br><br>
 	</div>
 	
 	<div id="game-summary" class="info-card">
 		<h2 style="text-align:center;">Game</h2>
-		<strong>Highscore: </strong><span id="game-highscore">0</span><br><br>
+		<strong>High score: </strong><span class="game-highscore">0</span><br><br>
 		<button onclick="go('game_instructions.html')" class="main-button">Play Game</button><br>
 	</div>
 
@@ -57,25 +57,9 @@
 
 <script>
 $("#user").text(userdata.first + " " + userdata.last);
-post("stats.php", null, function (d) {
-	if (d.status === "success") {
-		localStorage.stats = JSON.stringify(d.stats);
-		$("#total-questions").text(d.stats.questions);
-		$("#total-answers").text(d.stats.answers);
-		$("#total-tips").text(d.stats.tips);
-		$("#total-points").text(d.stats.questions * 3 + d.stats.answers * 5 + d.stats.tips * 5);
-	}
-}, function () {
-	if (localStorage.stats) {
-		var stats = JSON.parse(localStorage.stats);
-		$("#total-questions").text(stats.questions);
-		$("#total-answers").text(stats.answers);
-		$("#total-tips").text(stats.tips);
-		$("#total-points").text(stats.questions * 3 + stats.answers * 5 + stats.tips * 5);
-	}
-});
+showStats($("#user-summary")[0]);
 
-if (userdata.highscore) $("#game-highscore").text(userdata.highscore);
+if (userdata.highscore) $("#game-summary .game-highscore").text(userdata.highscore);
 
 get("discussion.php", null, function (d) {
 	var list = $("#discussion-summary .list");

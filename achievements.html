@@ -19,32 +19,24 @@
 }
 
 .bar-container {
-	background-color: #109adc;
 	width: 100%;
 	height: 10px;
-	padding: 3px;
-	border-radius: 5px;
+	background-color: white;
+	border: 3px solid #109adc;
+	border-radius: 8px;
 	margin: 5px 0;
 }
 
 .bar {
 	height: 100%;
-	background-color: #fff;
-	border-radius: 5px;
-}
-
-#pointsbar {
-	width: 20%;
-}
-
-#gamebar {
-	width: 30%;
+	background: #109adc;
 }
 
 #achievements-table {
 	width: 100%;
 }
-#achievements-table td{
+
+#achievements-table td {
 	width: 33%;
 }
 
@@ -61,21 +53,21 @@
 <div class="header"><div onclick="toggleMenu()" class="icon menu"><img src="img/menu_icon.png" width="24px"/></div><h1>Achievements</h1></div>
 
 <div id="achievements-scroller" class="scroller">
-	<div class="achievement-card">
+	<div id="points-card" class="achievement-card">
 		<h2 style="text-align:center;">Your Points</h2>
-		<strong># of Questions (3 pts): </strong><span id="total-questions">0</span><br>
-		<strong># of Answers (5 pts): </strong><span id="total-answers">0</span><br>
-		<strong># of Tips (5 pts): </strong><span id="total-tips">0</span><br><br>
-		<strong>Total Points: </strong><span id="total-points">0</span><br>
-		<div class="bar-container"><div id="pointsbar" class="bar"></div></div>
-		Achievement Progress (20/100)<br>
+		<strong># of Questions (3 pts): </strong><span class="total-questions">0</span><br>
+		<strong># of Answers (5 pts): </strong><span class="total-answers">0</span><br>
+		<strong># of Tips (5 pts): </strong><span class="total-tips">0</span><br><br>
+		<strong>Total Points: </strong><span class="total-points">0</span><br>
+		<div class="bar-container"><div class="bar"></div></div>
+		Achievement Progress (<span class="progress">0</span>/<span class="total"></span>)<br>
 	</div>
 	
-	<div class="achievement-card">
+	<div id="game-card" class="achievement-card">
 		<h2 style="text-align:center;">Game</h2>
-		<strong>Highscore: </strong><span id="game-highscore">0</span><br>
-		<div class="bar-container"><div id="gamebar" class="bar"></div></div>
-		Achievement Progress (10/20)<br>
+		<strong>High score: </strong><span class="game-highscore">0</span><br>
+		<div class="bar-container"><div class="bar"></div></div>
+		Achievement Progress (<span class="progress">0</span>/<span class="total"></span>)<br>
 	</div>
 	
 	<div class="achievement-card">
@@ -107,6 +99,29 @@
 </div>
 
 <script>
+(function () {
+	var pointsCard = $("#points-card");
+	var gameCard = $("#game-card");
+	
+	var starapp = achievements.starapp;
+	var stargame = achievements.stargame;
+	
+	showStats(pointsCard[0]);
+	if (userdata.highscore) gameCard.find(".game-highscore").text(userdata.highscore);
+	
+	pointsCard.find(".total").text(starapp.value);
+	if (userdata.achievements[starapp.id]) {
+		pointsCard.find(".progress").text(userdata.achievements[starapp.id]);
+		pointsCard.find(".bar").css("width", userdata.achievements[starapp.id] * 100 / starapp.value + "%");
+	}
+	
+	gameCard.find(".total").text(stargame.value);
+	if (userdata.achievements[stargame.id]) {
+		gameCard.find(".progress").text(userdata.achievements[stargame.id]);
+		gameCard.find(".bar").css("width", userdata.achievements[stargame.id] * 100 / stargame.value + "%");
+	}
+})();
+
 $("#achievements-table .achievement-image").each(function () {
 	var e = $(this);
 	var name = e.data("achievement");
@@ -116,5 +131,5 @@ $("#achievements-table .achievement-image").each(function () {
 		e.addClass("faded");
 	}
 	e.click(function () { showAchievement(name); });
-}); 
+});
 </script>
