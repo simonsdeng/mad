@@ -257,7 +257,8 @@ function checkin(){
 	navigator.geolocation.getCurrentPosition(function(position) {
 		var latitude = position.coords.latitude;
 		var longitude = position.coords.longitude;
-		$.getJSON("http://maps.googleapis.com/maps/api/geocode/json", {"latlng":latitude+", "+longitude}).done(function(data){
+		$.getJSON("http://maps.googleapis.com/maps/api/geocode/json", {"latlng":latitude+", "+longitude}, function(data){
+			console.log(data);
 			plugins.socialsharing.share("I'm having fun while learning about IT from "+data.results[0].formatted_address+"!");
 		});
 	});
