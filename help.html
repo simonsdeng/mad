@@ -49,17 +49,16 @@
 <div id="selector-container">
 	<span>Jump to: </span>
 	<select id="help-selector" onchange="jumpTo(this)">
-		<option value="#discussion">Discussion</option>
-		<option value="#game">Game</option>
-		<option value="#achievements">Achievements</option>
-		<option value="#about">About</option>
+		<option value="#discussion-anchor">Discussion</option>
+		<option value="#game-anchor">Game</option>
+		<option value="#achievements-anchor">Achievements</option>
+		<option value="#about-anchor">About</option>
 	</select>
 </div>
 
 
 <div id="help-scroller" class="scroller">
-	<a name="discussion"></a>
-	<h1>Discussion</h1>
+	<h1 id="discussion-anchor">Discussion</h1>
 	<p>
 		The Discussion page features the most recent questions and tips posted by users, identifiable through three icons:<br><br>
 		<img src="img/discussion_question.png" style="width: 10%;"> - Un-answered question<br>
@@ -76,8 +75,8 @@
 		Below, you will see all the answers/comments, which can also be 'liked'.<br>
 		<img src="img/help/post_answer.jpg" style="width: 100%;"/><br>
 	</p>
-	<a name="game"></a>
-	<h1>Game</h1>
+
+	<h1 id="game-anchor">Game</h1>
 	<p>
 		'Learnin the Ropes' features a small pink character that you move to different labeled ropes to answer multiple choice questions.<br>
 		<img src="img/help/game.png" style="width: 100%;"/><br><br>
@@ -85,8 +84,8 @@
 		<img src="img/help/game_question.jpg" style="width: 100%;"/><br>
 		To answer the question, click on the correct rope which are randomly labeled A-D. You must be quick and also avoid the asteroids for maximum points!
 	</p>
-	<a name="achievements"></a>
-	<h1>Achievements</h1>
+	
+	<h1 id="achievements-anchor">Achievements</h1>
 	<p>
 		There are numerous different achievements that you can obtain! They are all detailed on the Achievements page.<br>
 		<img src="img/help/achievements.png" style="width: 100%;"/><br>
@@ -96,8 +95,8 @@
 		<img src="img/help/ongoing_achievements.jpg" style="width: 100%;"/><br>
 		These correspond to the two most impressive achievements in the app (the last two in the grid).
 	</p>
-	<a name="about"></a>
-	<h1>About</h1>
+	
+	<h1 id="about-anchor">About</h1>
 	<p>
 		This app was developed by the Homestead High School for the National FBLA Mobile Application Development Competition.<br>
 		We would love to hear your comments/feedback and will be happy to answer any questions!<br><br>
@@ -114,10 +113,6 @@
 
 <script type="text/javascript">
     function jumpTo(select) {
-        var selectedOption = select.options[select.selectedIndex];
-        //alert ("The selected option is " + selectedOption.value);
-        //document.getElementByID('help-scroller').location.hash = selectedOption.value;
-        //$('#help-scroller').scrollTop($(selectedOption.value).offset().top);
-        //$('#help-scroller').scrollTop(selectedOption.offset().top);
+        $('#help-scroller').scrollTop($($(select).val()).position().top);
     }
 </script>
