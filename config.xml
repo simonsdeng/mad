@@ -34,10 +34,13 @@
 	
 	<gap:plugin name="org.apache.cordova.network-information" />
 	<gap:plugin name="org.apache.cordova.dialogs" />
+	<gap:plugin name="org.apache.cordova.geolocation" />
+	
 	<gap:plugin name="nl.x-services.plugins.socialsharing" />
-	<gap:plugin name="com.phonegap.plugin.statusbar" version="1.1.0" />
-	<gap:plugin name="org.apache.cordova.geolocation" version="0.3.6" />
+	<gap:plugin name="com.phonegap.plugin.statusbar" />
+	
 	<access origin="http://hhsfbla.com" subdomains="true" />
+	<access origin="http://maps.googleapis.com" />
 	
 	<preference name="DisallowOverscroll" value="true" />
 	<preference name="webviewbounce" value="false" />

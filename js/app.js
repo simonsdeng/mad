@@ -263,7 +263,7 @@ function checkin() {
 		var latitude = position.coords.latitude;
 		var longitude = position.coords.longitude;
 		$.getJSON("http://maps.googleapis.com/maps/api/geocode/json", {"latlng": latitude + ", " + longitude}, function (data){
-			plugins.socialsharing.share("I'm having fun while learning about IT from " + data.results[0].formatted_address+"!");
+			plugins.socialsharing.share("I'm having fun while learning about IT at " + data.results[0].formatted_address+"!");
 		});
 	});
 }
